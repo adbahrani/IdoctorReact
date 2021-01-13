@@ -1,4 +1,6 @@
 import React,{ useEffect, useState} from 'react';
+ 
+import * as tedt from 'react-router';
 import Navigation from './components/navigation';
 import Header from './components/header';
 import Features from './components/features';
@@ -9,8 +11,9 @@ import Testimonials from './components/testimonials';
 import Team from './components/Team';
 import Contact from './components/contact';
 import JsonData from './data/data.json';
+import {Route, BrowserRouter as Router} from 'react-router-dom';
+// import Home from "./ehr_components/search"
 import './App.css';
- 
 
  
 
@@ -20,7 +23,8 @@ const App: React.FC = () =>{
 
    
   return (
-    <div className="App">
+    <Router>
+   <div className="App">
 
         <Navigation />
         <Header data={{title:JsonData.Header.title, paragraph:JsonData.Header.paragraph}} />
@@ -32,6 +36,8 @@ const App: React.FC = () =>{
         <Team data={JsonData.Team} />
         <Contact data={JsonData.Contact} />
     </div>
+
+    </Router> 
   );
 }
 

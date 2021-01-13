@@ -16,13 +16,13 @@ export const Header: React.FC<Props> = ({ data }) => {
         <div className="overlay">
           <div className="container">
             <div className="row">
-              <div className="col-md-8 col-md-offset-2 intro-text">
+              <div className="col-lg-8 offset-md-2 intro-text">
                 <h1>
                   {data.title}
                   <span></span>
                 </h1>
                 <p>{data.paragraph ? data.paragraph : "Loading.."}</p>
-                <a href="/search" className="btn btn-custom btn-lg page-scroll">
+                <a href="/search" className=" bttn-custom  ">
                   Log In
                 </a>{" "}
               </div>

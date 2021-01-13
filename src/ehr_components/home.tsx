@@ -13,7 +13,6 @@ import JsonData from ".././data/data.json";
 
 // import Home from "./ehr_components/search"
 
-
 const Home: React.FC = () => {
   return (
     <div>
@@ -27,9 +26,9 @@ const Home: React.FC = () => {
       <Features data={JsonData.Features} />
       <About data={JsonData.About} />
       <Services data={JsonData.Services} />
-      <Gallery />
+      {/* <Gallery /> */}
       <Testimonials data={JsonData.Testimonials} />
-      <Team data={JsonData.Team} />
+      {/* <Team data={JsonData.Team} /> */}
       <Contact data={JsonData.Contact} />
     </div>
   );

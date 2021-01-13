@@ -3,68 +3,63 @@ import React, { Component } from "react";
 export class Navigation extends Component {
   render() {
     return (
-      <nav id="menu" className="navbar navbar-default navbar-fixed-top">
-        <div className="container">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-            >
-              {" "}
-              <span className="sr-only">Toggle navigation</span>{" "}
-              <span className="icon-bar"></span>{" "}
-              <span className="icon-bar"></span>{" "}
-              <span className="icon-bar"></span>{" "}
-            </button>
-            <a className="navbar-brand page-scroll" href="#page-top">
-             IDoctor
-            </a>{" "}
-          </div>
+      <nav
+        id="menu"
+        className="navbar navbar-default navbar-expand-lg navbar-light fixed-top"
+      >
+        <a className="navbar-brand page-scroll" href="#page-top">
+          IDoctor
+        </a>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div
-            className="collapse navbar-collapse"
-            id="bs-example-navbar-collapse-1"
-          >
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a href="#features" className="page-scroll">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="page-scroll">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="page-scroll">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#portfolio" className="page-scroll">
-                  Gallery
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className="page-scroll">
-                  Testimonials
-                </a>
-              </li>
-              <li>
-                <a href="#team" className="page-scroll">
-                  Team
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="page-scroll">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item  ">
+              <a href="#features" className=" nav-link page-scroll">
+                Features
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#about" className="nav-link page-scroll">
+                About
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#services" className="nav-link page-scroll">
+                Services
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#portfolio" className="nav-link page-scroll">
+                Gallery
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#testimonials" className="nav-link page-scroll">
+                Testimonials
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#team" className="nav-link page-scroll">
+                Team
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#contact" className=" nav-link page-scroll">
+                Contact
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
     );

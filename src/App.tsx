@@ -5,7 +5,11 @@ import Home from "./ehr_components/home";
 import Search from "./ehr_components/search";
 // import Home from "./ehr_components/search"
 
-// import "bootstrap/dist/css/bootstrap.min.css";
+// import { Bootstrap } from "bootstrap";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+// import "jquery/dist/jquery.min.js";
+// import "bootstrap/dist/js/bootstrap.min.js";
 
 import "./App.css";
 

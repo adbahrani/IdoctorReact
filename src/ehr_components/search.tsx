@@ -1,13 +1,23 @@
-import { Component } from 'react';
+import React, { Fragment } from "react";
+import Navigation from "./navigation";
 
-
-interface Props{
-       // data:Data
-      }
-
-export const Home: React.FC<Props>= ({}) => {
-
-    return(
-        <p>Search</p>
-    );
+interface Props {
+  // data:Data
 }
+
+const Search: React.FC<Props> = ({}) => {
+  <Navigation />;
+  return (
+    <Fragment>
+      <Navigation />
+      <div>
+        <h1>Search</h1>
+        <h1>Search</h1>
+        <h1>Search</h1>
+        <h1>Search</h1>
+      </div>
+    </Fragment>
+  );
+};
+
+export default Search;

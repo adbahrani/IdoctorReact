@@ -18,8 +18,12 @@ const Search: React.FC = () => {
       <Navigation />
       <div className="container pt-2">
         <button className="bttn-custom">Add New Patient</button>
+        <br />
+        <br />
         <AutoComplete title={"Patient Name"} />
+        <br />
         <AutoComplete title={"Patient DOB"} />
+        <br />
         <AutoComplete title={"Patient Phone Number"} />
       </div>
     </Fragment>

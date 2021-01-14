@@ -26,6 +26,9 @@ const Search: React.FC = () => {
         <br />
         <AutoComplete title={"Patient Phone Number"} />
       </div>
+
+      <br />
+      <button className="bttn-custom" disabled={true}>Search</button>
     </Fragment>
   );
 };

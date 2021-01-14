@@ -187,6 +187,13 @@ hr {
   background-image: none;
   background-color: #6372ff;
 }
+
+.bttn-custom:disabled {
+  color: #cccccc;
+  background-image: none;
+  background-color: #666666;
+}
+
 .bttn:active,
 .bttn.active {
   background-image: none;

@@ -11,7 +11,7 @@ export class Navigation extends Component {
           IDoctor
         </a>
         <button
-          class="navbar-toggler collapsed"
+          className="navbar-toggler collapsed"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -19,7 +19,7 @@ export class Navigation extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">

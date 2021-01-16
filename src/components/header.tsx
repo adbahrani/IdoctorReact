@@ -22,7 +22,7 @@ export const Header: React.FC<Props> = ({ data }) => {
                   <span></span>
                 </h1>
                 <p>{data.paragraph ? data.paragraph : "Loading.."}</p>
-                <a href="/search" className=" bttn-custom  ">
+                <a href="/main" className=" bttn-custom  ">
                   Log In
                 </a>{" "}
               </div>

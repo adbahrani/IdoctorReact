@@ -256,7 +256,7 @@ header .intro-text {
 }
 /* Features Section */
 #features {
-  padding: 100px 0;
+  padding: 25px 0;
   background: #f6f6f6;
 }
 #features i.fa {
@@ -273,7 +273,7 @@ header .intro-text {
 }
 /* About Section */
 #about {
-  padding: 50px 0;
+  padding: 25px 0;
 }
 #about h3 {
   font-size: 22px;
@@ -318,7 +318,7 @@ header .intro-text {
 }
 /* Services Section */
 #services {
-  padding: 100px 0;
+  padding: 25px 0;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
   color: #fff;
 }
@@ -410,7 +410,7 @@ header .intro-text {
 }
 /* Testimonials Section */
 #testimonials {
-  padding: 100px 0;
+  padding: 25px 0;
   background: #f6f6f6;
 }
 #testimonials i {
@@ -468,7 +468,7 @@ header .intro-text {
 }
 /* Contact Section */
 #contact {
-  padding: 100px 0 60px 0;
+  padding: 50px 0 60px 0;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
   color: rgba(255, 255, 255, 0.75);
 }

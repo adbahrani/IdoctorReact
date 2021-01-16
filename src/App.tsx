@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./ehr_components/home";
-import Search from "./ehr_components/search";
+
+import Main from "./ehr_components/main";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,7 +14,7 @@ const App: React.FC = () => {
     <Router>
       <div className="App">
         <Route path="/" exact component={Home} />
-        <Route path="/search" component={Search} />
+        <Route path="/main" component={Main} />
       </div>
     </Router>
   );

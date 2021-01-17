@@ -25,7 +25,7 @@ export class Navigation extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto pr-3">
             <li className="nav-item  ">
-              <a href="#features" className=" nav-link page-scroll">
+              <a href="/main" className=" nav-link page-scroll">
                 Patients
               </a>
             </li>

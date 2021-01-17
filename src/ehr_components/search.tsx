@@ -10,6 +10,9 @@ import AutoComplete from "./common_components/autoComplete";
 import PatientContext from "./patientContext";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import NewPatient from "./newPatient";
+
+
 // import "./styles.css";
 
 const Search: React.FC = Props => {
@@ -20,6 +23,10 @@ const Search: React.FC = Props => {
   let selectedPatient = (selected: any) => {
     console.log(selected);
     setSearchedPatient(selected);
+  };
+
+  let newPatientAdded = () => {
+    setNewPatient(false);
   };
 
   return (
@@ -47,9 +54,7 @@ const Search: React.FC = Props => {
           </Fragment>
         ) : (
           <Fragment>
-
-
-            
+            <NewPatient added={newPatientAdded} />
           </Fragment>
         )}
       </div>

@@ -21,6 +21,58 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <style>
+        .loader {
+        animation: spin 1s infinite linear;
+        border: solid 2vmin transparent;
+        border-radius: 50%;
+        border-right-color: #865cfb;
+        border-top-color: #945cfb;
+        box-sizing: border-box;
+        height: 24vmin;
+        left: calc(50% - 10vmin);
+        position: fixed;
+        top: calc(50% - 10vmin);
+        width: 24vmin;
+        z-index: 1;}
+
+    .loader:before {
+          animation: spin 2s infinite linear;
+          border: solid 2vmin transparent;
+          border-radius: 50%;
+          border-right-color: #a979f5;
+          border-top-color: #a979f5;
+          box-sizing: border-box;
+          content: "";
+          height: 20vmin;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 20vmin;
+        }
+     loader:after {
+          animation: spin 3s infinite linear;
+          border: solid 2vmin transparent;
+          border-radius: 50%;
+          border-right-color: #e2d9f0;
+          border-top-color: #e2d9f0;
+          box-sizing: border-box;
+          content: "";
+          height: 16vmin;
+          left: 2vmin;
+          position: absolute;
+          top: 2vmin;
+          width: 16vmin;
+        }
+      
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  
     
     <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css"> -->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
@@ -55,7 +107,10 @@
   <body>
     
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-      <div id="root"></div>
+      <div id="root">
+        <div class="loader"></div>
+      </div>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

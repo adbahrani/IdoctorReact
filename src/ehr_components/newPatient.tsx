@@ -1,6 +1,4 @@
 import { useHistory } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { toastr } from "react-redux-toastr";
 
 export interface NewPatientProps {
@@ -8,9 +6,6 @@ export interface NewPatientProps {
 }
 
 const NewPatient: React.FC<NewPatientProps> = props => {
-  let handleClose = () => {};
-  let handleShow = () => {};
-  let handleChangeDate = () => {};
   const history = useHistory();
 
   let handleClick = () => {
@@ -33,12 +28,39 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               placeholder=" Full Name"
             />
           </div>
-          <div className="form-group float-left">
-            <DatePicker onChange={handleChangeDate} />
+          <div className="form-group ">
+            <div className="row">
+              <div className="col-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="street1_id"
+                  name="street1"
+                  placeholder="Age"
+                />
+              </div>
+
+              <div className="col-4 ">
+                <label
+                  className="form-control text-right "
+                  style={{ border: "none" }}
+                >
+                  Date of Birth
+                </label>
+              </div>
+              <div className="col-5 ">
+                <input
+                  type="date"
+                  className="form-control"
+                  id="DOB"
+                  name="street1"
+                  placeholder="Br"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="street1_id" className="control-label"></label>
             <input
               type="text"
               className="form-control"
@@ -49,7 +71,6 @@ const NewPatient: React.FC<NewPatientProps> = props => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="street1_id" className="control-label"></label>
             <input
               type="text"
               className="form-control"

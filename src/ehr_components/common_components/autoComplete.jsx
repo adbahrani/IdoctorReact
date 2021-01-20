@@ -3,7 +3,6 @@ import { Spinner } from "react-bootstrap";
 import { ClearButton, Typeahead } from "react-bootstrap-typeahead";
 import options from "../options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import PatientContext from ".././patientContext";
 
 function AutoComplete(props) {
   const [focus, setCount] = useState(false);

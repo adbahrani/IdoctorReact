@@ -6,7 +6,7 @@ export class Team extends Component {
       <div id="team" className="text-center">
         <div className="container">
           <div className="col-md-8 offset-md-2 section-title">
-            <h2>Meet the Team</h2>
+            <h2 className="main">Meet the Team</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
               dapibus leonec.

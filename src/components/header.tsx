@@ -24,7 +24,7 @@ export const Header: React.FC<Props> = ({ data }) => {
                 <p>{data.paragraph ? data.paragraph : "Loading.."}</p>
                 <a href="/main" className=" bttn-custom  ">
                   Log In
-                </a>{" "}
+                </a>
               </div>
             </div>
           </div>

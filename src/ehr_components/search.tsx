@@ -1,17 +1,16 @@
 import React, { Fragment, useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import AutoComplete from "./common_components/autoComplete";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-// import "./styles.css";
-
 const Search: React.FC = Props => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
   const [searchedPatient, setSearchedPatient] = useState(null);
-
+  const history = useHistory();
   let selectedPatient = (selected: any) => {
     console.log(selected);
     setSearchedPatient(selected);
@@ -21,8 +20,15 @@ const Search: React.FC = Props => {
     setNewPatient(false);
   };
 
+  let handleClick = () => {
+    history.push("main/history");
+  };
   return (
     <Fragment>
+      <button>
+        <Link to="/history">Add a User</Link>
+      </button>
+
       <div className="container pt-2">
         {!newPatient ? (
           <Fragment>
@@ -40,7 +46,11 @@ const Search: React.FC = Props => {
               selected={selectedPatient}
             />
             <br />
-            <button className="bttn-custom" disabled={searchedPatient == null}>
+            <button
+              className="bttn-custom"
+              disabled={searchedPatient == null}
+              onClick={handleClick}
+            >
               Search
             </button>
           </Fragment>

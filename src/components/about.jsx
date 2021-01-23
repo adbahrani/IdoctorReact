@@ -12,7 +12,7 @@ export class about extends Component {
             </div>
             <div className="col-6">
               <div className="about-text">
-                <h2>About Us</h2>
+                <h2 className="main">About Us</h2>
                 <p>
                   {this.props.data ? this.props.data.paragraph : "loading..."}
                 </p>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Navigation from ".././components/navigation";
+import NavigationV1 from ".././components/navigation";
 import Header from ".././components/header";
 import Features from ".././components/features";
 import About from ".././components/about";
@@ -16,7 +16,7 @@ import JsonData from ".././data/data.json";
 const Home: React.FC = () => {
   return (
     <div>
-      <Navigation />
+      <NavigationV1 />
       <Header
         data={{
           title: JsonData.Header.title,

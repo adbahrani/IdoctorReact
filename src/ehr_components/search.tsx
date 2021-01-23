@@ -21,12 +21,12 @@ const Search: React.FC = Props => {
   };
 
   let handleClick = () => {
-    history.push("main/history");
+    history.push("/main/history");
   };
   return (
     <Fragment>
       <button>
-        <Link to="/history">Add a User</Link>
+        <Link to="/main/history">Add a User</Link>
       </button>
 
       <div className="container pt-2">

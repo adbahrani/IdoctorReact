@@ -12,9 +12,17 @@ import PatientContext from "./patientContext";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import Search from "./search";
-import NewPatient from "./newPatient";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  Link,
+  Redirect,
+  useRouteMatch
+} from "react-router-dom";
+import History from "./history";
 
+// import ".././App.css";
 
 export interface MainProps {}
 
@@ -23,6 +31,7 @@ const Main: React.FC<MainProps> = () => {
     toastr: toastrReducer
   });
   const store = createStore(reducers);
+  let { path } = useRouteMatch();
   return (
     <Fragment>
       <Navigation />
@@ -41,14 +50,14 @@ const Main: React.FC<MainProps> = () => {
           />
         </div>
       </Provider>
-      <Search />
-      {/* <NewPatient />  */}
-      {/* <Router>
-        <div className="App">
-          <Route path="/main" component={Search} />
-          <Route path="/newPatient" component={NewPatient} />
-        </div>
-      </Router> */}
+
+      {/* <p> Main Page</p> */}
+
+      <Router>
+        <Route path="/main/search" component={Search} />
+        <Route path="/main/history" component={History} />
+        <Redirect to="/main/search" />
+      </Router>
     </Fragment>
   );
 };

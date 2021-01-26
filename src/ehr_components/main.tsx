@@ -20,7 +20,7 @@ import {
   Redirect,
   useRouteMatch
 } from "react-router-dom";
-import History from "./history";
+import History from "./history/index";
 
 // import ".././App.css";
 

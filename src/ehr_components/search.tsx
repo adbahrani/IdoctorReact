@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import AutoComplete from "./common_components/autoComplete";
+import AutoComplete from "./ui/autoComplete";
 import options from "./options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";

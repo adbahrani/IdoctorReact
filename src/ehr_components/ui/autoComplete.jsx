@@ -1,10 +1,12 @@
 import React, { Fragment, useState, useContext } from "react";
 import { Spinner } from "react-bootstrap";
 import { ClearButton, Typeahead } from "react-bootstrap-typeahead";
-import options from "../options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function AutoComplete(props) {
+
+  let { options, multiple } = props;
+
   const [focus, setCount] = useState(false);
   const [currentText, setCurrentText] = useState(false);
   // let patient = useContext(PatientContext);
@@ -24,6 +26,7 @@ function AutoComplete(props) {
         placeholder={"Search " + props.title}
         onFocus={() => setCount(true)}
         onBlur={() => setCount(false)}
+        multiple={multiple}
       >
         {({ onClear, selected, value }) => (
           <div className="rbt-aux">

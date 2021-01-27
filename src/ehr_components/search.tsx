@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import AutoComplete from "./common_components/autoComplete";
-
+import AutoComplete from "./ui/autoComplete";
+import options from "./options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
@@ -37,11 +37,12 @@ const Search: React.FC = Props => {
             </button>
             <br />
             <br />
-            <AutoComplete title={"Patient Name"} selected={selectedPatient} />
+            <AutoComplete title={"Patient Name"} options={options} selected={selectedPatient} />
             <br />
-            <AutoComplete title={"Patient DOB"} selected={selectedPatient} />
+            <AutoComplete title={"Patient DOB"} options={options} selected={selectedPatient} />
             <br />
             <AutoComplete
+              options={options}
               title={"Patient Phone Number"}
               selected={selectedPatient}
             />

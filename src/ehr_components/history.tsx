@@ -12,18 +12,17 @@ export interface HistoryProps {
 }
 
 const initialState: any = {
-  fractures: '',
-  previous_admission: 'no',
-  past_surgery: 'no',
-  drug_allergy: 'no',
-  chronic_diseases: '',
-  chronic_drug_usage: 'yes',
-  smoking_status: 'no',
-  alcohol: 'yes'
+  fractures: "",
+  previous_admission: "no",
+  past_surgery: "no",
+  drug_allergy: "no",
+  chronic_diseases: "",
+  chronic_drug_usage: "yes",
+  smoking_status: "no",
+  alcohol: "yes"
 };
 
 const History: React.FC<HistoryProps> = props => {
-  
   let [medicalHistory, setMedicalHistory] = useState(initialState);
 
   let handleClick = () => {
@@ -31,18 +30,23 @@ const History: React.FC<HistoryProps> = props => {
     console.log(medicalHistory);
   };
 
-  function handleFieldChange(fieldName: string, event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleFieldChange(
+    fieldName: string,
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) {
     medicalHistory[fieldName] = event.target.value;
     setMedicalHistory({ ...medicalHistory });
   }
 
   function handleBloodGroupChange(options: Array<any>) {
-    let value = options && options[0] ? options[0].value : '';
+    let value = options && options[0] ? options[0].value : "";
     medicalHistory.blood_group = value;
     setMedicalHistory({ ...medicalHistory });
   }
 
-    function handleDiseaseChange(options: Array<any>) {
+  function handleDiseaseChange(options: Array<any>) {
     medicalHistory.chronic_diseases = options;
     setMedicalHistory({ ...medicalHistory });
   }
@@ -50,25 +54,28 @@ const History: React.FC<HistoryProps> = props => {
   return (
     <div>
       <h2 className=" main p-1 mt-4 mb-5">Patient Medical History</h2>
-      
-      <div  className="mx-auto" style={{ width: '60%' }}>
+
+      <div className="mx-auto" style={{ width: "90%" }}>
         <div className="row">
           <form className="col-9">
             <Field name="chronic_diseases" label="Chronic Diseases">
-              <AutoComplete 
+              <AutoComplete
                 title="Chronic Diseases"
                 multiple={true}
-                options={diseases} 
-                selected={handleDiseaseChange} 
+                options={diseases}
+                selected={handleDiseaseChange}
               />
             </Field>
-            
-            <Field name="previous_admission" label="Previous Admission to the hospital">
+
+            <Field
+              name="previous_admission"
+              label="Previous Admission to the hospital"
+            >
               <Radio
                 name="previous_admission"
                 options={yesOrNoOptions}
-                value={medicalHistory.previous_admission} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.previous_admission}
+                onChange={handleFieldChange}
               />
             </Field>
 
@@ -76,29 +83,26 @@ const History: React.FC<HistoryProps> = props => {
               <Radio
                 name="past_surgery"
                 options={yesOrNoOptions}
-                value={medicalHistory.past_surgery} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.past_surgery}
+                onChange={handleFieldChange}
               />
             </Field>
-            
-            <Field
-              name="fractures" 
-              label="Fractures" 
-            >
+
+            <Field name="fractures" label="Fractures">
               <TextArea
-                name="fractures" 
+                name="fractures"
                 placeholder="Add details about any past fractures"
-                value={medicalHistory.fractures} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.fractures}
+                onChange={handleFieldChange}
               />
             </Field>
 
             <Field name="family_history" label="Family History">
               <TextArea
-                name="family_history" 
+                name="family_history"
                 placeholder="Add details about the family history"
-                value={medicalHistory.family_history} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.family_history}
+                onChange={handleFieldChange}
               />
             </Field>
 
@@ -106,8 +110,8 @@ const History: React.FC<HistoryProps> = props => {
               <Radio
                 name="drug_allergy"
                 options={yesOrNoOptions}
-                value={medicalHistory.drug_allergy} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.drug_allergy}
+                onChange={handleFieldChange}
               />
             </Field>
 
@@ -115,16 +119,16 @@ const History: React.FC<HistoryProps> = props => {
               <Radio
                 name="chronic_drug_usage"
                 options={yesOrNoOptions}
-                value={medicalHistory.chronic_drug_usage} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.chronic_drug_usage}
+                onChange={handleFieldChange}
               />
             </Field>
 
             <Field name="blood_group" label="Blood Group">
-              <AutoComplete 
-                title="Blood Group" 
-                options={bloodGroups} 
-                selected={handleBloodGroupChange} 
+              <AutoComplete
+                title="Blood Group"
+                options={bloodGroups}
+                selected={handleBloodGroupChange}
               />
             </Field>
 
@@ -132,8 +136,8 @@ const History: React.FC<HistoryProps> = props => {
               <Radio
                 name="smoking_status"
                 options={yesOrNoOptions}
-                value={medicalHistory.smoking_status} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.smoking_status}
+                onChange={handleFieldChange}
               />
             </Field>
 
@@ -141,17 +145,17 @@ const History: React.FC<HistoryProps> = props => {
               <Radio
                 name="alcohol"
                 options={yesOrNoOptions}
-                value={medicalHistory.alcohol} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.alcohol}
+                onChange={handleFieldChange}
               />
             </Field>
 
             <Field name="notes" label="Notes">
               <TextArea
-                name="notes" 
+                name="notes"
                 placeholder="add any additional notes"
-                value={medicalHistory.notes} 
-                onChange={handleFieldChange} 
+                value={medicalHistory.notes}
+                onChange={handleFieldChange}
               />
             </Field>
 
@@ -160,9 +164,13 @@ const History: React.FC<HistoryProps> = props => {
             </div>
           </form>
 
-          <div className="col-3">
+          <div className="offset-1 col-2">
             <div className="card mr-2">
-              <img className="card-img-top" src="./img/team/02.jpg" alt="Patient" />
+              <img
+                className="card-img-top"
+                src="./img/team/02.jpg"
+                alt="Patient"
+              />
               <div className="card-body">
                 <h5 className="card-title">Joey</h5>
                 <a href="#" className="btn btn-primary">
@@ -172,9 +180,7 @@ const History: React.FC<HistoryProps> = props => {
             </div>
           </div>
         </div>
-    
       </div>
-
     </div>
   );
 };

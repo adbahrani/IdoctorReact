@@ -8,7 +8,7 @@ import ReduxToastr, {
   toastr
 } from "react-redux-toastr";
 
-import PatientContext from "./patientContext";
+
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import Search from "./search";

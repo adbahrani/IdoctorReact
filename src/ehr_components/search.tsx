@@ -20,8 +20,9 @@ const Search: React.FC = Props => {
     setNewPatient(false);
   };
 
-  let handleClick = () => {
-    history.push("/main/history");
+  let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(e.target);
+    //   history.push("/main/history");
   };
   return (
     <Fragment>
@@ -37,9 +38,17 @@ const Search: React.FC = Props => {
             </button>
             <br />
             <br />
-            <AutoComplete title={"Patient Name"} options={options} selected={selectedPatient} />
+            <AutoComplete
+              title={"Patient Name"}
+              options={options}
+              selected={selectedPatient}
+            />
             <br />
-            <AutoComplete title={"Patient DOB"} options={options} selected={selectedPatient} />
+            <AutoComplete
+              title={"Patient DOB"}
+              options={options}
+              selected={selectedPatient}
+            />
             <br />
             <AutoComplete
               options={options}
@@ -47,13 +56,28 @@ const Search: React.FC = Props => {
               selected={selectedPatient}
             />
             <br />
-            <button
-              className="bttn-custom"
-              disabled={searchedPatient == null}
-              onClick={handleClick}
-            >
-              Search
-            </button>
+            <div className="row">
+              <div className="offset-3 col-3">
+                <button
+                  className="bttn-custom "
+                  disabled={searchedPatient == null}
+                  onClick={handleClick}
+                  name="newVisit"
+                >
+                  Add New Visit
+                </button>
+              </div>
+              <div className="col-3">
+                <button
+                  className="bttn-custom"
+                  disabled={searchedPatient == null}
+                  onClick={e => handleClick(e)}
+                  name="editHistory"
+                >
+                  Edit History
+                </button>
+              </div>
+            </div>
           </Fragment>
         ) : (
           <Fragment>

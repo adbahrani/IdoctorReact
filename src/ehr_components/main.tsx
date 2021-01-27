@@ -8,7 +8,6 @@ import ReduxToastr, {
   toastr
 } from "react-redux-toastr";
 
-
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import Search from "./search";
@@ -21,6 +20,7 @@ import {
   useRouteMatch
 } from "react-router-dom";
 import History from "./history";
+import Visit from "./visit";
 
 // import ".././App.css";
 
@@ -56,6 +56,7 @@ const Main: React.FC<MainProps> = () => {
       <Router>
         <Route path="/main/search" component={Search} />
         <Route path="/main/history" component={History} />
+        <Route path="/main/visit" component={Visit} />
         <Redirect to="/main/search" />
       </Router>
     </Fragment>

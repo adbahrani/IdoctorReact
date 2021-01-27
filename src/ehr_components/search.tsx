@@ -21,8 +21,9 @@ const Search: React.FC = Props => {
   };
 
   let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log(e.target);
-    //   history.push("/main/history");
+    let button = e.target as HTMLInputElement;
+    console.log(button.name);
+    history.push(`/main/${button.name}`);
   };
   return (
     <Fragment>
@@ -62,7 +63,7 @@ const Search: React.FC = Props => {
                   className="bttn-custom "
                   disabled={searchedPatient == null}
                   onClick={handleClick}
-                  name="newVisit"
+                  name="visit"
                 >
                   Add New Visit
                 </button>
@@ -72,7 +73,7 @@ const Search: React.FC = Props => {
                   className="bttn-custom"
                   disabled={searchedPatient == null}
                   onClick={e => handleClick(e)}
-                  name="editHistory"
+                  name="history"
                 >
                   Edit History
                 </button>

@@ -1,16 +1,40 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import AutoComplete from "./ui/autoComplete";
-import options from "./options";
+//import options from "./options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-const Search: React.FC = Props => {
+const Search: React.FC = (Props) => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
   const [searchedPatient, setSearchedPatient] = useState(null);
+  const [options, setOptions] = useState<any[] | []>([]);
   const history = useHistory();
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    let list: any[] = [];
+    fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json")
+      .then((response) => response.json())
+      .then((res) => {
+        console.clear();
+        for (var paient in res) {
+          console.log(res[paient], paient);
+          list.push(res[paient]);
+        }
+        updateOptions(list);
+      });
+    //  setOptions(list);
+  }, []);
+
+  let updateOptions = (list: any) => {
+    setOptions(list);
+    console.log(list);
+    //  console.log(optionst);
+  };
+
   let selectedPatient = (selected: any) => {
     console.log(selected);
     setSearchedPatient(selected);
@@ -23,6 +47,7 @@ const Search: React.FC = Props => {
   let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     let button = e.target as HTMLInputElement;
     console.log(button.name);
+
     history.push(`/main/${button.name}`);
   };
   return (
@@ -72,7 +97,7 @@ const Search: React.FC = Props => {
                 <button
                   className="bttn-custom"
                   disabled={searchedPatient == null}
-                  onClick={e => handleClick(e)}
+                  onClick={(e) => handleClick(e)}
                   name="history"
                 >
                   Edit History

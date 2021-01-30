@@ -6,32 +6,36 @@ import AutoComplete from "./ui/autoComplete";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-const Search: React.FC = (Props) => {
+const Search: React.FC = Props => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
   const [searchedPatient, setSearchedPatient] = useState(null);
-  const [options, setOptions] = useState<any[] | []>([]);
+  const [options, setOptions] = useState<any>();
   const history = useHistory();
 
   useEffect(() => {
     // Update the document title using the browser API
-    let list: any[] = [];
+    let nameList: any[] = [];
+    let numberList: any[] = [];
+    let DOBList: any[] = [];
     fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json")
-      .then((response) => response.json())
-      .then((res) => {
+      .then(response => response.json())
+      .then(res => {
         console.clear();
         for (var paient in res) {
           console.log(res[paient], paient);
-          list.push(res[paient]);
+          nameList.push({ label: res[paient].name });
+          DOBList.push({ label: res[paient].number });
+          numberList.push({ label: res[paient].dob });
         }
-        updateOptions(list);
+        updateOptions({ nameList, numberList, DOBList });
       });
     //  setOptions(list);
   }, []);
 
-  let updateOptions = (list: any) => {
-    setOptions(list);
-    console.log(list);
+  let updateOptions = (lists: any) => {
+    setOptions(lists);
+    console.log(lists);
     //  console.log(optionst);
   };
 
@@ -62,22 +66,25 @@ const Search: React.FC = (Props) => {
             <button className="bttn-custom" onClick={() => setNewPatient(true)}>
               Add New Patient
             </button>
+            <button className="bttn-custom" onClick={() => setNewPatient(true)}>
+              Add New Patient
+            </button>
             <br />
             <br />
             <AutoComplete
               title={"Patient Name"}
-              options={options}
+              options={options?.nameList}
               selected={selectedPatient}
             />
             <br />
             <AutoComplete
               title={"Patient DOB"}
-              options={options}
+              options={options?.nameList}
               selected={selectedPatient}
             />
             <br />
             <AutoComplete
-              options={options}
+              options={options?.nameList}
               title={"Patient Phone Number"}
               selected={selectedPatient}
             />
@@ -97,7 +104,7 @@ const Search: React.FC = (Props) => {
                 <button
                   className="bttn-custom"
                   disabled={searchedPatient == null}
-                  onClick={(e) => handleClick(e)}
+                  onClick={e => handleClick(e)}
                   name="history"
                 >
                   Edit History

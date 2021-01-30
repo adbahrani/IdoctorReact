@@ -84,7 +84,7 @@ registerRoute(
 registerRoute(
   ({url}) => url.origin === self.location.origin &&
              url.pathname.startsWith('/css/'),
-  new CacheFirst({
+  new StaleWhileRevalidate({
     cacheName: 'css-cache',
     plugins: [
       new CacheableResponsePlugin({

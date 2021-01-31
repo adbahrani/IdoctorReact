@@ -71,21 +71,47 @@ const History: React.FC<HistoryProps> = props => {
               name="previous_admission"
               label="Previous Admission to the hospital"
             >
-              <Radio
-                name="previous_admission"
-                options={yesOrNoOptions}
-                value={medicalHistory.previous_admission}
-                onChange={handleFieldChange}
-              />
+              <>
+                <Radio
+                  name="previous_admission"
+                  options={yesOrNoOptions}
+                  value={medicalHistory.previous_admission}
+                  onChange={handleFieldChange}
+                />
+                {
+                  medicalHistory.previous_admission === 'yes' ? (
+                  <TextArea 
+                    className="mt-2"
+                    name="previous_admission_description"
+                    placeholder="Add details about the previous admission"
+                    value={medicalHistory.previous_admission_description}
+                    onChange={handleFieldChange}
+                  />
+                  ) : <></>
+                }
+              </>
             </Field>
 
             <Field name="past_surgery" label="Past Surgery">
-              <Radio
-                name="past_surgery"
-                options={yesOrNoOptions}
-                value={medicalHistory.past_surgery}
-                onChange={handleFieldChange}
-              />
+              <>
+                <Radio
+                  name="past_surgery"
+                  options={yesOrNoOptions}
+                  value={medicalHistory.past_surgery}
+                  onChange={handleFieldChange}
+                />
+                {
+                  medicalHistory.past_surgery === 'yes' ? (
+                  <TextArea 
+                    className="mt-2"
+                    name="past_surgery_description"
+                    placeholder="Add details about the past surgery"
+                    value={medicalHistory.past_surgery_description}
+                    onChange={handleFieldChange}
+                  />
+                  ) : <></>
+                }
+              </>
             </Field>
 
             <Field name="fractures" label="Fractures">
@@ -107,12 +133,25 @@ const History: React.FC<HistoryProps> = props => {
             </Field>
 
             <Field name="drug_allergy" label="Drug Allergy">
-              <Radio
-                name="drug_allergy"
-                options={yesOrNoOptions}
-                value={medicalHistory.drug_allergy}
-                onChange={handleFieldChange}
-              />
+              <>
+                <Radio
+                  name="drug_allergy"
+                  options={yesOrNoOptions}
+                  value={medicalHistory.drug_allergy}
+                  onChange={handleFieldChange}
+                />
+                {
+                  medicalHistory.drug_allergy === 'yes' ? (
+                  <TextArea 
+                    className="mt-2"
+                    name="drug_allergy_description"
+                    placeholder="Add details about the drug allergies"
+                    value={medicalHistory.drug_allergy_description}
+                    onChange={handleFieldChange}
+                  />
+                  ) : <></>
+                }
+              </>
             </Field>
 
             <Field name="chronic_drug_usage" label="Chronic use of Drugs">

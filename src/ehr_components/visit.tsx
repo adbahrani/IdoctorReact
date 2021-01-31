@@ -1,28 +1,18 @@
 import { toastr } from "react-redux-toastr";
-import { useState } from "react";
-import Field from "./ui/field";
-import TextArea from "./ui/textarea";
-import Radio from "./ui/radio";
-import AutoComplete from "./ui/autoComplete";
-import { bloodGroups, diseases, yesOrNoOptions } from "./data/patient-history";
+import { useCallback, useState } from "react";
 import Button from "./ui/button";
+import { labInvOptions, reviewsOptions, yesOrNoOptions } from "./data/visit";
+import FieldRenderer from "./common_components/field-renderer";
+import Field from "./ui/field";
+import Input from "./ui/input";
 
 export interface VisitProps {
   added: Function;
 }
 
-const initialState: any = {
-  fractures: "",
-  previous_admission: "no",
-  past_surgery: "no",
-  drug_allergy: "no",
-  chronic_diseases: "",
-  chronic_drug_usage: "yes",
-  smoking_status: "no",
-  alcohol: "yes"
-};
+const initialState: any = {};
 
-const Visit: React.FC<VisitProps> = props => {
+const Visit: React.FC<VisitProps> = () => {
   let [medicalVisit, setMedicalVisit] = useState(initialState);
 
   let handleClick = () => {
@@ -30,26 +20,171 @@ const Visit: React.FC<VisitProps> = props => {
     console.log(medicalVisit);
   };
 
-  function handleFieldChange(
+  let handleFieldChange = useCallback((
     fieldName: string,
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
-  ) {
-    medicalVisit[fieldName] = event.target.value;
-    setMedicalVisit({ ...medicalVisit });
-  }
+ 
+  ) => {
+    updateState(fieldName, event.target.value);
+  }, []);
 
-  function handleBloodGroupChange(options: Array<any>) {
-    let value = options && options[0] ? options[0].value : "";
-    medicalVisit.blood_group = value;
+  let updateState = useCallback((fieldName: string, value: any) => {
+    medicalVisit[fieldName] = value;
     setMedicalVisit({ ...medicalVisit });
-  }
+  }, [medicalVisit]);
 
-  function handleDiseaseChange(options: Array<any>) {
-    medicalVisit.chronic_diseases = options;
-    setMedicalVisit({ ...medicalVisit });
-  }
+  let fieldsMap = [{
+    label: 'Chief Complaint',
+    name: 'complaint',
+    placeholder: 'Add details about the complaint',
+    type: 'Textarea',
+    onChange: handleFieldChange,
+    value: medicalVisit.complaint
+  }, {
+    label: 'History of present illness',
+    placeholder: 'Add details about the history of the present illness',
+    name: 'present_illness_history',
+    type: 'Textarea',
+    onChange: handleFieldChange,
+    value: medicalVisit.present_illness_history
+  }, {
+    label: 'Review of other system',
+    name: 'other_system_review',
+    type: 'Radio',
+    value: medicalVisit.other_system_review,
+    options: reviewsOptions, 
+    onChange: handleFieldChange
+  }, {
+    name: 'blood_pressure'
+  }, {
+    label: 'Pulse Rate',
+    name: 'pulse_rate',
+    type: 'Input',
+    placeholder: '', 
+    gridSize: 'col-sm-4',
+    value: medicalVisit.pulse_rate,
+    append: 'beats/minute',
+    onChange: handleFieldChange
+  }, {
+    label: 'Body Temperature',
+    name: 'temperature',
+    type: 'Input',
+    gridSize: 'col-sm-4',
+    placeholder: '', 
+    value: medicalVisit.temperature,
+    append: '°C',
+    onChange: handleFieldChange
+  }, {
+    label: 'Respiratory Rate',
+    name: 'respiratory_rate',
+    type: 'Input',
+    gridSize: 'col-sm-4',
+    placeholder: '', 
+    value: medicalVisit.respiratory_rate,
+    append: 'breaths/minute',
+    onChange: handleFieldChange
+  }, {
+    label: 'Spo2',
+    name: 'spo2',
+    type: 'Input',
+    gridSize: 'col-sm-4',
+    placeholder: '', 
+    value: medicalVisit.spo2,
+    append: '%',
+    onChange: handleFieldChange
+  }, {
+    label: 'Weight',
+    name: 'weight',
+    gridSize: 'col-sm-4',
+    type: 'Input',
+    placeholder: '', 
+    append: 'KG',
+    value: medicalVisit.weight,
+    onChange: handleFieldChange
+  }, {
+    label: 'Height',
+    name: 'height',
+    gridSize: 'col-sm-4',
+    type: 'Input',
+    placeholder: '', 
+    append: 'Mts',
+    value: medicalVisit.height,
+    onChange: handleFieldChange
+  }, {
+    label: 'Body Mass Index',
+    name: 'bmi',
+    type: 'Input',
+    gridSize: 'col-sm-4',
+    placeholder: '', 
+    value: medicalVisit.bmi,
+    append: 'kg/m2',
+    onChange: handleFieldChange
+  }, {
+    label: 'Imaging and laboratory Investigations',
+    name: 'lab_investigation',
+    type: 'Radio',
+    value: medicalVisit.lab_investigation,
+    options: labInvOptions, 
+    onChange: handleFieldChange
+  }, {
+    label: 'Diagnosis',
+    name: 'diagnosis',
+    type: 'Textarea',
+    placeholder: 'Add details about the diagnosis',
+    onChange: handleFieldChange,
+    value: medicalVisit.diagnosis
+  }, {
+    label: 'Date of Visit',
+    name: 'date',
+    type: 'Input',
+    inputType: 'date',
+    placeholder: 'Enter the date of visit',
+    onChange: handleFieldChange,
+    value: medicalVisit.date
+  }, {
+    label: 'Treatment',
+    name: 'treatment',
+    type: 'Textarea',
+    placeholder: 'Add details about the treatments followed',
+    onChange: handleFieldChange,
+    value: medicalVisit.treatment
+  }, {
+    label: 'Is the visit free',
+    name: 'is_free',
+    type: 'Radio',
+    options: yesOrNoOptions,
+    onChange: handleFieldChange,
+    value: medicalVisit.is_free
+  }, {
+    label: 'Is the visit review',
+    name: 'is_review',
+    type: 'Radio',
+    options: yesOrNoOptions,
+    onChange: handleFieldChange,
+    value: medicalVisit.is_review
+  }, {
+    label: 'Is referred from other doctor',
+    name: 'is_referred',
+    type: 'Radio',
+    options: yesOrNoOptions,
+    onChange: handleFieldChange,
+    value: medicalVisit.is_referred
+  }, {
+    label: 'Visit Cost',
+    name: 'cost',
+    type: 'Input',
+    onChange: handleFieldChange,
+    value: medicalVisit.cost
+  }, {
+    label: 'Notes',
+    name: 'notes',
+    type: 'Textarea',
+    placeholder: 'Add any other notes about the visit here for future references',
+    onChange: handleFieldChange,
+    value: medicalVisit.notes
+  }];
 
   return (
     <div>
@@ -58,109 +193,43 @@ const Visit: React.FC<VisitProps> = props => {
       <div className="mx-auto" style={{ width: "90%" }}>
         <div className="row">
           <form className="col-9">
-            <Field name="chronic_diseases" label="Chronic Diseases">
-              <AutoComplete
-                title="Chronic Diseases"
-                multiple={true}
-                options={diseases}
-                selected={handleDiseaseChange}
-              />
-            </Field>
 
-            <Field
-              name="previous_admission"
-              label="Previous Admission to the hospital"
-            >
-              <Radio
-                name="previous_admission"
-                options={yesOrNoOptions}
-                value={medicalVisit.previous_admission}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="past_surgery" label="Past Surgery">
-              <Radio
-                name="past_surgery"
-                options={yesOrNoOptions}
-                value={medicalVisit.past_surgery}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="fractures" label="Fractures">
-              <TextArea
-                name="fractures"
-                placeholder="Add details about any past fractures"
-                value={medicalVisit.fractures}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="family_Visit" label="Family Visit">
-              <TextArea
-                name="family_Visit"
-                placeholder="Add details about the family Visit"
-                value={medicalVisit.family_Visit}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="drug_allergy" label="Drug Allergy">
-              <Radio
-                name="drug_allergy"
-                options={yesOrNoOptions}
-                value={medicalVisit.drug_allergy}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="chronic_drug_usage" label="Chronic use of Drugs">
-              <Radio
-                name="chronic_drug_usage"
-                options={yesOrNoOptions}
-                value={medicalVisit.chronic_drug_usage}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="blood_group" label="Blood Group">
-              <AutoComplete
-                title="Blood Group"
-                options={bloodGroups}
-                selected={handleBloodGroupChange}
-              />
-            </Field>
-
-            <Field name="smoking_status" label="Smoking Status">
-              <Radio
-                name="smoking_status"
-                options={yesOrNoOptions}
-                value={medicalVisit.smoking_status}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="alcohol" label="Alcohol Drinking">
-              <Radio
-                name="alcohol"
-                options={yesOrNoOptions}
-                value={medicalVisit.alcohol}
-                onChange={handleFieldChange}
-              />
-            </Field>
-
-            <Field name="notes" label="Notes">
-              <TextArea
-                name="notes"
-                placeholder="add any additional notes"
-                value={medicalVisit.notes}
-                onChange={handleFieldChange}
-              />
-            </Field>
+            {
+              fieldsMap.map((field) => {
+                let { name } = field;
+                
+                // special handling for blood pressure as it has two different inputs
+                if (name === 'blood_pressure') {
+                  return (
+                    <Field name="bp_sys" label="Blood Pressure" gridSize="col-sm-4" key={name}>
+                      <>
+                        <Input
+                          name="bp_sys"
+                          placeholder="Enter SYS value here"
+                          value={medicalVisit.bp_sys}
+                          append='MMHG'
+                          onChange={handleFieldChange}
+                        />
+                        <div className="mt-2">
+                          <Input
+                            name="bp_dia"
+                            placeholder="Enter DIA value here"
+                            value={medicalVisit.bp_dia}
+                            append='MMHG'
+                            onChange={handleFieldChange}
+                          />
+                        </div>
+                      </>
+                    </Field>
+                  )
+                } else {
+                  return <FieldRenderer field={field} key={field.name} />
+                }
+              })
+            }
 
             <div className="form-group">
-              <Button onClick={handleClick}>Add</Button>
+              <Button onClick={handleClick}>Add Visit Details</Button>
             </div>
           </form>
 
@@ -173,9 +242,9 @@ const Visit: React.FC<VisitProps> = props => {
               />
               <div className="card-body">
                 <h5 className="card-title">Joey</h5>
-                <a href="#" className="btn btn-primary">
+                <button className="btn btn-primary">
                   Update Image
-                </a>
+                </button>
               </div>
             </div>
           </div>

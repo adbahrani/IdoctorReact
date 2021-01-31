@@ -6,7 +6,7 @@ import AutoComplete from "./ui/autoComplete";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-const Search: React.FC = Props => {
+const Search: React.FC = (Props) => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
   const [searchedPatient, setSearchedPatient] = useState(null);
@@ -19,8 +19,8 @@ const Search: React.FC = Props => {
     let numberList: any[] = [];
     let DOBList: any[] = [];
     fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json")
-      .then(response => response.json())
-      .then(res => {
+      .then((response) => response.json())
+      .then((res) => {
         console.clear();
         for (var paient in res) {
           console.log(res[paient], paient);
@@ -66,9 +66,7 @@ const Search: React.FC = Props => {
             <button className="bttn-custom" onClick={() => setNewPatient(true)}>
               Add New Patient
             </button>
-            <button className="bttn-custom" onClick={() => setNewPatient(true)}>
-              Add New Patient
-            </button>
+
             <br />
             <br />
             <AutoComplete
@@ -104,7 +102,7 @@ const Search: React.FC = Props => {
                 <button
                   className="bttn-custom"
                   disabled={searchedPatient == null}
-                  onClick={e => handleClick(e)}
+                  onClick={(e) => handleClick(e)}
                   name="history"
                 >
                   Edit History

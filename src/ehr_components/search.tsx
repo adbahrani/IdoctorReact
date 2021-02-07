@@ -66,9 +66,7 @@ const Search: React.FC = Props => {
             <button className="bttn-custom" onClick={() => setNewPatient(true)}>
               Add New Patient
             </button>
-            <button className="bttn-custom" onClick={() => setNewPatient(true)}>
-              Add New Patient
-            </button>
+
             <br />
             <br />
             <AutoComplete
@@ -90,19 +88,21 @@ const Search: React.FC = Props => {
             />
             <br />
             <div className="row">
-              <div className="offset-3 col-3">
+              <div className="  col-6 col-sm-6 pr-4">
                 <button
                   className="bttn-custom "
+                  style={{ float: "right" }}
                   disabled={searchedPatient == null}
                   onClick={handleClick}
                   name="visit"
                 >
-                  Add New Visit
+                  New Visit
                 </button>
               </div>
-              <div className="col-3">
+              <div className="col-6 col-sm-6 pl-4">
                 <button
                   className="bttn-custom"
+                  style={{ float: "left" }}
                   disabled={searchedPatient == null}
                   onClick={e => handleClick(e)}
                   name="history"

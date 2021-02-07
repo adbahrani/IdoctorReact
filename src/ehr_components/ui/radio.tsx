@@ -9,7 +9,7 @@ export interface Prop {
 
 const Radio = (props: Prop) => {
 
-  let { name, options, value, onChange } = props; 
+  let { name, options = [], value, onChange } = props; 
 
   function _onChange(event: any) {
     onChange(name, event)

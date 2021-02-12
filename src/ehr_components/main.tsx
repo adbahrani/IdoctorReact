@@ -21,6 +21,7 @@ import {
 } from "react-router-dom";
 import History from "./history";
 import Visit from "./visit";
+import NewPatient from "./newPatient";
 
 // import ".././App.css";
 
@@ -57,6 +58,7 @@ const Main: React.FC<MainProps> = () => {
         <Route path="/main/search" component={Search} />
         <Route path="/main/history" component={History} />
         <Route path="/main/visit" component={Visit} />
+        <Route path="/main/newPatient" component={NewPatient} />
         <Redirect to="/main/search" />
       </Router>
     </Fragment>

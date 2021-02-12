@@ -1,5 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
+import { useState } from "react";
+import Axios from "axios";
 
 export interface NewPatientProps {
   added: Function;
@@ -7,11 +9,62 @@ export interface NewPatientProps {
 
 const NewPatient: React.FC<NewPatientProps> = props => {
   const history = useHistory();
+  const [formData, setFormData] = useState({
+    fullName: "",
+    age: "",
+    dob: "",
+    address: "",
+    job: "",
+    gender: "",
+    maritialStatus: "",
+    number: ""
+  });
 
-  let handleClick = () => {
-    props.added();
-    toastr.success("New Painent", "Added Successfuly");
+  const firebaseURl =
+    "https://idoctorpwa-default-rtdb.firebaseio.com/patients.json";
+
+  const updateFormData = (event: any) =>
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+
+  let handleClick = async () => {
+    console.log(formData);
+
+    try {
+      var callResults = await Axios.post(firebaseURl, formData);
+      history.push(`/main/search#success`);
+    } catch (error) {
+      toastr.error("New Painent", error.message);
+    }
+
+    // fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json"
+    //   },
+    //   body: JSON.stringify(formData)
+    // })
+    //   .then(function (res) {
+    //     console.log("Sent data", res);
+    //   })
+    //   .catch(function (err) {
+    //     console.log("Error while sending data", err);
+    //   });
   };
+
+  const {
+    fullName,
+    age,
+    dob,
+    address,
+    job,
+    gender,
+    maritialStatus,
+    number
+  } = formData;
 
   return (
     <div className="container">
@@ -22,21 +75,25 @@ const NewPatient: React.FC<NewPatientProps> = props => {
           <div className="form-group">
             <input
               type="text"
+              value={fullName}
               className="form-control"
               id="full_name_id"
-              name="full_name"
+              name="fullName"
               placeholder=" Full Name"
+              onChange={e => updateFormData(e)}
             />
           </div>
           <div className="form-group ">
             <div className="row">
               <div className="col-3">
                 <input
+                  value={age}
                   type="text"
                   className="form-control"
                   id="street1_id"
-                  name="street1"
+                  name="age"
                   placeholder="Age"
+                  onChange={e => updateFormData(e)}
                 />
               </div>
 
@@ -50,11 +107,12 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               </div>
               <div className="col-5 ">
                 <input
+                  value={dob}
                   type="date"
                   className="form-control"
                   id="DOB"
-                  name="street1"
-                  placeholder="Br"
+                  name="dob"
+                  onChange={e => updateFormData(e)}
                 />
               </div>
             </div>
@@ -62,11 +120,13 @@ const NewPatient: React.FC<NewPatientProps> = props => {
 
           <div className="form-group">
             <input
+              value={address}
               type="text"
               className="form-control"
               id="street1_id"
-              name="street1"
+              name="address"
               placeholder="Address"
+              onChange={e => updateFormData(e)}
             />
           </div>
 
@@ -75,8 +135,9 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               type="text"
               className="form-control"
               id="street1_id"
-              name="street1"
+              name="job"
               placeholder="Job"
+              onChange={e => updateFormData(e)}
             />
           </div>
 
@@ -85,9 +146,10 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               <input
                 className="form-check-input p-5"
                 type="radio"
-                name="inlineRadioOptions"
+                name="gender"
                 id="inlineRadio1"
-                value="option1"
+                value={gender}
+                onChange={e => updateFormData(e)}
               />
               <label className="form-check-label" htmlFor="inlineRadio1">
                 Male
@@ -99,7 +161,8 @@ const NewPatient: React.FC<NewPatientProps> = props => {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value={gender}
+                onChange={e => updateFormData(e)}
               />
               <label className="form-check-label" htmlFor="inlineRadio2">
                 Female
@@ -111,7 +174,7 @@ const NewPatient: React.FC<NewPatientProps> = props => {
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                value={gender}
               />
               <label className="form-check-label" htmlFor="inlineRadio2">
                 Intersex
@@ -120,7 +183,11 @@ const NewPatient: React.FC<NewPatientProps> = props => {
           </div>
 
           <div className="form-group">
-            <select className="form-control" id="state_id">
+            <select
+              className="form-control"
+              id="state_id"
+              value={maritialStatus}
+            >
               <option value="" selected disabled hidden>
                 Marital Status
               </option>
@@ -136,8 +203,10 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               type="text"
               className="form-control"
               id="zip_id"
-              name="zip"
+              name="number"
+              //value={number}
               placeholder="Phone Number"
+              onChange={e => updateFormData(e)}
             />
           </div>
 

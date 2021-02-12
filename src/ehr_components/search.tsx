@@ -5,6 +5,7 @@ import AutoComplete from "./ui/autoComplete";
 //import options from "./options";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
+import Axios from "axios";
 
 const Search: React.FC = (Props) => {
   const [fouce, setCount] = useState(false);
@@ -12,6 +13,34 @@ const Search: React.FC = (Props) => {
   const [searchedPatient, setSearchedPatient] = useState(null);
   const [options, setOptions] = useState<any>();
   const history = useHistory();
+  let headers = {
+    "Access-Control-Allow-Origin": "*",
+
+    mode: "no-cors",
+  };
+  let handleTest = () => {
+    console.clear();
+    console.log("Click");
+
+    fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        label: "John",
+        name: "John",
+        number: 123456,
+      }),
+    })
+      .then(function (res) {
+        console.log("Sent data", res);
+      })
+      .catch(function (err) {
+        console.log("Error while sending data", err);
+      });
+  };
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -56,9 +85,9 @@ const Search: React.FC = (Props) => {
   };
   return (
     <Fragment>
-      <button>
+      {/* <button>
         <Link to="/main/history">Add a User</Link>
-      </button>
+      </button> */}
 
       <div className="container pt-2">
         {!newPatient ? (
@@ -66,7 +95,9 @@ const Search: React.FC = (Props) => {
             <button className="bttn-custom" onClick={() => setNewPatient(true)}>
               Add New Patient
             </button>
-
+            <button className="bttn-custom" onClick={handleTest}>
+              Test Add
+            </button>
             <br />
             <br />
             <AutoComplete

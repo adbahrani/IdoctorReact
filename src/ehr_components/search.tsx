@@ -24,11 +24,13 @@ const Search: React.FC = Props => {
       .then(res => {
         for (var id in res) {
           console.log(res[id], id);
-          nameList.push({
-            label: res[id].fullName
-          });
-          DOBList.push({ label: res[id].dob });
-          numberList.push({ label: res[id].number });
+          if (res[id].fullName.trim())
+            nameList.push({
+              label: res[id].fullName
+            });
+
+          if (res[id].dob.trim()) DOBList.push({ label: res[id].dob });
+          if (res[id].number.trim()) numberList.push({ label: res[id].number });
         }
         updateOptions({ nameList, numberList, DOBList });
       });

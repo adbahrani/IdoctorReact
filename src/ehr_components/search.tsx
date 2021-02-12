@@ -13,6 +13,30 @@ const Search: React.FC = (Props) => {
   const [options, setOptions] = useState<any>();
   const history = useHistory();
 
+  let handleTest = () => {
+    console.clear();
+    console.log("Click");
+
+    fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        label: "John",
+        name: "John",
+        number: 123456,
+      }),
+    })
+      .then(function (res) {
+        console.log("Sent data", res);
+      })
+      .catch(function (err) {
+        console.log("Error while sending data", err);
+      });
+  };
+
   useEffect(() => {
     // Update the document title using the browser API
     let nameList: any[] = [];

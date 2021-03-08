@@ -6,10 +6,11 @@ import AutoComplete from "./ui/autoComplete";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-const Search: React.FC = Props => {
+const Search: React.FC = (Props) => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
-  const [searchedPatient, setSearchedPatient] = useState(null);
+  const [searchedPatient, setSearchedPatient] = useState<any>(null);
+  const [patientsList, setPatientsList] = useState<any>([]);
   const [options, setOptions] = useState<any>();
   const history = useHistory();
 
@@ -20,18 +21,21 @@ const Search: React.FC = Props => {
     let numberList: any[] = [];
     let DOBList: any[] = [];
     fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json")
-      .then(response => response.json())
-      .then(res => {
+      .then((response) => response.json())
+      .then((res) => {
+        let list: any[] = [];
         for (var id in res) {
-          console.log(res[id], id);
+          list.push(res[id]);
+          // console.log(res[id], id);
           if (res[id].fullName.trim())
             nameList.push({
-              label: res[id].fullName
+              label: res[id].fullName,
             });
 
           if (res[id].dob.trim()) DOBList.push({ label: res[id].dob });
           if (res[id].number.trim()) numberList.push({ label: res[id].number });
         }
+        setPatientsList(list);
         updateOptions({ nameList, numberList, DOBList });
       });
   }, []);
@@ -42,9 +46,14 @@ const Search: React.FC = Props => {
     //  console.log(options);
   };
 
-  let selectedPatient = (selected: any) => {
-    console.log(selected);
-    setSearchedPatient(selected);
+  let selectedPatient = (selected: any, type: string) => {
+    // console.log(selected ? selected[0].label : null);
+    // console.log("LIST", patientsList);
+    setSearchedPatient({ [type]: selected[0].label });
+    for (let patient of patientsList) {
+      //console.log("found", patient[type]);
+      if (patient[type] == selected[0].label) console.log("found", patient);
+    }
   };
 
   let newPatientAdded = () => {
@@ -57,7 +66,7 @@ const Search: React.FC = Props => {
     let button = e.target as HTMLInputElement;
     console.log(button.name);
 
-    history.push(`/main/${button.name}`);
+    history.push({ pathname: `/main/${button.name}` });
   };
   return (
     <Fragment>
@@ -80,7 +89,7 @@ const Search: React.FC = Props => {
           <AutoComplete
             title={"Patient Name"}
             options={options?.nameList}
-            selected={selectedPatient}
+            selected={(selected: any) => selectedPatient(selected, "fullName")}
           />
           <br />
           <AutoComplete
@@ -112,7 +121,7 @@ const Search: React.FC = Props => {
                 className="bttn-custom"
                 style={{ float: "left" }}
                 disabled={searchedPatient == null}
-                onClick={e => handleClick(e)}
+                onClick={(e) => handleClick(e)}
                 name="history"
               >
                 Edit History

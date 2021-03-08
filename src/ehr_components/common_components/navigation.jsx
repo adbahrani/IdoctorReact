@@ -5,7 +5,7 @@ export class Navigation extends Component {
     return (
       <nav
         id="menu"
-        className="navbar  navbar-expand-lg navbar-light bg-light  "
+        className="navbar  navbar-expand-sm navbar-light bg-light  "
       >
         <a className="navbar-brand page-scroll" href="/">
           IDoctor

@@ -5,7 +5,7 @@ export class Navigation extends Component {
     return (
       <nav
         id="menu"
-        className="navbar navbar-default navbar-expand-lg navbar-light fixed-top"
+        className="navbar navbar-default navbar-expand-sm navbar-light fixed-top"
       >
         <a className="navbar-brand page-scroll" href="#page-top">
           IDoctor
@@ -39,21 +39,21 @@ export class Navigation extends Component {
                 Services
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a href="#portfolio" className="nav-link page-scroll">
                 Gallery
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a href="#testimonials" className="nav-link page-scroll">
                 Testimonials
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a href="#team" className="nav-link page-scroll">
                 Team
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a href="#contact" className=" nav-link page-scroll">
                 Contact

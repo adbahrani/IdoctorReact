@@ -49,10 +49,13 @@ const Search: React.FC = (Props) => {
   let selectedPatient = (selected: any, type: string) => {
     // console.log(selected ? selected[0].label : null);
     // console.log("LIST", patientsList);
-    setSearchedPatient({ [type]: selected[0].label });
+
     for (let patient of patientsList) {
       //console.log("found", patient[type]);
-      if (patient[type] == selected[0].label) console.log("found", patient);
+      if (patient[type] == selected[0].label) {
+        console.log("found", patient);
+        setSearchedPatient(patient);
+      }
     }
   };
 
@@ -65,8 +68,8 @@ const Search: React.FC = (Props) => {
   let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     let button = e.target as HTMLInputElement;
     console.log(button.name);
-
-    history.push({ pathname: `/main/${button.name}` });
+    // console.log(searchedPatient);}
+    history.push({ pathname: `/main/${button.name}`, state: searchedPatient });
   };
   return (
     <Fragment>

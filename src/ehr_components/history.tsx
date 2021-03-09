@@ -1,14 +1,29 @@
+import { Link, useHistory } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
-import { useState } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
+
 import Field from "./ui/field";
 import TextArea from "./ui/textarea";
 import Radio from "./ui/radio";
 import AutoComplete from "./ui/autoComplete";
 import { bloodGroups, diseases, yesOrNoOptions } from "./data/patient-history";
 import Button from "./ui/button";
+import userEvent from "@testing-library/user-event";
 
 export interface HistoryProps {
   added: Function;
+}
+
+interface User {
+  address?: string;
+  age?: string;
+  dob?: string;
+  fullName: string;
+  gender?: string;
+  job?: string;
+  label?: string;
+  maritialStatus?: string;
+  number?: string;
 }
 
 const initialState: any = {
@@ -19,11 +34,19 @@ const initialState: any = {
   chronic_diseases: "",
   chronic_drug_usage: "yes",
   smoking_status: "no",
-  alcohol: "yes"
+  alcohol: "yes",
 };
 
-const History: React.FC<HistoryProps> = props => {
+const History: React.FC<HistoryProps> = (props) => {
   let [medicalHistory, setMedicalHistory] = useState(initialState);
+  // let [currentUser, setMedicalHistory] = useState(initialState);
+
+  const history = useHistory();
+  let currentUser: User = history.location.state as User;
+  useEffect(() => {
+    //currentUser.fullName = history.location.state.fullName.toString();
+    // currentUser = history.location.state as User;
+  });
 
   let handleClick = () => {
     toastr.success("Patient Medical History", "Added Successfully");
@@ -78,17 +101,17 @@ const History: React.FC<HistoryProps> = props => {
                   value={medicalHistory.previous_admission}
                   onChange={handleFieldChange}
                 />
-                {
-                  medicalHistory.previous_admission === 'yes' ? (
-                  <TextArea 
+                {medicalHistory.previous_admission === "yes" ? (
+                  <TextArea
                     className="mt-2"
                     name="previous_admission_description"
                     placeholder="Add details about the previous admission"
                     value={medicalHistory.previous_admission_description}
                     onChange={handleFieldChange}
                   />
-                  ) : <></>
-                }
+                ) : (
+                  <></>
+                )}
               </>
             </Field>
 
@@ -100,17 +123,17 @@ const History: React.FC<HistoryProps> = props => {
                   value={medicalHistory.past_surgery}
                   onChange={handleFieldChange}
                 />
-                {
-                  medicalHistory.past_surgery === 'yes' ? (
-                  <TextArea 
+                {medicalHistory.past_surgery === "yes" ? (
+                  <TextArea
                     className="mt-2"
                     name="past_surgery_description"
                     placeholder="Add details about the past surgery"
                     value={medicalHistory.past_surgery_description}
                     onChange={handleFieldChange}
                   />
-                  ) : <></>
-                }
+                ) : (
+                  <></>
+                )}
               </>
             </Field>
 
@@ -140,17 +163,17 @@ const History: React.FC<HistoryProps> = props => {
                   value={medicalHistory.drug_allergy}
                   onChange={handleFieldChange}
                 />
-                {
-                  medicalHistory.drug_allergy === 'yes' ? (
-                  <TextArea 
+                {medicalHistory.drug_allergy === "yes" ? (
+                  <TextArea
                     className="mt-2"
                     name="drug_allergy_description"
                     placeholder="Add details about the drug allergies"
                     value={medicalHistory.drug_allergy_description}
                     onChange={handleFieldChange}
                   />
-                  ) : <></>
-                }
+                ) : (
+                  <></>
+                )}
               </>
             </Field>
 
@@ -211,7 +234,7 @@ const History: React.FC<HistoryProps> = props => {
                 alt="Patient"
               />
               <div className="card-body">
-                <h5 className="card-title">Joey</h5>
+                <h5 className="card-title">{currentUser.fullName}</h5>
                 <a href="#" className="btn btn-primary">
                   Update Image
                 </a>

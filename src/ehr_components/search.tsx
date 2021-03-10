@@ -73,10 +73,6 @@ const Search: React.FC = (Props) => {
   };
   return (
     <Fragment>
-      <button>
-        <Link to="/main/history">Add a User</Link>
-      </button>
-
       <div className="container pt-2">
         <Fragment>
           <button

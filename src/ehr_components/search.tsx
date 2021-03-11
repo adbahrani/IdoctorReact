@@ -42,7 +42,9 @@ const Search: React.FC = (Props) => {
 
   let updateOptions = (lists: any) => {
     setOptions(lists);
-    console.log(lists.nameList);
+    console.log("Namelist", lists.nameList);
+    // console.log("Namelist", lists.nameList);
+    // console.log("Namelist", lists.nameList);
     //  console.log(options);
   };
 

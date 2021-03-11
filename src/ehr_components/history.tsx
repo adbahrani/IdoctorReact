@@ -8,12 +8,16 @@ import Radio from "./ui/radio";
 import AutoComplete from "./ui/autoComplete";
 import { bloodGroups, diseases, yesOrNoOptions } from "./data/patient-history";
 import Button from "./ui/button";
+import Axios from "axios";
 import userEvent from "@testing-library/user-event";
 
 export interface HistoryProps {
   added: Function;
 }
 
+interface History {
+  note?: string;
+}
 interface User {
   address?: string;
   age?: string;
@@ -24,6 +28,7 @@ interface User {
   label?: string;
   maritialStatus?: string;
   number?: string;
+  history?: History;
 }
 
 const initialState: any = {
@@ -34,23 +39,33 @@ const initialState: any = {
   chronic_diseases: "",
   chronic_drug_usage: "yes",
   smoking_status: "no",
-  alcohol: "yes",
+  alcohol: "yes"
 };
 
-const History: React.FC<HistoryProps> = (props) => {
-  let [medicalHistory, setMedicalHistory] = useState(initialState);
-  // let [currentUser, setMedicalHistory] = useState(initialState);
+const firebaseURl =
+  "https://idoctorpwa-default-rtdb.firebaseio.com/patients.json";
 
+const History: React.FC<HistoryProps> = props => {
+  let [medicalHistory, setMedicalHistory] = useState(initialState);
   const history = useHistory();
   let currentUser: User = history.location.state as User;
-  useEffect(() => {
-    //currentUser.fullName = history.location.state.fullName.toString();
-    // currentUser = history.location.state as User;
-  });
 
-  let handleClick = () => {
-    toastr.success("Patient Medical History", "Added Successfully");
+  useEffect(() => {
+    console.log(currentUser.history?.note);
+    setMedicalHistory({ ...medicalHistory, notes: currentUser.history?.note });
+  }, []);
+
+  let handleClick = async () => {
     console.log(medicalHistory);
+
+    // try {
+    //   var callResults = await Axios.post(firebaseURl, medicalHistory);
+    //   //history.push(`/main/search#success`);
+    //   toastr.success("Patient Medical History", "Added Successfully");
+    // } catch (error) {
+    //   toastr.error("Error:", error.message);
+    // }
+    toastr.success("Patient Medical History", "Added Successfully");
   };
 
   function handleFieldChange(

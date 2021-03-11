@@ -16,6 +16,9 @@ const NewPatient: React.FC<NewPatientProps> = props => {
     address: "",
     job: "",
     gender: "",
+    history: {
+      note: ""
+    },
     maritialStatus: "",
     number: ""
   });
@@ -146,7 +149,7 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               <input
                 className="form-check-input p-5"
                 type="radio"
-                name="gender"
+                name="inlineRadioOptions"
                 id="inlineRadio1"
                 value={gender}
                 onChange={e => updateFormData(e)}
@@ -173,10 +176,10 @@ const NewPatient: React.FC<NewPatientProps> = props => {
                 className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
-                id="inlineRadio2"
+                id="inlineRadio3"
                 value={gender}
               />
-              <label className="form-check-label" htmlFor="inlineRadio2">
+              <label className="form-check-label" htmlFor="inlineRadio3">
                 Intersex
               </label>
             </div>
@@ -187,8 +190,9 @@ const NewPatient: React.FC<NewPatientProps> = props => {
               className="form-control"
               id="state_id"
               value={maritialStatus}
+              onChange={e => updateFormData(e)}
             >
-              <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 Marital Status
               </option>
               <option value="S">Single</option>

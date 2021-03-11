@@ -4,7 +4,6 @@ import { ClearButton, Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function AutoComplete(props) {
-
   let { options, multiple } = props;
 
   const [focus, setCount] = useState(false);
@@ -15,7 +14,7 @@ function AutoComplete(props) {
     <Fragment>
       <Typeahead
         id="onclear-example"
-        options={options}
+        options={options ? options : []}
         onChange={selected => {
           if (selected.length != 0) props.selected(selected);
           else props.selected(null);

@@ -6,7 +6,7 @@ import AutoComplete from "./ui/autoComplete";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import NewPatient from "./newPatient";
 
-const Search: React.FC = (Props) => {
+const Search: React.FC = Props => {
   const [fouce, setCount] = useState(false);
   const [newPatient, setNewPatient] = useState(false);
   const [searchedPatient, setSearchedPatient] = useState<any>(null);
@@ -21,19 +21,20 @@ const Search: React.FC = (Props) => {
     let numberList: any[] = [];
     let DOBList: any[] = [];
     fetch("https://idoctorpwa-default-rtdb.firebaseio.com/patients.json")
-      .then((response) => response.json())
-      .then((res) => {
+      .then(response => response.json())
+      .then(res => {
         let list: any[] = [];
         for (var id in res) {
           list.push(res[id]);
           // console.log(res[id], id);
-          if (res[id].fullName.trim())
+          if (res[id]?.fullName?.trim())
             nameList.push({
-              label: res[id].fullName,
+              label: res[id].fullName
             });
 
-          if (res[id].dob.trim()) DOBList.push({ label: res[id].dob });
-          if (res[id].number.trim()) numberList.push({ label: res[id].number });
+          if (res[id].dob?.trim()) DOBList.push({ label: res[id].dob });
+          if (res[id].number?.trim())
+            numberList.push({ label: res[id].number });
         }
         setPatientsList(list);
         updateOptions({ nameList, numberList, DOBList });
@@ -122,7 +123,7 @@ const Search: React.FC = (Props) => {
                 className="bttn-custom"
                 style={{ float: "left" }}
                 disabled={searchedPatient == null}
-                onClick={(e) => handleClick(e)}
+                onClick={e => handleClick(e)}
                 name="history"
               >
                 Edit History

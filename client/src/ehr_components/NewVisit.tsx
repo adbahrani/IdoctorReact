@@ -22,6 +22,7 @@ const initialVisitState: PatientVisit = {
   complaint: "",
   present_illness_history: "",
   other_system_review: "",
+  other_system_review_description: "",
   bp_dia: "",
   bp_sys: "",
   pulse_rate: "",
@@ -32,6 +33,7 @@ const initialVisitState: PatientVisit = {
   height: "",
   bmi: "",
   lab_investigation: "",
+  lab_investigation_description: "",
   diagnosis: "",
   treatment: "",
   is_free: "",
@@ -43,6 +45,7 @@ const initialVisitState: PatientVisit = {
 
 const NewVisit: React.FC<VisitProps> = () => {
   let history = useHistory();
+  const [changedField, setChangedField] = useState("");
   let { state: patientState } = useLocation<Patient>();
 
   let [medicalVisit, setMedicalVisit] = useState<PatientVisit>({
@@ -59,6 +62,7 @@ const NewVisit: React.FC<VisitProps> = () => {
         HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
       >
     ) => {
+      setChangedField(fieldName);
       let { value } = event.target;
       setMedicalVisit(prevState => {
         let newState = { ...prevState };
@@ -72,6 +76,7 @@ const NewVisit: React.FC<VisitProps> = () => {
   let fieldData = generateNewVisitFields({
     onChangeHandler: handleFieldChange,
     isFormSubmitted,
+    changedField,
     formData: medicalVisit
   });
 

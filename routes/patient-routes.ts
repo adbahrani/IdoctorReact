@@ -14,15 +14,11 @@ patientRoutes.post(
     check("dob").isDate().withMessage("is an invalid date format"),
     check("gender").not().isEmpty().withMessage("must not be empty"),
     check("phoneNumber")
-      .isMobilePhone("en-US")
-      .withMessage("is an invalid US phone number"),
-    check("address").not().isEmpty().withMessage("must not be empty"),
-    check("zipCode")
-      .isPostalCode("US")
-      .withMessage("is an invalid US postal code"),
+      .isMobilePhone("ar-IQ")
+      .withMessage("is an invalid phone number"),
     check("maritalStatus")
       .isAlphanumeric("en-US")
-      .withMessage("must only contain US alphanumeric characters")
+      .withMessage("must only contain alphanumeric characters")
       .isLength({ min: 1, max: 1 })
       .withMessage("must only contain 1 character")
   ],

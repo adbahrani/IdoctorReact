@@ -7,6 +7,7 @@ export interface PatientVisit {
   complaint: string;
   present_illness_history: string;
   other_system_review: string;
+  other_system_review_description: string;
   bp_dia: string;
   bp_sys: string;
   pulse_rate: string;
@@ -17,6 +18,7 @@ export interface PatientVisit {
   height: string;
   bmi: string;
   lab_investigation: string;
+  lab_investigation_description: string;
   diagnosis: string;
   treatment: string;
   is_free: string;
@@ -35,10 +37,11 @@ interface NewVisitFieldParams {
   ) => void;
   isFormSubmitted: boolean;
   formData: PatientVisit;
+  changedField: string;
 }
 
 export default function generateNewVisitFields(params: NewVisitFieldParams) {
-  let { onChangeHandler, isFormSubmitted, formData } = params;
+  let { onChangeHandler, isFormSubmitted, formData, changedField } = params;
 
   let fieldData = [
     {
@@ -85,6 +88,18 @@ export default function generateNewVisitFields(params: NewVisitFieldParams) {
       value: formData.other_system_review,
       options: reviewsOptions,
       onChange: onChangeHandler
+    },
+    {
+      label: "Other System Review Description",
+      name: "other_system_review_description",
+      type: "Textarea",
+      placeholder: "Add details about the other system review",
+      onChange: onChangeHandler,
+      value: formData.other_system_review_description,
+      display: formData.other_system_review === "not_normal",
+      fadeIn:
+        formData.other_system_review === "not_normal" &&
+        changedField === "other_system_review"
     },
     {
       name: "blood_pressure"
@@ -159,6 +174,18 @@ export default function generateNewVisitFields(params: NewVisitFieldParams) {
       value: formData.lab_investigation,
       options: labInvOptions,
       onChange: onChangeHandler
+    },
+    {
+      label: "Lab Investigation Description",
+      name: "lab_investigation_description",
+      type: "Textarea",
+      placeholder: "Add details about Lab Investigation Description",
+      onChange: onChangeHandler,
+      value: formData.lab_investigation_description,
+      display: formData.lab_investigation === "required",
+      fadeIn:
+        formData.lab_investigation === "required" &&
+        changedField === "lab_investigation"
     },
     {
       label: "Diagnosis",

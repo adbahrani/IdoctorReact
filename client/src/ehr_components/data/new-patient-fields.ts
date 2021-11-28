@@ -136,13 +136,13 @@ export default function generateNewPatientFields(
       inputType: "text",
       placeholder: "Zip Code",
       onChange: onChangeHandler,
-      validateValue: (value: string) => {
-        let countDigitsRegex = /\d/g;
-        let regexMatch = value.match(countDigitsRegex);
-        return regexMatch !== null ? regexMatch.length === 5 : false;
-      },
+      // validateValue: (value: string) => {
+      //   let countDigitsRegex = /\d/g;
+      //   let regexMatch = value.match(countDigitsRegex);
+      //   return regexMatch !== null ? regexMatch.length === 5 : false;
+      // },
       value: formData.zipCode,
-      errorMessage: "Please enter a 5 digit zip code",
+      // errorMessage: "Please enter a 5 digit zip code",
       isFormSubmitted: isFormSubmitted
     },
     {

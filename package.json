@@ -8,6 +8,7 @@
     "prod:start": "ts-node server.ts",
     "watch-local": "concurrently \"nodemon server.ts\" \"cd client && npm start\"",
     "watch-dev": "concurrently \"nodemon -r dotenv/config server.ts\" \"cd client && npm start\"",
+    "watch-be-local": "nodemon -r dotenv/config server.ts",
     "install": "cd client && npm i",
     "build": "cd client && npm run build",
     "seed-local": "ts-node seeders/userSeed.ts",

@@ -31,7 +31,7 @@ export const patientHistorySchema = new Schema({
   blood_group: { type: String },
   smoking_status: { type: String },
   alcohol: { type: String },
-  notes: { type: String }
+  notes: { type: String },
 });
 
 export interface IPatient {
@@ -40,7 +40,7 @@ export interface IPatient {
   gender: string;
   phoneNumber: string;
   address: string;
-  zipCode: string;
+  zipCode?: string;
   maritalStatus: string;
   job?: string;
   profileImage?: mongoose.Types.ObjectId;
@@ -51,47 +51,46 @@ export interface IPatient {
 const patientSchema = new Schema<IPatient>({
   fullName: {
     type: String,
-    required: true
+    required: true,
   },
   dob: {
     type: String,
-    required: true
+    required: true,
   },
   gender: {
     type: String,
-    required: true
+    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   zipCode: {
     type: String,
-    required: true
   },
   maritalStatus: {
     type: String,
-    required: true
+    required: true,
   },
   profileImage: {
     type: mongoose.Types.ObjectId,
-    ref: "PatientImage"
+    ref: "PatientImage",
   },
   job: {
-    type: String
+    type: String,
   },
   history: patientHistorySchema,
   visits: [
-    { type: mongoose.Types.ObjectId, required: true, ref: "PatientVisit" }
+    { type: mongoose.Types.ObjectId, required: true, ref: "PatientVisit" },
   ],
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 const PatientModel = model<IPatient>("Patient", patientSchema);

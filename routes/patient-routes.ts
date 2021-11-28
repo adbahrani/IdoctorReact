@@ -11,11 +11,10 @@ patientRoutes.post(
   "",
   [
     check("fullName").not().isEmpty().withMessage("must not be empty"),
-    check("dob").isDate().withMessage("is an invalid date format"),
     check("gender").not().isEmpty().withMessage("must not be empty"),
-    check("phoneNumber")
-      .isMobilePhone("ar-IQ")
-      .withMessage("is an invalid phone number"),
+    // check("phoneNumber")
+    //   .isMobilePhone("ar-IQ")
+    //   .withMessage("is an invalid phone number"),
     check("maritalStatus")
       .isAlphanumeric("en-US")
       .withMessage("must only contain alphanumeric characters")

@@ -40,14 +40,15 @@ export default function generateNewPatientFields(
       label: "Date of Birth",
       name: "dob",
       type: "Input",
-      inputType: "date",
+      inputType: "text",
       onChange: onChangeHandler,
       validateValue: (value: string) => {
-        let dateRegex = /\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/;
-        return dateRegex.test(value);
+        let timestamp = new Date(value)
+        console.log(timestamp.getTime())
+        return isNaN(timestamp.getTime()) ? false: true ;
       },
       value: formData.dob,
-      errorMessage: "Please select a date",
+      errorMessage: "Please enter a valid date",
       isFormSubmitted: isFormSubmitted
     },
     {

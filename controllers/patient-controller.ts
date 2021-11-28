@@ -16,7 +16,7 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
   return res.json({
     patients: patients.map((patient) => {
       return patient.toObject({ getters: true });
-    }),
+    })
   });
 };
 
@@ -35,7 +35,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
     address,
     zipCode,
     maritalStatus,
-    job = "",
+    job = ""
   } = req.body;
 
   let createdPatient = new PatientModel({
@@ -48,7 +48,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
     maritalStatus,
     job,
     history: {},
-    visits: [],
+    visits: []
   });
 
   try {
@@ -82,7 +82,7 @@ const updateHistory: RequestHandler = async (req, res, next) => {
     blood_group,
     smoking_status,
     alcohol,
-    notes,
+    notes
   } = req.body;
 
   let foundPatient: (IPatient & Document<any, any, IPatient>) | null;
@@ -138,6 +138,7 @@ const patientController = {
   getAllPatients,
   createPatient,
   updateHistory,
+  deletePatient
 };
 
 export default patientController;

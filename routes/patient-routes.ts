@@ -30,10 +30,8 @@ patientRoutes.patch(
   patientController.updateHistory
 );
 
-patientRoutes.delete(
-  "/:patientId",
+patientRoutes.get("/:patientId", patientController.getPatient);
 
-  patientController.deletePatient
-);
+patientRoutes.delete("/:patientId", patientController.deletePatient);
 
 export default patientRoutes;

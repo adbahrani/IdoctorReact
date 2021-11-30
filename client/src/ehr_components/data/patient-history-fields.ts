@@ -114,7 +114,7 @@ export default function generatePatientHistoryFields(
     },
     {
       label: "Alcohol Drinking",
-      name: "alochol",
+      name: "alcohol",
       type: "Radio",
       value: formData.alcohol,
       options: yesOrNoOptions,

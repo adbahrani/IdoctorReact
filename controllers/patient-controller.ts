@@ -14,9 +14,9 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
   }
 
   return res.json({
-    patients: patients.map((patient) => {
+    patients: patients.map(patient => {
       return patient.toObject({ getters: true });
-    }),
+    })
   });
 };
 
@@ -35,7 +35,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
     address,
     zipCode,
     maritalStatus,
-    job = "",
+    job = ""
   } = req.body;
 
   let createdPatient = new PatientModel({
@@ -48,7 +48,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
     maritalStatus,
     job,
     history: {},
-    visits: [],
+    visits: []
   });
 
   try {
@@ -67,27 +67,11 @@ const updateHistory: RequestHandler = async (req, res, next) => {
     return validationError;
   }
 
-  const {
-    patient,
-    chronic_diseases,
-    previous_admission,
-    previous_admission_description,
-    past_surgery,
-    past_surgery_description,
-    fractures,
-    family_history,
-    drug_allergy,
-    drug_allergy_description,
-    chronic_drug_usage,
-    blood_group,
-    smoking_status,
-    alcohol,
-    notes,
-  } = req.body;
+  let requestBody = req.body;
 
   let foundPatient: (IPatient & Document<any, any, IPatient>) | null;
   try {
-    foundPatient = await PatientModel.findById(patient);
+    foundPatient = await PatientModel.findById(requestBody.patient);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -98,31 +82,7 @@ const updateHistory: RequestHandler = async (req, res, next) => {
       .json({ message: "Could not find patient for given patient ID" });
   }
 
-  if (chronic_diseases !== undefined)
-    foundPatient.history.chronic_diseases = chronic_diseases;
-  if (previous_admission !== undefined)
-    foundPatient.history.previous_admission = previous_admission;
-  if (previous_admission_description !== undefined)
-    foundPatient.history.previous_admission_description =
-      previous_admission_description;
-  if (past_surgery !== undefined)
-    foundPatient.history.past_surgery = past_surgery;
-  if (past_surgery_description !== undefined)
-    foundPatient.history.past_surgery_description = past_surgery_description;
-  if (fractures !== undefined) foundPatient.history.fractures = fractures;
-  if (family_history !== undefined)
-    foundPatient.history.family_history = family_history;
-  if (drug_allergy !== undefined)
-    foundPatient.history.drug_allergy = drug_allergy;
-  if (drug_allergy_description !== undefined)
-    foundPatient.history.drug_allergy_description = drug_allergy_description;
-  if (chronic_drug_usage !== undefined)
-    foundPatient.history.chronic_drug_usage = chronic_drug_usage;
-  if (blood_group !== undefined) foundPatient.history.blood_group = blood_group;
-  if (smoking_status !== undefined)
-    foundPatient.history.smoking_status = smoking_status;
-  if (alcohol !== undefined) foundPatient.history.alcohol = alcohol;
-  if (notes !== undefined) foundPatient.history.notes = notes;
+  foundPatient.history = requestBody;
 
   let updatedPatient: (IPatient & Document<any, any, IPatient>) | null;
   try {
@@ -134,10 +94,69 @@ const updateHistory: RequestHandler = async (req, res, next) => {
   res.json({ patient: updatedPatient });
 };
 
+const deletePatient: RequestHandler = async (req, res, next) => {
+  const validationError = validationErrorHandler(req, res);
+
+  let patientId = req.params.patientId;
+  console.log(req.params);
+
+  if (validationError) {
+    return validationError;
+  }
+
+  let foundPatient: (IPatient & Document<any, any, IPatient>) | null;
+  try {
+    foundPatient = await PatientModel.findById(patientId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (!foundPatient) {
+    return res
+      .status(404)
+      .json({ message: "Could not find patient for given patient ID" });
+  }
+
+  try {
+    foundPatient = await foundPatient.delete();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.status(204).json({ patient: foundPatient });
+};
+
+const getPatient: RequestHandler = async (req, res, next) => {
+  const validationError = validationErrorHandler(req, res);
+
+  if (validationError) {
+    return validationError;
+  }
+
+  let requestBodyParams = req.params;
+
+  let foundPatient: (IPatient & Document<any, any, IPatient>) | null;
+  try {
+    foundPatient = await PatientModel.findById(requestBodyParams.patientId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (!foundPatient) {
+    return res
+      .status(404)
+      .json({ message: "Could not find patient for given patient ID" });
+  }
+
+  res.json({ patient: foundPatient });
+};
+
 const patientController = {
   getAllPatients,
+  getPatient,
   createPatient,
   updateHistory,
+  deletePatient
 };
 
 export default patientController;

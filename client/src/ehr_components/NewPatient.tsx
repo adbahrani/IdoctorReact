@@ -61,7 +61,7 @@ const NewPatient: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     let { value } = event.target;
-    setFormData(prevState => {
+    setFormData((prevState) => {
       let newState = { ...prevState };
       newState[fieldName] = value;
       return newState;
@@ -93,9 +93,9 @@ const NewPatient: React.FC = () => {
 
   let handleClick = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsFormSubmitted(true);
 
     if (formIsValid) {
+      setIsFormSubmitted(true);
       try {
         let patientData = {
           ...formData,
@@ -106,6 +106,7 @@ const NewPatient: React.FC = () => {
         toastr.success("New Patient", "Added Successfuly");
         history.push(`/main/search`);
       } catch (error: any) {
+        setIsFormSubmitted(false);
         let message;
         if (error.response) {
           if (error.response.data.errors) {
@@ -136,7 +137,9 @@ const NewPatient: React.FC = () => {
           })}
 
           <div className="form-group">
-            <button className="bttn-custom">Add</button>
+            <button className="bttn-custom" disabled={isFormSubmitted}>
+              {isFormSubmitted ? "Adding..." : "Add"}
+            </button>
           </div>
         </form>
       </div>

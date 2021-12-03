@@ -64,7 +64,7 @@ const NewVisit: React.FC<VisitProps> = () => {
     ) => {
       setChangedField(fieldName);
       let { value } = event.target;
-      setMedicalVisit(prevState => {
+      setMedicalVisit((prevState) => {
         let newState = { ...prevState };
         newState[fieldName as keyof PatientVisit] = value;
         return newState;
@@ -101,9 +101,9 @@ const NewVisit: React.FC<VisitProps> = () => {
 
   let handleClick = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsFormSubmitted(true);
 
     if (invalidFields.length === 0) {
+      setIsFormSubmitted(true);
       try {
         let response = await Axios.post("/api/visits", medicalVisit);
         console.log("CREATED VISIT", response.data.visit);
@@ -122,9 +122,10 @@ const NewVisit: React.FC<VisitProps> = () => {
           message = error.message;
         }
         toastr.error("New Patient", message);
+        setIsFormSubmitted(false);
       }
     } else {
-      let namesOfInvalidFields = invalidFields.map(field => {
+      let namesOfInvalidFields = invalidFields.map((field) => {
         return field.label;
       });
       let message = namesOfInvalidFields.join(", ");
@@ -132,7 +133,7 @@ const NewVisit: React.FC<VisitProps> = () => {
     }
   };
 
-  let fields = fieldData.map(field => {
+  let fields = fieldData.map((field) => {
     let { name } = field;
 
     // special handling for blood pressure as it has two different inputs
@@ -179,7 +180,11 @@ const NewVisit: React.FC<VisitProps> = () => {
         <form className="col-md-8 col-lg-9" onSubmit={handleClick}>
           {fields}
           <div className="form-group">
-            <button className="bttn-custom">Add Visit Details</button>
+            <button className="bttn-custom" disabled={isFormSubmitted}>
+              {isFormSubmitted
+                ? "Adding Visit Details..."
+                : "Add Visit Details"}
+            </button>
           </div>
         </form>
       </div>

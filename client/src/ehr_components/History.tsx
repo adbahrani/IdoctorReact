@@ -39,6 +39,7 @@ const initialHistoryState: PatientHistoryRendered = {
 
 const History: React.FC = () => {
   let history = useHistory();
+  const [updating, setUpdating] = useState(false);
   let { state: patientState } = useLocation<Patient>();
 
   const [changedField, setChangedField] = useState("");
@@ -73,7 +74,7 @@ const History: React.FC = () => {
     setChangedField(fieldName);
 
     let { value } = event.target;
-    setMedicalHistory(prevState => {
+    setMedicalHistory((prevState) => {
       let newState = { ...prevState };
       newState[fieldName as keyof PatientHistory] = value;
       return newState;
@@ -82,7 +83,7 @@ const History: React.FC = () => {
 
   function handleBloodGroupChange(options: Array<any>) {
     let value = options && options[0] ? options[0].label : "";
-    setMedicalHistory(prevState => {
+    setMedicalHistory((prevState) => {
       let newState = { ...prevState };
       newState.blood_group = value;
       return newState;
@@ -90,8 +91,8 @@ const History: React.FC = () => {
   }
 
   function handleDiseaseChange(options: Array<any>) {
-    let selected = options.map(option => ({ label: option.label }));
-    setMedicalHistory(prevState => {
+    let selected = options.map((option) => ({ label: option.label }));
+    setMedicalHistory((prevState) => {
       let newState = { ...prevState };
       newState.chronic_diseases = selected;
       return newState;
@@ -106,10 +107,10 @@ const History: React.FC = () => {
 
   let handleClick = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setUpdating((prev) => !prev);
     try {
       let chronic_diseases = medicalHistory.chronic_diseases.map(
-        disease => disease.label
+        (disease) => disease.label
       );
       let response = await Axios.patch("/api/patient/history", {
         ...medicalHistory,
@@ -131,10 +132,11 @@ const History: React.FC = () => {
         message = error.message;
       }
       toastr.error("Patient History", message);
+      setUpdating((prev) => !prev);
     }
   };
 
-  let fields = fieldData.map(field => {
+  let fields = fieldData.map((field) => {
     if (field.name === "chronic_diseases") {
       return (
         <Field
@@ -191,7 +193,9 @@ const History: React.FC = () => {
         <form className="col-md-8 col-lg-9" onSubmit={handleClick}>
           {fields}
           <div className="form-group">
-            <button className="bttn-custom">Update</button>
+            <button className="bttn-custom" disabled={updating}>
+              {updating ? "Updating..." : "Update"}
+            </button>
           </div>
         </form>
       </div>

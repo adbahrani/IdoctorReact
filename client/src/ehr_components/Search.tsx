@@ -6,28 +6,16 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import SearchTable from "./SearchTable/";
 import { Patient } from "./NewPatient";
 
-const Search: React.FC = Props => {
+const Search: React.FC = (Props) => {
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
   const history = useHistory();
 
+  const getPatientsList = async () => {
+    setPatientsList(await getPatients());
+  };
+
   useEffect(() => {
-    console.log(new Date(Date.now()).toISOString(), "FETCHING PATIENTS");
-
-    let getPatients = async () => {
-      let {
-        data: { patients }
-      } = await Axios.get("/api/patient/all");
-
-      console.log(
-        new Date(Date.now()).toISOString(),
-        "RETRIEVED PATIENTS",
-        patients
-      );
-
-      setPatientsList(patients);
-    };
-
-    getPatients();
+    getPatientsList();
   }, []);
 
   let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -48,10 +36,21 @@ const Search: React.FC = Props => {
         >
           Add New Patient
         </button>
-        <SearchTable patientsList={patientsList} />
+        <SearchTable
+          patientsList={patientsList}
+          updateTable={getPatientsList}
+        />
       </div>
     </Fragment>
   );
 };
 
 export default Search;
+
+const getPatients = async (): Promise<Patient[]> => {
+  let {
+    data: { patients }
+  } = await Axios.get("/api/patient/all");
+
+  return patients;
+};

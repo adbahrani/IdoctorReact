@@ -1,25 +1,25 @@
-import { Fragment, useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { CellProps } from "react-table";
 import axios from "axios";
 import { toastr } from "react-redux-toastr";
 
-export default function ActionsCell<T extends Record<string, unknown>>(
-  cell: React.PropsWithChildren<CellProps<T>>
-) {
-  let patient = useState(cell.data[cell.row.index].patient)[0];
+export default function ActionsCell(props: any) {
+  let { updateTable, row } = props;
+  let { patient } = row.original;
   let visitsCount = patient.visits.length;
+
   const history = useHistory();
 
   let toastrConfirmOptions = {
     onOk: async () => {
       try {
         await axios.delete("/api/patient/" + patient.id);
+        updateTable();
         toastr.success(
           "Deleted",
           "Patient:" + patient.fullName + " Has been deleted"
         );
-        setTimeout(() => window.location.reload(), 500);
       } catch (err) {
         toastr.error(
           "Unable to Delete",
@@ -45,7 +45,7 @@ export default function ActionsCell<T extends Record<string, unknown>>(
   };
 
   return (
-    <Fragment>
+    <>
       <div className="text-left text-md-right">
         <button
           disabled={visitsCount === 0}
@@ -79,6 +79,6 @@ export default function ActionsCell<T extends Record<string, unknown>>(
           Delete
         </button>
       </div>
-    </Fragment>
+    </>
   );
 }

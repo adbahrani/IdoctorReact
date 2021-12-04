@@ -9,6 +9,7 @@ import { columnStyles, columnWidths } from "./styles";
 
 type SearchTableProps = {
   patientsList: Patient[];
+  updateTable: Function;
 };
 
 type TableData = {
@@ -20,7 +21,7 @@ type TableData = {
 };
 
 export default function SearchTable(props: SearchTableProps) {
-  let { patientsList } = props;
+  let { patientsList, updateTable } = props;
 
   const columns: Array<Column<TableData>> = useMemo(
     () => [
@@ -60,14 +61,14 @@ export default function SearchTable(props: SearchTableProps) {
         style: columnStyles,
         disableFilters: true,
         disableSortBy: true,
-        Cell: ActionsCell
+        Cell: ({ row }) => <ActionsCell row={row} updateTable={updateTable} />
       }
     ],
     []
   );
 
   const data = useMemo(() => {
-    return patientsList.map(patient => {
+    return patientsList.map((patient) => {
       let { fullName, dob, phoneNumber } = patient;
       let formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
         3,

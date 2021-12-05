@@ -44,6 +44,7 @@ export interface Patient extends ObjectKeyAccess {
 
 const NewPatient: React.FC = () => {
   const history = useHistory();
+  const [adding, setAdding] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<Patient>({
     fullName: "",
@@ -94,8 +95,9 @@ const NewPatient: React.FC = () => {
   let handleClick = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setIsFormSubmitted(true);
     if (formIsValid) {
-      setIsFormSubmitted(true);
+      setAdding(true);
       try {
         let patientData = {
           ...formData,
@@ -103,7 +105,7 @@ const NewPatient: React.FC = () => {
         };
         let response = await Axios.post("/api/patient", patientData);
         console.log("CREATED PATIENT", response.data.patient);
-        toastr.success("New Patient", "Added Successfuly");
+        toastr.success("New Patient", "Added Successfully");
         history.push(`/main/search`);
       } catch (error: any) {
         setIsFormSubmitted(false);
@@ -120,6 +122,13 @@ const NewPatient: React.FC = () => {
         }
         toastr.error("New Patient", message);
       }
+    } else {
+      setAdding(false);
+      let emptyFields = fieldsMap.filter(
+        (f) => f.value.trim() === "" && f.validateValue
+      );
+      let required = emptyFields.map((f) => f.label);
+      toastr.warning("Please fill in all required fields", required.join(", "));
     }
   };
 
@@ -130,15 +139,14 @@ const NewPatient: React.FC = () => {
         <form
           className="col-12 col-md-10 col-lg-8 mx-auto"
           onSubmit={handleClick}
-          noValidate
         >
           {fieldsMap.map((field: { name: string }) => {
             return <FieldRenderer field={field} key={field.name} />;
           })}
 
           <div className="form-group">
-            <button className="bttn-custom" disabled={isFormSubmitted}>
-              {isFormSubmitted ? "Adding..." : "Add"}
+            <button className="bttn-custom" disabled={adding}>
+              {adding ? "Adding..." : "Add"}
             </button>
           </div>
         </form>

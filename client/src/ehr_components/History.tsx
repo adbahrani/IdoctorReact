@@ -31,6 +31,7 @@ const initialHistoryState: PatientHistoryRendered = {
   drug_allergy: "",
   drug_allergy_description: "",
   chronic_drug_usage: "",
+  chronic_drug_usage_description: "",
   blood_group: "",
   smoking_status: "",
   alcohol: "",

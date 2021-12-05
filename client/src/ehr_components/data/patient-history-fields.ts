@@ -102,6 +102,18 @@ export default function generatePatientHistoryFields(
       onChange: onChangeHandler
     },
     {
+      label: "Chronic Use of Drugs Description",
+      name: "chronic_drug_usage_description",
+      type: "Textarea",
+      placeholder: "Add details about chronic use of drugs",
+      onChange: onChangeHandler,
+      value: formData.chronic_drug_usage_description,
+      display: formData.chronic_drug_usage === "yes",
+      fadeIn:
+        formData.chronic_drug_usage === "yes" &&
+        changedField === "chronic_drug_usage"
+    },
+    {
       name: "blood_group"
     },
     {

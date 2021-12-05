@@ -22,6 +22,7 @@ export interface PatientHistory extends ObjectKeyAccess {
   drug_allergy: string;
   drug_allergy_description: string;
   chronic_drug_usage: string;
+  chronic_drug_usage_description: string;
   blood_group: string;
   smoking_status: string;
   alcohol: string;

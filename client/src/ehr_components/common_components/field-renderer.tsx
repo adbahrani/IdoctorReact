@@ -30,7 +30,8 @@ const FieldRenderer = function (props: Props) {
     resetToggle,
     display = true,
     fadeIn = false,
-    showRequiredIcon
+    showRequiredIcon,
+    defaultSelect
   } = field;
 
   function onACChange(name: string) {
@@ -96,7 +97,7 @@ const FieldRenderer = function (props: Props) {
           <Select
             name={name}
             options={options}
-            value={value}
+            value={value ? value : defaultSelect}
             placeholder={placeholder}
             onChange={onChange}
             validateValue={validateValue}

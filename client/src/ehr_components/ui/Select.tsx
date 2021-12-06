@@ -9,6 +9,7 @@ export interface SelectProps {
   errorMessage?: string;
   validateValue?: (value: string) => boolean;
   isFormSubmitted?: boolean;
+  defaultSelect?: string;
 }
 
 const Select = (props: SelectProps) => {
@@ -20,7 +21,8 @@ const Select = (props: SelectProps) => {
     onChange,
     errorMessage,
     validateValue,
-    isFormSubmitted
+    isFormSubmitted,
+    defaultSelect
   } = props;
 
   const [touched, setTouched] = useState(false);
@@ -48,7 +50,7 @@ const Select = (props: SelectProps) => {
           placeholder.length > 0 && value.length > 0 ? "" : "text-muted"
         } ${showError ? "is-invalid" : ""}`}
         id={name}
-        value={value}
+        value={value ? value : defaultSelect}
         onChange={_onChange}
         onBlur={_onBlur}
       >

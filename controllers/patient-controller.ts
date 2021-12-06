@@ -14,7 +14,7 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
   }
 
   return res.json({
-    patients: patients.map(patient => {
+    patients: patients.map((patient) => {
       return patient.toObject({ getters: true });
     })
   });
@@ -24,6 +24,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
   const validationError = validationErrorHandler(req, res);
 
   if (validationError) {
+    console.log(validationError);
     return validationError;
   }
 
@@ -54,6 +55,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
   try {
     await createdPatient.save();
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 

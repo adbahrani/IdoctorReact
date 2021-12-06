@@ -43,9 +43,9 @@ export default function generateNewPatientFields(
       inputType: "text",
       onChange: onChangeHandler,
       validateValue: (value: string) => {
-        let timestamp = new Date(value)
-        console.log(timestamp.getTime())
-        return isNaN(timestamp.getTime()) ? false: true ;
+        let timestamp = new Date(value);
+
+        return isNaN(timestamp.getTime()) ? false : true;
       },
       value: formData.dob,
       errorMessage: "Please enter a valid date",
@@ -78,7 +78,7 @@ export default function generateNewPatientFields(
         }
       ],
       onChange: onChangeHandler,
-      value: formData.gender,
+      value: formData.gender ? formData.gender : "male",
       validateValue: (value: string) => {
         return value.length > 0;
       },
@@ -112,7 +112,7 @@ export default function generateNewPatientFields(
           6
         )}-${phoneNumber.slice(6)}`;
       },
-      value: formData.phoneNumber,
+      value: formData.phoneNumber ? formData.phoneNumber : "0000000000",
       errorMessage: "Please enter a 10 digit phone number",
       isFormSubmitted: isFormSubmitted
     },
@@ -123,11 +123,11 @@ export default function generateNewPatientFields(
       inputType: "text",
       placeholder: "Address",
       onChange: onChangeHandler,
-      validateValue: (value: string) => {
-        return value.length > 0;
-      },
+      // validateValue: (value: string) => {
+      //   return value.length > 0;
+      // },
       value: formData.address,
-      errorMessage: "Please enter a address",
+      // errorMessage: "Please enter a address",
       isFormSubmitted: isFormSubmitted
     },
     {
@@ -152,6 +152,7 @@ export default function generateNewPatientFields(
       type: "Select",
       value: formData.maritalStatus,
       onChange: onChangeHandler,
+      defaultSelect: "S",
       placeholder: "Select Marital Status",
       options: [
         { value: "S", label: "Single" },

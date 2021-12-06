@@ -50,12 +50,12 @@ const NewPatient: React.FC = () => {
   const [formData, setFormData] = useState<Patient>({
     fullName: "",
     dob: "",
-    phoneNumber: "",
+    phoneNumber: "0000000000",
     address: "",
     zipCode: "",
-    gender: "",
+    gender: "male",
     job: "",
-    maritalStatus: ""
+    maritalStatus: "S"
   });
 
   const updateFormData = (
@@ -122,6 +122,7 @@ const NewPatient: React.FC = () => {
           message = error.message;
         }
         toastr.error("New Patient", message);
+        setAdding(false);
       }
     } else {
       setAdding(false);

@@ -7,6 +7,7 @@ interface NewPatientFieldParams {
   formData: {
     fullName: string;
     dob: string;
+    // age?: number;
     phoneNumber: string;
     address: string;
     zipCode: string;
@@ -21,6 +22,12 @@ export default function generateNewPatientFields(
 ) {
   let { onChangeHandler, isFormSubmitted, formData } = params;
 
+  let ageFormatter = (dob: string) => {
+    let year = new Date(dob).getFullYear();
+    return year > 0 && year < 1900
+      ? (new Date().getFullYear() - year).toString()
+      : "0";
+  };
   let fieldsMap = [
     {
       label: "Name",
@@ -52,6 +59,19 @@ export default function generateNewPatientFields(
       isFormSubmitted: isFormSubmitted
     },
     {
+      label: "Age",
+      name: "age",
+      type: "Input",
+      inputType: "string",
+      onChange: onChangeHandler,
+
+      value: ageFormatter(formData.dob),
+
+      errorMessage: "Please enter a valid date",
+      isFormSubmitted: isFormSubmitted,
+      gridSize: 2
+    },
+    {
       label: "Gender",
       name: "gender",
       type: "Radio",
@@ -78,7 +98,7 @@ export default function generateNewPatientFields(
         }
       ],
       onChange: onChangeHandler,
-      value: formData.gender ? formData.gender : "male",
+      value: formData.gender,
       validateValue: (value: string) => {
         return value.length > 0;
       },
@@ -112,7 +132,7 @@ export default function generateNewPatientFields(
           6
         )}-${phoneNumber.slice(6)}`;
       },
-      value: formData.phoneNumber ? formData.phoneNumber : "0000000000",
+      value: formData.phoneNumber,
       errorMessage: "Please enter a 10 digit phone number",
       isFormSubmitted: isFormSubmitted
     },
@@ -152,7 +172,6 @@ export default function generateNewPatientFields(
       type: "Select",
       value: formData.maritalStatus,
       onChange: onChangeHandler,
-      defaultSelect: "S",
       placeholder: "Select Marital Status",
       options: [
         { value: "S", label: "Single" },

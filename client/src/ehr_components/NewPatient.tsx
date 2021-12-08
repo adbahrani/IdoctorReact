@@ -1,10 +1,12 @@
 import { useHistory } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Axios from "axios";
 
 import FieldRenderer from "./common_components/field-renderer";
 import generateNewPatientFields from "./data/new-patient-fields";
+
+import { AuthContext } from "../store/auth-context";
 
 interface ObjectKeyAccess {
   [key: string]: string | any[] | PatientHistory | undefined;
@@ -44,6 +46,7 @@ export interface Patient extends ObjectKeyAccess {
 }
 
 const NewPatient: React.FC = () => {
+  const { uid } = useContext(AuthContext);
   const history = useHistory();
   const [adding, setAdding] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -55,7 +58,8 @@ const NewPatient: React.FC = () => {
     zipCode: "",
     gender: "male",
     job: "",
-    maritalStatus: "S"
+    maritalStatus: "S",
+    userId: uid
   });
 
   const updateFormData = (

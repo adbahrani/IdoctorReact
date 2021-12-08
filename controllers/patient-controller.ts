@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
-import { Document } from "mongoose";
+import { Document, startSession } from "mongoose";
 
 import PatientModel, { IPatient } from "../models/PatientModel";
+import UserModel, { IUser } from "../models/UserModel";
 import validationErrorHandler from "../utils/validation-error-handler";
 
 const getAllPatients: RequestHandler = async (req, res, next) => {
@@ -36,8 +37,18 @@ const createPatient: RequestHandler = async (req, res, next) => {
     address,
     zipCode,
     maritalStatus,
-    job = ""
+    job = "",
+    userId
   } = req.body;
+
+  console.log(req.body);
+
+  let currentUser: (IUser & Document<any, any, IUser>) | null;
+  try {
+    currentUser = await UserModel.findById(userId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 
   let createdPatient = new PatientModel({
     fullName,
@@ -52,8 +63,19 @@ const createPatient: RequestHandler = async (req, res, next) => {
     visits: []
   });
 
+  if (!currentUser) {
+    return res
+      .status(404)
+      .json({ message: "Could not find patient for given User ID" });
+  }
+
   try {
+    const sess = await startSession();
+    sess.startTransaction();
     await createdPatient.save();
+    currentUser.patients.push(createdPatient.id);
+    await currentUser.save();
+    sess.commitTransaction();
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });

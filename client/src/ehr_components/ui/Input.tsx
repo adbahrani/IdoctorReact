@@ -13,6 +13,8 @@ export interface InputProps {
   isFormSubmitted?: boolean;
   resetToggle?: boolean;
   classes?: string;
+  max?: number;
+  min?: number;
 }
 
 const Input = (props: InputProps) => {

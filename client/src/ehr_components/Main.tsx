@@ -14,7 +14,8 @@ import NewPatient from "./NewPatient";
 import Visits from "./Visits/";
 import Account from "./Account/";
 import Reactivate from "./Reactivate";
-import Reports from "./Reports/";
+import Reports from "./Reports";
+import Script from "./Script/";
 
 import { AuthContext } from "../store/auth-context";
 
@@ -49,6 +50,7 @@ const Main: React.FC<MainProps> = () => {
           <Route path={`${path}/newPatient`} component={NewPatient} />
           <Route path={`${path}/account`} component={Account} />
           <Route path={`${path}/reports`} component={Reports} />
+          <Route path={`${path}/script`} component={Script} />
           <Redirect to={`${path}/search`} />
         </Switch>
       )}

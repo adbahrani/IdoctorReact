@@ -211,7 +211,7 @@ const NewPatient: React.FC = () => {
                       Date of Birth
                     </label>
                   </Col>
-                  <Col md={{ span: 2, offset: 1 }} style={{ paddingLeft: 6 }}>
+                  <Col md={{ span: 2, offset: 1 }} style={{ paddingLeft: 8 }}>
                     <Input
                       name="day"
                       placeholder="Day"
@@ -223,7 +223,7 @@ const NewPatient: React.FC = () => {
                       isFormSubmitted={isFormSubmitted}
                     />
                   </Col>
-                  <Col md={3} style={{ paddingLeft: 6 }}>
+                  <Col md={3} style={{ paddingLeft: 8 }}>
                     <Input
                       name="month"
                       type="number"
@@ -235,7 +235,7 @@ const NewPatient: React.FC = () => {
                       onChange={handleDateChange}
                     />
                   </Col>
-                  <Col style={{ paddingLeft: 6 }}>
+                  <Col style={{ paddingLeft: 8 }}>
                     <Input
                       name="year"
                       type="number"

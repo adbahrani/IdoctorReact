@@ -1,4 +1,4 @@
-import { timeStamp } from "console";
+
 
 interface NewPatientFieldParams {
   onChangeHandler: (

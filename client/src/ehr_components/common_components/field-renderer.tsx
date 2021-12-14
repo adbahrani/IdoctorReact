@@ -31,7 +31,9 @@ const FieldRenderer = function (props: Props) {
     display = true,
     fadeIn = false,
     showRequiredIcon,
-    defaultSelect
+    defaultSelect,
+    style,
+    classes = ""
   } = field;
 
   function onACChange(name: string) {
@@ -50,6 +52,7 @@ const FieldRenderer = function (props: Props) {
             validateValue={validateValue}
             errorMessage={errorMessage}
             isFormSubmitted={isFormSubmitted}
+            className={classes}
           />
         );
 
@@ -67,8 +70,26 @@ const FieldRenderer = function (props: Props) {
             errorMessage={errorMessage}
             isFormSubmitted={isFormSubmitted}
             resetToggle={resetToggle}
+            classes={classes}
           />
         );
+        case "InputArray":
+          return (
+            <Input
+              name={name}
+              type={inputType}
+              placeholder={placeholder}
+              value={value}
+              append={append}
+              onChange={onChange}
+              validateValue={validateValue}
+              formatValue={formatValue}
+              errorMessage={errorMessage}
+              isFormSubmitted={isFormSubmitted}
+              resetToggle={resetToggle}
+              classes={classes}
+            />
+          );
 
       case "Autocomplete":
         return (

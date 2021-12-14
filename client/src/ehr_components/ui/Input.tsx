@@ -12,6 +12,9 @@ export interface InputProps {
   formatValue?: (value: string) => string;
   isFormSubmitted?: boolean;
   resetToggle?: boolean;
+  classes?: string;
+  max?: number;
+  min?: number;
 }
 
 const Input = (props: InputProps) => {
@@ -19,14 +22,13 @@ const Input = (props: InputProps) => {
     value,
     name,
     onChange,
-    placeholder,
     append = "",
-    type = "text",
     validateValue,
     formatValue,
     errorMessage,
     isFormSubmitted,
-    resetToggle
+    resetToggle,
+    classes
   } = props;
 
   const [touched, setTouched] = useState(false);
@@ -55,14 +57,12 @@ const Input = (props: InputProps) => {
   function getInput() {
     return (
       <input
-        type={type}
-        className={`form-control ${showError ? "is-invalid" : ""}`}
-        id={name}
-        value={value}
-        placeholder={placeholder}
+        {...props}
+        className={`form-control ${showError ? "is-invalid" : ""} ${classes}`}
         onChange={_onChange}
         onInput={_onChange}
         onBlur={_onBlur}
+        value={value}
       />
     );
   }

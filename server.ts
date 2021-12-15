@@ -29,8 +29,8 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-//const DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
-const DB_LINK = "mongodb://localhost/user";
+const DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
+
 mongoose
   .connect(DB_LINK, {
     useNewUrlParser: true,

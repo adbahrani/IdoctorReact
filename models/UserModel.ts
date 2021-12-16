@@ -1,7 +1,5 @@
 import mongoose, { Schema, model, Document } from "mongoose";
 
-import { IPatient } from "./PatientModel";
-
 export interface IUser {
   username?: string;
   email: string;

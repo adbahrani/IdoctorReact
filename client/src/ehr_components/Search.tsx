@@ -8,7 +8,7 @@ import SearchTable from "./SearchTable/";
 import { Patient } from "./NewPatient";
 import { toastr } from "react-redux-toastr";
 
-const Search: React.FC = Props => {
+const Search: React.FC = (Props) => {
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
   const history = useHistory();
   const authContext = useContext(AuthContext);
@@ -57,12 +57,21 @@ const getPatients = async (userId: string): Promise<Patient[]> => {
     } = await Axios.get("/api/patient/all/" + userId);
     return patients;
   } catch (error: any) {
-    console.log(error, error.message);
-    toastr.error(
-      "Error",
-      error.message +
-        ".\n Check internet connection is working for search function"
-    );
+    let message;
+    if (error.response) {
+      if (error.response.data.errors) {
+        let errors = error.response.data.errors as string[];
+        message = errors.join(". ");
+      } else {
+        message = error.response.data.message;
+      }
+    } else {
+      message =
+        error.message +
+        ".\n Check internet connection is working for search function";
+    }
+
+    toastr.error("Error", message);
   }
 
   return [];

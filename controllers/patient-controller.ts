@@ -10,21 +10,22 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
 
   let { userId } = req.params;
   try {
-    patients = await PatientModel.find({});
-
     let user = await UserModel.findById(userId);
     if (user) {
-      let patientIds: any = user.patients;
+      let patientIds = user.patients;
       console.log(patientIds);
-      patients = patients.filter(p => patientIds.includes(p._id));
-      console.log("patients", patients);
+      patients = await PatientModel.find({ _id: { $in: patientIds } });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "Your user id is not found, try login out and in" });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 
   return res.json({
-    patients: patients.map(patient => {
+    patients: patients.map((patient) => {
       return patient.toObject({ getters: true });
     })
   });
@@ -59,6 +60,12 @@ const createPatient: RequestHandler = async (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 
+  if (!currentUser) {
+    return res
+      .status(404)
+      .json({ message: "Your user id is not found, try login out and in" });
+  }
+
   let createdPatient = new PatientModel({
     fullName,
     dob,
@@ -71,12 +78,6 @@ const createPatient: RequestHandler = async (req, res, next) => {
     history: {},
     visits: []
   });
-
-  if (!currentUser) {
-    return res
-      .status(404)
-      .json({ message: "Could not find patient for given User ID" });
-  }
 
   try {
     const sess = await startSession();

@@ -62,7 +62,6 @@ const NewPatient: React.FC = () => {
   const [formData, setFormData] = useState<Patient>({
     fullName: "",
     dob: "",
-
     phoneNumber: "0000000000",
     address: "",
     zipCode: "",
@@ -74,9 +73,8 @@ const NewPatient: React.FC = () => {
   });
 
   let ageFormatter = (dob: string) => {
-    let dobYear = new Date(dob).getFullYear();
     let currentYear = new Date().getFullYear();
-    let age = currentYear - dobYear;
+    let age = currentYear - parseInt(dob);
     return age > 1 ? age.toString() : "";
   };
 
@@ -97,15 +95,11 @@ const NewPatient: React.FC = () => {
       newState[fieldName] = value;
       return newState;
     });
+    if (fieldName === "year")
+      setFormData(prev => {
+        return { ...prev, age: ageFormatter(event.target.value) };
+      });
   };
-
-  let handleAgeUpdate = (
-    name: string,
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) =>
-    setFormData(prev => {
-      return { ...prev, age: ageFormatter(event.target.value) };
-    });
 
   useEffect(() => {
     let updatedDob = "";
@@ -260,7 +254,6 @@ const NewPatient: React.FC = () => {
                         parseInt(value) > 1900 &&
                         parseInt(value) < new Date().getFullYear()
                       }
-                      onBlur={handleAgeUpdate}
                       min={1900}
                       max={new Date().getFullYear()}
                     />

@@ -8,14 +8,23 @@ import validationErrorHandler from "../utils/validation-error-handler";
 const getAllPatients: RequestHandler = async (req, res, next) => {
   let patients;
 
+  let { userId } = req.params;
   try {
     patients = await PatientModel.find({});
+
+    let user = await UserModel.findById(userId);
+    if (user) {
+      let patientIds: any = user.patients;
+      console.log(patientIds);
+      patients = patients.filter(p => patientIds.includes(p._id));
+      console.log("patients", patients);
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 
   return res.json({
-    patients: patients.map((patient) => {
+    patients: patients.map(patient => {
       return patient.toObject({ getters: true });
     })
   });

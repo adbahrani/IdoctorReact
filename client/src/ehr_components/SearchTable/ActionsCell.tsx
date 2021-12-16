@@ -72,11 +72,21 @@ export default function ActionsCell(props: any) {
           Medical History
         </button>
         <button
-          className="btn btn-outline-danger ml-2 my-1 btn-sm"
+          className="btn btn-outline-danger ml-2 my-1 btn-sm pill"
           onClick={handleClick}
           name="delete"
         >
           Delete
+        </button>
+        <button
+          onClick={handleClick}
+          disabled={visitsCount === 0}
+          name="script"
+          className={` ml-2 my-1  btn btn-outline-${
+            visitsCount === 0 ? "secondary" : "success"
+          } btn-sm`}
+        >
+          RX
         </button>
       </div>
     </>

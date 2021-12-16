@@ -1,4 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model, Document } from "mongoose";
+
+import { IPatient } from "./PatientModel";
 
 export interface IUser {
   username?: string;
@@ -7,9 +9,10 @@ export interface IUser {
   password: string;
   loginAt: Date;
   isDeactivated: boolean;
+  patients: mongoose.Types.ObjectId[] | Document[];
 }
 
-const userSchema = new Schema<IUser>({
+export const userSchema = new Schema<IUser>({
   username: {
     type: String
   },
@@ -33,7 +36,9 @@ const userSchema = new Schema<IUser>({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  patients: [{ type: mongoose.Types.ObjectId, required: true, ref: "Patient" }]
+  // patients: [patientSchema]
 });
 
 const UserModel = model<IUser>("User", userSchema);

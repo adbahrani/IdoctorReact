@@ -1,10 +1,12 @@
 import { useHistory } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 
 import FieldRenderer from "./common_components/field-renderer";
 import generateNewPatientFields from "./data/new-patient-fields";
+
+import { AuthContext } from "../store/auth-context";
 
 import Input from "./ui/Input";
 import { Col, Row } from "react-bootstrap";
@@ -48,6 +50,7 @@ export interface Patient extends ObjectKeyAccess {
 }
 
 const NewPatient: React.FC = () => {
+  const { uid } = useContext(AuthContext);
   const history = useHistory();
   const [adding, setAdding] = useState(false);
   const [dobValues, setDobValues] = useState({
@@ -66,7 +69,8 @@ const NewPatient: React.FC = () => {
     gender: "male",
     job: "",
     maritalStatus: "S",
-    age: ""
+    age: "",
+    userId: uid
   });
 
   let ageFormatter = (dob: string) => {
@@ -93,15 +97,23 @@ const NewPatient: React.FC = () => {
       newState[fieldName] = value;
       return newState;
     });
-
-    if (fieldName === "year")
-      setFormData(prev => {
-        return { ...prev, age: ageFormatter(value) };
-      });
   };
 
+  let handleAgeUpdate = (
+    name: string,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) =>
+    setFormData(prev => {
+      return { ...prev, age: ageFormatter(event.target.value) };
+    });
+
   useEffect(() => {
-    let updatedDob = `${dobValues.day}-${dobValues.month}-${dobValues.year}`;
+    let updatedDob = "";
+
+    updatedDob += dobValues.day ? dobValues.day + "-" : "";
+    updatedDob += dobValues.month ? dobValues.month + "-" : "";
+    updatedDob += dobValues.year;
+
     setFormData(prev => {
       return { ...prev, dob: updatedDob };
     });
@@ -211,7 +223,7 @@ const NewPatient: React.FC = () => {
                       Date of Birth
                     </label>
                   </Col>
-                  <Col md={{ span: 2, offset: 1 }} style={{ paddingLeft: 6 }}>
+                  <Col md={{ span: 2, offset: 1 }} style={{ paddingLeft: 8 }}>
                     <Input
                       name="day"
                       placeholder="Day"
@@ -223,7 +235,7 @@ const NewPatient: React.FC = () => {
                       isFormSubmitted={isFormSubmitted}
                     />
                   </Col>
-                  <Col md={3} style={{ paddingLeft: 6 }}>
+                  <Col md={3} style={{ paddingLeft: 8 }}>
                     <Input
                       name="month"
                       type="number"
@@ -235,7 +247,7 @@ const NewPatient: React.FC = () => {
                       onChange={handleDateChange}
                     />
                   </Col>
-                  <Col style={{ paddingLeft: 6 }}>
+                  <Col style={{ paddingLeft: 8 }}>
                     <Input
                       name="year"
                       type="number"
@@ -245,10 +257,12 @@ const NewPatient: React.FC = () => {
                       value={dobValues.year}
                       onChange={handleDateChange}
                       validateValue={(value: string) =>
-                        parseInt(value) > 1900 && parseInt(value) < 3000
+                        parseInt(value) > 1900 &&
+                        parseInt(value) < new Date().getFullYear()
                       }
+                      onBlur={handleAgeUpdate}
                       min={1900}
-                      max={3000}
+                      max={new Date().getFullYear()}
                     />
                   </Col>
                 </Row>

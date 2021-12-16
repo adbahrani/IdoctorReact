@@ -7,6 +7,7 @@ export interface InputProps {
   append?: string;
   type?: string;
   onChange: (name: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (name: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   validateValue?: (value: string) => boolean;
   formatValue?: (value: string) => string;
@@ -22,6 +23,7 @@ const Input = (props: InputProps) => {
     value,
     name,
     onChange,
+    onBlur,
     append = "",
     validateValue,
     formatValue,
@@ -50,8 +52,9 @@ const Input = (props: InputProps) => {
     onChange(name, event);
   }
 
-  function _onBlur() {
+  function _onBlur(event: React.ChangeEvent<HTMLInputElement>) {
     setTouched(true);
+    if (onBlur) onBlur(name, event);
   }
 
   function getInput() {

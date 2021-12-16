@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
-import React, { useState, useContextm,useEffect }
+import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 
 import FieldRenderer from "./common_components/field-renderer";
@@ -69,7 +69,7 @@ const NewPatient: React.FC = () => {
     gender: "male",
     job: "",
     maritalStatus: "S",
-    age: ""
+    age: "",
     userId: uid
   });
 
@@ -97,15 +97,23 @@ const NewPatient: React.FC = () => {
       newState[fieldName] = value;
       return newState;
     });
-
-    if (fieldName === "year")
-      setFormData(prev => {
-        return { ...prev, age: ageFormatter(value) };
-      });
   };
 
+  let handleAgeUpdate = (
+    name: string,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) =>
+    setFormData(prev => {
+      return { ...prev, age: ageFormatter(event.target.value) };
+    });
+
   useEffect(() => {
-    let updatedDob = `${dobValues.day}-${dobValues.month}-${dobValues.year}`;
+    let updatedDob = "";
+
+    updatedDob += dobValues.day ? dobValues.day + "-" : "";
+    updatedDob += dobValues.month ? dobValues.month + "-" : "";
+    updatedDob += dobValues.year;
+
     setFormData(prev => {
       return { ...prev, dob: updatedDob };
     });
@@ -249,10 +257,12 @@ const NewPatient: React.FC = () => {
                       value={dobValues.year}
                       onChange={handleDateChange}
                       validateValue={(value: string) =>
-                        parseInt(value) > 1900 && parseInt(value) < 3000
+                        parseInt(value) > 1900 &&
+                        parseInt(value) < new Date().getFullYear()
                       }
+                      onBlur={handleAgeUpdate}
                       min={1900}
-                      max={3000}
+                      max={new Date().getFullYear()}
                     />
                   </Col>
                 </Row>

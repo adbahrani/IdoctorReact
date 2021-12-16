@@ -29,17 +29,20 @@ export default function Script() {
   }
 
   return (
-    <div className="container border  border-primary">
-      {/* <h3 className="">Rx Script for {patientState.fullName}</h3> */}
+    <div className="container border  border-primary w-75 mt-4 ">
       <Row>
         <Col className="border border-primary">
-          Dr. Maan Bahrani Consultant Pediatrician M.B.Ch.B JR HR HOSP . Oxford
-          U. K DCH FICMS / Ped
+          <p style={{ fontWeight: 600 }}>
+            Dr. Maan Bahrani Consultant Pediatrician M.B.Ch.B JR HR HOSP .
+            Oxford U. K DCH FICMS / Ped
+          </p>
         </Col>
         <Col className="border border-primary">
-          معن البحرانـي أستشاري أطفال دكتوراه في طــب ألاطفال دبلوم عالي في طب
-          الأطفال اوكسفورد (أنكلترا) لامراض ألاطفال وحديثي الولادة والخدج الغدد
-          الصماء والسكري
+          <p style={{ fontWeight: 600 }}>
+            معن البحرانـي أستشاري أطفال دكتوراه في طــب ألاطفال دبلوم عالي في طب
+            الأطفال اوكسفورد (أنكلترا) لامراض ألاطفال وحديثي الولادة والخدج
+            الغدد الصماء والسكري
+          </p>
         </Col>
       </Row>
       <Row>

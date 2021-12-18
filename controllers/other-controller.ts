@@ -16,7 +16,6 @@ const contactUs: RequestHandler = async (req, res, next) => {
     to: "luciano.anderson45@ethereal.email",
     // cc: "ahmed_mail2005@yahoo.com",
     subject: "Contact Form Submission",
-    text: "Hello to myself!",
     html: `<p>Name: ${name}</p>
            <p>Email: ${email}</p>
            <p>Message: ${message}</p>`

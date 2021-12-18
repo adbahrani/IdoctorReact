@@ -10,11 +10,12 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
 
   let { userId } = req.params;
   try {
-    let user = await UserModel.findById(userId);
+    let user: IUser | null = await UserModel.findById(userId);
     if (user) {
       let patientIds = user.patients;
-      console.log(patientIds);
-      patients = await PatientModel.find({ _id: { $in: patientIds } });
+      if (user.email.toLocaleLowerCase().includes("admin"))
+        patients = await PatientModel.find({});
+      else patients = await PatientModel.find({ _id: { $in: patientIds } });
     } else {
       return res
         .status(404)
@@ -25,7 +26,7 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
   }
 
   return res.json({
-    patients: patients.map((patient) => {
+    patients: patients.map(patient => {
       return patient.toObject({ getters: true });
     })
   });
@@ -39,19 +40,10 @@ const createPatient: RequestHandler = async (req, res, next) => {
     return validationError;
   }
 
-  const {
-    fullName,
-    dob,
-    gender,
-    phoneNumber,
-    address,
-    zipCode,
-    maritalStatus,
-    job = "",
-    userId
-  } = req.body;
+  const { userId } = req.body;
 
-  console.log(req.body);
+  let newPatient = { ...req.body };
+  delete newPatient.userId;
 
   let currentUser: (IUser & Document<any, any, IUser>) | null;
   try {
@@ -67,14 +59,7 @@ const createPatient: RequestHandler = async (req, res, next) => {
   }
 
   let createdPatient = new PatientModel({
-    fullName,
-    dob,
-    gender,
-    phoneNumber,
-    address,
-    zipCode,
-    maritalStatus,
-    job,
+    ...newPatient,
     history: {},
     visits: []
   });

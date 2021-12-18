@@ -108,7 +108,7 @@ export default function Contact(props) {
               </form>
 
               <div
-                class={`alert alert-${
+                className={`alert alert-${
                   message?.includes("Sent") || message?.includes("Sending")
                     ? "success"
                     : "danger"

@@ -6,11 +6,19 @@ const DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
 let userSeed = [
   {
     email: "test@domain.com",
-    password: "1234567"
+    password: "1234567",
+    token: "token",
+    loginAt: new Date(),
+    isDeactivated: false,
+    patients: []
   },
   {
     email: "test2@domain.com",
-    password: "1234567"
+    password: "1234567",
+    token: "token",
+    loginAt: new Date(),
+    isDeactivated: false,
+    patients: []
   }
 ];
 
@@ -34,9 +42,7 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true
   })
-  .then(() => {
-    seedUsers(userSeed);
-  })
+  .then(() => seedUsers(userSeed))
   .catch(error => {
     console.log(error);
   });

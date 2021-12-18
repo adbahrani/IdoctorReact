@@ -36,7 +36,6 @@ export const userSchema = new Schema<IUser>({
     default: Date.now
   },
   patients: [{ type: mongoose.Types.ObjectId, required: true, ref: "Patient" }]
-  // patients: [patientSchema]
 });
 
 const UserModel = model<IUser>("User", userSchema);

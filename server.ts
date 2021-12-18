@@ -29,7 +29,11 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-const DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
+let DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
+if (process.env.LOCAL === "yes") {
+  console.log("Set to localDB");
+  DB_LINK = "mongodb://localhost/user";
+}
 
 mongoose
   .connect(DB_LINK, {

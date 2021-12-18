@@ -5,12 +5,12 @@ import { toastr } from "react-redux-toastr";
 export default function Contact(props) {
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState();
+  //const [fromSubmit, setFromSubmit] = useState();
+
   let handleSubmit = async event => {
     event.preventDefault();
-    let values = Object.values(formData);
-    values = values.filter(v => v.trim() !== "");
-    console.log(values);
-    if (values.length < 3) return;
+    setMessage("Sending ...");
+    //if (values.length < 3) return;
     try {
       let res = await Axios.post("/other/contact", formData);
       console.log(res);
@@ -38,7 +38,6 @@ export default function Contact(props) {
               <form
                 name="sentMessage"
                 id="contactForm"
-                noValidate
                 className="w-100"
                 onSubmit={handleSubmit}
               >
@@ -51,7 +50,7 @@ export default function Contact(props) {
                         name="name"
                         className="form-control"
                         placeholder="Name"
-                        required="required"
+                        required
                         value={formData.name}
                         onChange={e =>
                           setFormData(prev => {
@@ -59,7 +58,12 @@ export default function Contact(props) {
                           })
                         }
                       />
-                      <p className="help-block text-danger"></p>
+                      <p
+                        className="help-block text-danger"
+                        hidden={!message || formData.name}
+                      >
+                        This field is required
+                      </p>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -70,7 +74,7 @@ export default function Contact(props) {
                         name="email"
                         className="form-control"
                         placeholder="Email"
-                        required="required"
+                        required
                         onChange={e =>
                           setFormData(prev => {
                             return { ...prev, [e.target.name]: e.target.value };
@@ -78,7 +82,6 @@ export default function Contact(props) {
                         }
                         value={formData.email}
                       />
-                      <p className="help-block text-danger"></p>
                     </div>
                   </div>
                 </div>
@@ -97,7 +100,6 @@ export default function Contact(props) {
                     }
                     value={formData.message}
                   ></textarea>
-                  <p className="help-block text-danger"></p>
                 </div>
                 <div id="success"></div>
                 <button type="submit" className=" bttn-custom ">
@@ -107,7 +109,9 @@ export default function Contact(props) {
 
               <div
                 class={`alert alert-${
-                  message?.includes("Sent") ? "success" : "danger"
+                  message?.includes("Sent") || message?.includes("Sending")
+                    ? "success"
+                    : "danger"
                 }`}
                 role="alert"
                 hidden={!message}

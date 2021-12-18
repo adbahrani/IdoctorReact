@@ -27,7 +27,7 @@ const Input = (props: InputProps) => {
     append = "",
     validateValue,
     formatValue,
-    errorMessage,
+    errorMessage = "This field is required",
     isFormSubmitted,
     resetToggle,
     classes

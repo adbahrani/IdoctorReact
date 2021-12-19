@@ -1,7 +1,5 @@
 const nodemailer = require("nodemailer");
 
-// import nodemailer from "nodemailer";
-
 // nodemailer.createTestAccount((err, account) => {
 //   if (err) {
 //       console.error('Failed to create a testing account. ' + err.message);
@@ -23,7 +21,7 @@ contactEmail.verify((error: any) => {
   if (error) {
     console.log(error);
   } else {
-    console.log("Ready to Send");
+    console.log("Ready to Send Mail");
   }
 });
 

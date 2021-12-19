@@ -29,7 +29,7 @@ const App: React.FC = () => {
   const store = createStore(reducers);
 
   let routes;
-  if (userData.token) {
+  if (userData?.token) {
     routes = (
       <Switch>
         <Route path="/main" component={Main} />
@@ -55,7 +55,7 @@ const App: React.FC = () => {
     <ReduxProvider store={store}>
       <AuthContextProvider
         value={{
-          isLoggedIn: !!userData.token,
+          isLoggedIn: !!userData?.token,
           ...userData,
           login,
           logout

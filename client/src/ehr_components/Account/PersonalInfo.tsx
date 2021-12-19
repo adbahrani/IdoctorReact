@@ -7,17 +7,12 @@ import generatePersonalInfoFields from "./data/personal-info-fields";
 import Alert from "../ui/Alert";
 
 export default function PersonalInfo() {
-  const { uid, email, username, token, loginAt, isDeactivated, login } =
-    useContext(AuthContext);
+  let currentUser = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [formData, setFormData] = useState({
-    id: uid,
-    username: username,
-    email: email
-  });
+  const [formData, setFormData] = useState(currentUser);
 
   const updateFormData = (
     fieldName: string,
@@ -57,15 +52,9 @@ export default function PersonalInfo() {
       try {
         let response = await Axios.patch("/api/user/", formData);
         console.log("UPDATED PERSONAL INFO", response.data);
-        let { username: updatedUsername, email: updatedEmail } = response.data;
-        login(
-          uid,
-          updatedUsername,
-          token,
-          updatedEmail,
-          loginAt,
-          isDeactivated
-        );
+
+        currentUser = { ...currentUser, ...response.data };
+        currentUser.login(currentUser);
         setHasError(false);
         setAlertMessage("Successfully updated personal info");
       } catch (error: any) {

@@ -8,13 +8,13 @@ import SearchTable from "./SearchTable/";
 import { Patient } from "./NewPatient";
 import { toastr } from "react-redux-toastr";
 
-const Search: React.FC = (Props) => {
+const Search: React.FC = Props => {
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
   const history = useHistory();
   const authContext = useContext(AuthContext);
 
   const getPatientsList = async () => {
-    setPatientsList(await getPatients(authContext.uid.toString()));
+    setPatientsList(await getPatients(authContext.uid?.toString()));
   };
 
   useEffect(() => {

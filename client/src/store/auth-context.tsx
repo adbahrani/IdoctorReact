@@ -1,21 +1,15 @@
 import React from "react";
-
+import { UserData } from "../hooks/auth-hook";
 export const AuthContext = React.createContext({
   isLoggedIn: false,
   uid: "",
   username: "",
+  name: "",
   token: "",
   email: "",
   loginAt: new Date(),
   isDeactivated: false,
-  login: (
-    uid: string,
-    username: string,
-    token: string,
-    email: string,
-    loginAt: Date,
-    isDeactivated: boolean
-  ) => {},
+  login: (..._user: UserData[]) => {},
   logout: () => {}
 });
 

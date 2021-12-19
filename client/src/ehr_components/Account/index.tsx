@@ -8,7 +8,7 @@ import Deactivate from "./Deactivate";
 export default function Account() {
   const authContext = useContext(AuthContext);
 
-  let lastLoginTimestamp = authContext.loginAt?.toLocaleDateString("en-us", {
+  let lastLoginTimestamp = authContext.loginAt?.toLocaleString("en-IQ", {
     weekday: "short",
     year: "numeric",
     month: "short",

@@ -80,17 +80,10 @@ export default function Auth() {
 
     if (formIsValid) {
       try {
-        let {
-          data: { userId, username, token, email, loginAt, isDeactivated }
-        } = await Axios.post(`/api/user${pathname}`, formData);
-        authContext.login(
-          userId,
-          username,
-          token,
-          email,
-          new Date(loginAt),
-          isDeactivated
-        );
+        let { data: user } = await Axios.post(`/api/user${pathname}`, formData);
+        user.uid = user.userId;
+        delete user.userId;
+        authContext.login(user);
       } catch (error: any) {
         if (error.response) {
           if (error.response.data.errors) {

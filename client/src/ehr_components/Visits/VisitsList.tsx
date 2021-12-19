@@ -20,12 +20,14 @@ export default function VisitsList(props: VisitsListProps) {
 
     return (
       <button
-        className={`list-group-item text-left ${isSelected ? "active" : ""}`}
+        className={`p-2 list-group-item text-left ${
+          isSelected ? "active" : ""
+        }`}
         key={id}
         onClick={handleSelect}
       >
-        <p>{complaint}</p>
-        <p className={`p-0 m-0 ${isSelected ? "" : "text-secondary"}`}>
+        <p className="mb-2">{complaint}</p>
+        <p className={`p-0 m-0 ${isSelected ? " " : "text-secondary"}`}>
           {date}
         </p>
       </button>

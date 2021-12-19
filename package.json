@@ -14,17 +14,9 @@
     "seed-local": "ts-node seeders/userSeed.ts",
     "seed-dev": "ts-node -r dotenv/config seeders/userSeed.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yujuncho7/IdoctorReact.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yujuncho7/IdoctorReact/issues"
-  },
-  "homepage": "https://github.com/yujuncho7/IdoctorReact#readme",
   "devDependencies": {
     "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",

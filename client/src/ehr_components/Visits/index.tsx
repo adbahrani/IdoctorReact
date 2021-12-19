@@ -54,13 +54,13 @@ export default function Visits() {
       <h3 className="mb-4">Past Visits for {patientState.fullName}</h3>
       <div className="row">
         <VisitsList
-          className="col-md-4 mb-4"
+          className="col-sm-4 col-md-4 mb-4"
           visits={visitsList}
           selectedVisit={selectedVisit}
           onSelect={handleSelect}
         />
         <VisitInfo
-          className="col-md-8 align-self-start"
+          className="col-sm-8 col-md-8 align-self-start"
           selectedVisit={selectedVisit}
           isAnimating={isAnimating}
           setIsAnimating={setIsAnimating}

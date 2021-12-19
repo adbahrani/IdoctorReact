@@ -29,8 +29,8 @@ const Main: React.FC<MainProps> = () => {
     <Fragment>
       <Navigation />
       <ReduxToastr
-        timeOut={4000}
-        newestOnTop={false}
+        timeOut={8000}
+        newestOnTop={true}
         preventDuplicates
         position="top-right"
         transitionIn="fadeIn"

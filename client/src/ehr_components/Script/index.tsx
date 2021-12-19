@@ -41,7 +41,7 @@ export default function Script() {
       headers: {
         "x-rapidapi-host":
           "translated-mymemory---translation-memory.p.rapidapi.com",
-        "x-rapidapi-key": "20586f3654msha9547cdf8d82438p14fb39jsn4ddbd37a94db"
+        "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY
       }
     };
 

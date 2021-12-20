@@ -74,9 +74,11 @@ const login: RequestHandler = async (req, res, next) => {
     });
 
     res.json({
+      ...user,
       userId: user.id,
       email: user.email,
       username: user.username || "",
+      name: user.name || "",
       token: token,
       loginAt: user.loginAt,
       isDeactivated: user.isDeactivated

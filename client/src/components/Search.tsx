@@ -14,7 +14,7 @@ const Search: React.FC = Props => {
   const authContext = useContext(AuthContext);
 
   const getPatientsList = async () => {
-    setPatientsList(await getPatients(authContext.uid.toString()));
+    setPatientsList(await getPatients(authContext.uid?.toString()));
   };
 
   useEffect(() => {

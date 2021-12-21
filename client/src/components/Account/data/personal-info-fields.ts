@@ -6,12 +6,13 @@ interface PersonalInfoParams {
   formData: {
     username: string;
     email: string;
+    name: string;
   };
 }
 
 export default function generatePersonalInfoFields(params: PersonalInfoParams) {
   let { onChangeHandler, formData } = params;
-
+  console.log("formData", formData);
   let fieldsMap = [
     {
       label: "Username",
@@ -21,6 +22,17 @@ export default function generatePersonalInfoFields(params: PersonalInfoParams) {
       placeholder: "Username",
       onChange: onChangeHandler,
       value: formData.username,
+      isFormRow: false,
+      showRequiredIcon: false
+    },
+    {
+      label: "Doctor/Practice Name",
+      name: "name",
+      type: "Input",
+      inputType: "text",
+      placeholder: "Name",
+      onChange: onChangeHandler,
+      value: formData.name,
       isFormRow: false,
       showRequiredIcon: false
     },

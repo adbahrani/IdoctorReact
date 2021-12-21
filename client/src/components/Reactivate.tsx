@@ -18,8 +18,8 @@ export default function Reactivate() {
         deactivate: false
       });
       console.log("REACTIVATED ACCOUNT");
-      const { uid, username, token, email, loginAt } = authContext;
-      authContext.login(uid, username, token, email, loginAt, false);
+
+      authContext.login(authContext);
     } catch (error: any) {
       let message;
       if (error.response) {

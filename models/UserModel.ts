@@ -2,6 +2,7 @@ import mongoose, { Schema, model, Document } from "mongoose";
 
 export interface IUser {
   username?: string;
+  name?: string;
   email: string;
   token: string;
   password: string;
@@ -12,6 +13,9 @@ export interface IUser {
 
 export const userSchema = new Schema<IUser>({
   username: {
+    type: String
+  },
+  name: {
     type: String
   },
   email: {

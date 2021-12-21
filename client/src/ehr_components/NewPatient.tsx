@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
 import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
@@ -52,13 +52,33 @@ export interface Patient extends ObjectKeyAccess {
 const NewPatient: React.FC = () => {
   const { uid } = useContext(AuthContext);
   const history = useHistory();
+  let { state: patientState } = useLocation<any>();
+  const [newOrUpdate, setNewOrUpdate] = useState("New");
+
   const [adding, setAdding] = useState(false);
   const [dobValues, setDobValues] = useState({
-    day: "",
-    month: "",
+    day: "0",
+    month: "0",
     year: ""
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!patientState) return;
+    console.log("patientState", patientState);
+    setFormData(prev => {
+      return { ...prev, ...patientState };
+    });
+    let dobUpdate = patientState.dob?.split("-");
+    console.log(dobUpdate);
+    setDobValues({
+      day: dobUpdate[0] || "",
+      month: dobUpdate[1] || "",
+      year: dobUpdate[2] || ""
+    });
+    setNewOrUpdate("Update");
+  }, [patientState]);
+
   const [formData, setFormData] = useState<Patient>({
     fullName: "",
     dob: "",
@@ -103,7 +123,7 @@ const NewPatient: React.FC = () => {
 
   useEffect(() => {
     let updatedDob = "";
-
+    console.log(dobValues);
     updatedDob += dobValues.day ? dobValues.day + "-" : "";
     updatedDob += dobValues.month ? dobValues.month + "-" : "";
     updatedDob += dobValues.year;
@@ -171,7 +191,7 @@ const NewPatient: React.FC = () => {
         };
         let response = await Axios.post("/api/patient", patientData);
         console.log("CREATED PATIENT", response.data.patient);
-        toastr.success("New Patient", "Added Successfully");
+        toastr.success(newOrUpdate + " Patient", "Added Successfully");
         history.push(`/main/search`);
       } catch (error: any) {
         setIsFormSubmitted(false);
@@ -186,7 +206,7 @@ const NewPatient: React.FC = () => {
         } else {
           message = error.message;
         }
-        toastr.error("New Patient", message);
+        toastr.error("Patient", message);
         setAdding(false);
       }
     } else {
@@ -202,7 +222,7 @@ const NewPatient: React.FC = () => {
 
   return (
     <div className="container">
-      <h2>New Patient</h2>
+      <h2>{newOrUpdate} Patient</h2>
       <div className="row mt-4">
         <form
           className="col-12 col-md-10 col-lg-8 mx-auto"
@@ -223,7 +243,9 @@ const NewPatient: React.FC = () => {
                       placeholder="Day"
                       type="number"
                       value={dobValues.day}
+                      errorMessage="please enter a value or 0 for unknown"
                       onChange={handleDateChange}
+                      validateValue={(value: string) => value.length > 0}
                       min={0}
                       max={31}
                       isFormSubmitted={isFormSubmitted}
@@ -233,12 +255,14 @@ const NewPatient: React.FC = () => {
                     <Input
                       name="month"
                       type="number"
+                      errorMessage="please enter a value or 0 for unknown"
                       min={0}
                       max={12}
                       placeholder="Month"
                       isFormSubmitted={isFormSubmitted}
                       value={dobValues.month}
                       onChange={handleDateChange}
+                      validateValue={(value: string) => value.length > 0}
                     />
                   </Col>
                   <Col style={{ paddingLeft: 8 }}>

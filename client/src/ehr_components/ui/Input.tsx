@@ -16,6 +16,7 @@ export interface InputProps {
   classes?: string;
   max?: number;
   min?: number;
+  required?: boolean;
 }
 
 const Input = (props: InputProps) => {

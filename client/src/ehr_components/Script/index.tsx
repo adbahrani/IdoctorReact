@@ -9,7 +9,7 @@ export default function Script() {
   const [RX, setRX] = useState("");
 
   let history = useHistory();
-  let { state: patientState } = useLocation<Patient>();
+  let { state: patientState } = useLocation<any>();
   let patientId = patientState && patientState.id ? patientState.id : "";
 
   let getVisits = async () => {

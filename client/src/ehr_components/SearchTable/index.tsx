@@ -6,6 +6,7 @@ import { Patient } from "../NewPatient";
 import ActionsCell from "./ActionsCell";
 import FiltersGroup from "./FiltersGroup";
 import { columnStyles, columnWidths } from "./styles";
+import { Link } from "react-router-dom";
 
 type SearchTableProps = {
   patientsList: Patient[];
@@ -32,7 +33,17 @@ export default function SearchTable(props: SearchTableProps) {
           return columnWidths[this.accessor];
         },
         style: columnStyles,
-        filter: "fuzzyText"
+        filter: "fuzzyText",
+        Cell: ({ value, row }) => (
+          <Link
+            to={{
+              pathname: `newPatient/${value}`,
+              state: row.original.patient
+            }}
+          >
+            {value}
+          </Link>
+        )
       },
       {
         Header: "Birth",
@@ -68,7 +79,7 @@ export default function SearchTable(props: SearchTableProps) {
   );
 
   const data = useMemo(() => {
-    return patientsList.map((patient) => {
+    return patientsList.map(patient => {
       let { fullName, dob, phoneNumber } = patient;
       let formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
         3,

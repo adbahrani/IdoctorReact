@@ -1,4 +1,4 @@
-import { PatientVisit } from "../data/new-visit-fields";
+import { PatientVisit } from "./new-visit-fields";
 
 interface VisitInfoProps {
   className: string;

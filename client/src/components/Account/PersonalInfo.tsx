@@ -1,23 +1,22 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 
 import { AuthContext } from "../../store/auth-context";
 import FieldRenderer from "../common_components/field-renderer";
-import generateSecurityFields from "./data/security-fields";
-import Alert from "../ui/Alert";
+import generatePersonalInfoFields from "./data/personal-info-fields";
+import Alert from "../common_components/ui/Alert";
 
-export default function Security() {
-  const authContext = useContext(AuthContext);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+export default function PersonalInfo() {
+  const { uid, email, username, token, loginAt, isDeactivated, login } =
+    useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState({
-    id: authContext.uid,
-    currentPassword: "",
-    newPassword: "",
-    confirmNewPassword: ""
+    id: uid,
+    username: username,
+    email: email
   });
 
   const updateFormData = (
@@ -30,9 +29,8 @@ export default function Security() {
     });
   };
 
-  let fieldsMap = generateSecurityFields({
+  let fieldsMap = generatePersonalInfoFields({
     onChangeHandler: updateFormData,
-    isFormSubmitted,
     formData
   });
 
@@ -54,15 +52,22 @@ export default function Security() {
   );
 
   let handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsFormSubmitted(true);
-
+    setIsLoading(true);
     if (formIsValid) {
-      setIsLoading(true);
       try {
-        await Axios.patch("/api/user/password", formData);
-        console.log("UPDATED PASSWORD");
+        let response = await Axios.patch("/api/user/", formData);
+        console.log("UPDATED PERSONAL INFO", response.data);
+        let { username: updatedUsername, email: updatedEmail } = response.data;
+        login(
+          uid,
+          updatedUsername,
+          token,
+          updatedEmail,
+          loginAt,
+          isDeactivated
+        );
         setHasError(false);
-        setAlertMessage("Successfully updated password");
+        setAlertMessage("Successfully updated personal info");
       } catch (error: any) {
         let message;
         if (error.response) {
@@ -86,12 +91,12 @@ export default function Security() {
   const buttonText = isLoading ? (
     <i className="fa fa-spinner fa-spin" />
   ) : (
-    "Update Password"
+    "Updated Personal Info"
   );
 
   return (
     <div className="card justify-content-center mt-5">
-      <h2 className="card-header">Password</h2>
+      <h2 className="card-header">Personal Info</h2>
       <div className="card-body">
         <form className="align-content-center" noValidate>
           {fieldsMap.map((field: { name: string }) => {

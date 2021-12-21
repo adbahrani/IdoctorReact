@@ -2,7 +2,7 @@ import { useRef, RefObject } from "react";
 import { FilterProps } from "react-table";
 import { Typeahead } from "react-bootstrap-typeahead";
 
-import AutoComplete from "../ui/AutoComplete";
+import AutoComplete from "../common_components/ui/AutoComplete";
 
 export default function DefaultColumnFilter<T extends Record<string, unknown>>({
   column

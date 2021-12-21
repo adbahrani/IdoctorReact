@@ -5,10 +5,10 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import { AuthContext } from "../store/auth-context";
 import SearchTable from "./SearchTable/";
-import { Patient } from "./NewPatient";
+import { Patient } from "./PatientUpdates/NewPatient";
 import { toastr } from "react-redux-toastr";
 
-const Search: React.FC = (Props) => {
+const Search: React.FC = Props => {
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
   const history = useHistory();
   const authContext = useContext(AuthContext);

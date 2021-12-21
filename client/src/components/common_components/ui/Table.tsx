@@ -8,8 +8,8 @@ import {
   useSortBy
 } from "react-table";
 
-import DefaultColumnFilter from "../SearchTable/DefaultColumnFilter";
-import fuzzyTextFilter from "../SearchTable/fuzzyTextFilter";
+import DefaultColumnFilter from "../../SearchTable/DefaultColumnFilter";
+import fuzzyTextFilter from "../../SearchTable/fuzzyTextFilter";
 
 interface HeaderGroupProperties<T extends Record<string, unknown>>
   extends HeaderGroup<T> {

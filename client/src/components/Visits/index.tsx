@@ -4,8 +4,8 @@ import Axios from "axios";
 
 import VisitsList from "./VisitsList";
 import VisitInfo from "./VisitInfo";
-import { Patient } from "../NewPatient";
-import { PatientVisit } from "../data/new-visit-fields";
+import { Patient } from "../PatientUpdates/NewPatient";
+import { PatientVisit } from "./new-visit-fields";
 
 export default function Visits() {
   const [isAnimating, setIsAnimating] = useState(0);

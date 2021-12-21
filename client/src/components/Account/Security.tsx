@@ -1,21 +1,23 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import Axios from "axios";
 
 import { AuthContext } from "../../store/auth-context";
-import generateDeactivateFields from "./data/deactivate-fields";
 import FieldRenderer from "../common_components/field-renderer";
-import Alert from "../ui/Alert";
+import generateSecurityFields from "./data/security-fields";
+import Alert from "../common_components/ui/Alert";
 
-export default function Deactivate() {
+export default function Security() {
   const authContext = useContext(AuthContext);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState({
     id: authContext.uid,
-    password: "",
-    deactivate: true
+    currentPassword: "",
+    newPassword: "",
+    confirmNewPassword: ""
   });
 
   const updateFormData = (
@@ -28,7 +30,7 @@ export default function Deactivate() {
     });
   };
 
-  let fieldsMap = generateDeactivateFields({
+  let fieldsMap = generateSecurityFields({
     onChangeHandler: updateFormData,
     isFormSubmitted,
     formData
@@ -57,9 +59,10 @@ export default function Deactivate() {
     if (formIsValid) {
       setIsLoading(true);
       try {
-        await Axios.patch("/api/user/activate", formData);
-        console.log("DEACTIVATED ACCOUNT");
-        authContext.logout();
+        await Axios.patch("/api/user/password", formData);
+        console.log("UPDATED PASSWORD");
+        setHasError(false);
+        setAlertMessage("Successfully updated password");
       } catch (error: any) {
         let message;
         if (error.response) {
@@ -72,22 +75,23 @@ export default function Deactivate() {
         } else {
           message = error.message;
         }
-        setShowAlert(true);
+        setHasError(true);
         setAlertMessage(message);
-        setIsLoading(false);
       }
+      setIsLoading(false);
+      setShowAlert(true);
     }
   };
 
   const buttonText = isLoading ? (
     <i className="fa fa-spinner fa-spin" />
   ) : (
-    "Deactivate Account"
+    "Update Password"
   );
 
   return (
     <div className="card justify-content-center mt-5">
-      <h2 className="card-header">Deactivate</h2>
+      <h2 className="card-header">Password</h2>
       <div className="card-body">
         <form className="align-content-center" noValidate>
           {fieldsMap.map((field: { name: string }) => {
@@ -98,16 +102,17 @@ export default function Deactivate() {
       <div className="card-footer bg-white">
         {showAlert && (
           <Alert
-            alertType={"alert-danger"}
+            alertType={hasError ? "alert-danger" : "alert-success"}
             message={alertMessage}
             onClose={() => {
               setAlertMessage("");
               setShowAlert(false);
+              setHasError(false);
             }}
           />
         )}
         <button
-          className="btn rounded btn-danger text-center w-100"
+          className="btn btn-secondary text-center w-100"
           onClick={handleClick}
         >
           {buttonText}

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Axios from "axios";
 
 import { AuthContext } from "../store/auth-context";
-import FieldRenderer from "../ehr_components/common_components/field-renderer";
+import FieldRenderer from "../components/common_components/field-renderer";
 import generateAuthFields, { AuthType } from "./data/auth-fields";
 
 import Navigation from "./navigation";

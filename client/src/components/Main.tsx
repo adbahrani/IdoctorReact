@@ -8,9 +8,9 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom";
 
 import Search from "./Search";
-import History from "./History";
-import NewVisit from "./NewVisit";
-import NewPatient from "./NewPatient";
+import History from "./PatientHistory/History";
+import NewVisit from "./Visits/NewVisit";
+import NewPatient from "./PatientUpdates/NewPatient";
 import Visits from "./Visits/";
 import Account from "./Account/";
 import Reactivate from "./Reactivate";

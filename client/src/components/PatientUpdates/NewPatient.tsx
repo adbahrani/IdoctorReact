@@ -3,12 +3,12 @@ import { toastr } from "react-redux-toastr";
 import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 
-import FieldRenderer from "./common_components/field-renderer";
-import generateNewPatientFields from "./data/new-patient-fields";
+import FieldRenderer from "../common_components/field-renderer";
 
-import { AuthContext } from "../store/auth-context";
+import generateNewPatientFields from "./new-patient-fields";
 
-import Input from "./ui/Input";
+import { AuthContext } from "../../store/auth-context";
+import Input from "../common_components/ui/Input";
 import { Col, Row } from "react-bootstrap";
 
 interface ObjectKeyAccess {

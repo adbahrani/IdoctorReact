@@ -3,13 +3,13 @@ import { toastr } from "react-redux-toastr";
 import React, { useState } from "react";
 import Axios from "axios";
 
-import Field from "./ui/Field";
-import AutoComplete from "./ui/AutoComplete";
-import { bloodGroups, diseases } from "./data/patient-history";
-import { Patient, PatientHistory } from "./NewPatient";
-import PatientImageUpload from "./PatientImageUpload";
-import FieldRenderer from "./common_components/field-renderer";
-import generatePatientHistoryFields from "./data/patient-history-fields";
+import Field from "../common_components/ui/Field";
+import AutoComplete from "../common_components/ui/AutoComplete";
+import { bloodGroups, diseases } from "./patient-history";
+import { Patient, PatientHistory } from "../PatientUpdates/NewPatient";
+import PatientImageUpload from "../PatientImageUpload";
+import FieldRenderer from "../common_components/field-renderer";
+import generatePatientHistoryFields from "./patient-history-fields";
 
 interface ChronicDisease {
   label: string;
@@ -75,7 +75,7 @@ const History: React.FC = () => {
     setChangedField(fieldName);
 
     let { value } = event.target;
-    setMedicalHistory((prevState) => {
+    setMedicalHistory(prevState => {
       let newState = { ...prevState };
       newState[fieldName as keyof PatientHistory] = value;
       return newState;
@@ -84,7 +84,7 @@ const History: React.FC = () => {
 
   function handleBloodGroupChange(options: Array<any>) {
     let value = options && options[0] ? options[0].label : "";
-    setMedicalHistory((prevState) => {
+    setMedicalHistory(prevState => {
       let newState = { ...prevState };
       newState.blood_group = value;
       return newState;
@@ -92,8 +92,8 @@ const History: React.FC = () => {
   }
 
   function handleDiseaseChange(options: Array<any>) {
-    let selected = options.map((option) => ({ label: option.label }));
-    setMedicalHistory((prevState) => {
+    let selected = options.map(option => ({ label: option.label }));
+    setMedicalHistory(prevState => {
       let newState = { ...prevState };
       newState.chronic_diseases = selected;
       return newState;
@@ -108,10 +108,10 @@ const History: React.FC = () => {
 
   let handleClick = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setUpdating((prev) => !prev);
+    setUpdating(prev => !prev);
     try {
       let chronic_diseases = medicalHistory.chronic_diseases.map(
-        (disease) => disease.label
+        disease => disease.label
       );
       let response = await Axios.patch("/api/patient/history", {
         ...medicalHistory,
@@ -133,11 +133,11 @@ const History: React.FC = () => {
         message = error.message;
       }
       toastr.error("Patient History", message);
-      setUpdating((prev) => !prev);
+      setUpdating(prev => !prev);
     }
   };
 
-  let fields = fieldData.map((field) => {
+  let fields = fieldData.map(field => {
     if (field.name === "chronic_diseases") {
       return (
         <Field

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { Column, Row, Cell, HeaderGroup } from "react-table";
 
-import Table from "../ui/Table";
-import { Patient } from "../NewPatient";
+import Table from "../common_components/ui/Table";
+import { Patient } from "../PatientUpdates/NewPatient";
 import ActionsCell from "./ActionsCell";
 import FiltersGroup from "./FiltersGroup";
 import { columnStyles, columnWidths } from "./styles";
@@ -68,7 +68,7 @@ export default function SearchTable(props: SearchTableProps) {
   );
 
   const data = useMemo(() => {
-    return patientsList.map((patient) => {
+    return patientsList.map(patient => {
       let { fullName, dob, phoneNumber } = patient;
       let formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
         3,

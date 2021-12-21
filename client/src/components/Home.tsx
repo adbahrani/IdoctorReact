@@ -1,12 +1,12 @@
 import React from "react";
 
-import NavigationV1 from "../components/navigation";
-import Header from "../components/header";
-import Features from "../components/features";
-import About from "../components/about";
-import Services from "../components/services";
-import Testimonials from "../components/testimonials";
-import Contact from "../components/contact";
+import NavigationV1 from "../landingPage/navigation";
+import Header from "../landingPage/header";
+import Features from "../landingPage/features";
+import About from "../landingPage/about";
+import Services from "../landingPage/services";
+import Testimonials from "../landingPage/testimonials";
+import Contact from "../landingPage/contact";
 import JsonData from "../data/data.json";
 
 const Home: React.FC = () => {

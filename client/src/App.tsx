@@ -12,10 +12,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
-import Home from "./ehr_components/Home";
-import Main from "./ehr_components/Main";
-import Loader from "./ehr_components/ui/Loader";
-import Auth from "./components/Auth";
+import Home from "./components/Home";
+import Main from "./components/Main";
+import Loader from "./components/common_components/ui/Loader";
+import Auth from "./landingPage/Auth";
 
 import { AuthContextProvider } from "./store/auth-context";
 import { useAuth } from "./hooks/auth-hook";

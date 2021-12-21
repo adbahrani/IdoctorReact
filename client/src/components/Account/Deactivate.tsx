@@ -1,22 +1,21 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Axios from "axios";
 
 import { AuthContext } from "../../store/auth-context";
+import generateDeactivateFields from "./data/deactivate-fields";
 import FieldRenderer from "../common_components/field-renderer";
-import generatePersonalInfoFields from "./data/personal-info-fields";
-import Alert from "../ui/Alert";
+import Alert from "../common_components/ui/Alert";
 
-export default function PersonalInfo() {
-  const { uid, email, username, token, loginAt, isDeactivated, login } =
-    useContext(AuthContext);
+export default function Deactivate() {
+  const authContext = useContext(AuthContext);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState({
-    id: uid,
-    username: username,
-    email: email
+    id: authContext.uid,
+    password: "",
+    deactivate: true
   });
 
   const updateFormData = (
@@ -29,8 +28,9 @@ export default function PersonalInfo() {
     });
   };
 
-  let fieldsMap = generatePersonalInfoFields({
+  let fieldsMap = generateDeactivateFields({
     onChangeHandler: updateFormData,
+    isFormSubmitted,
     formData
   });
 
@@ -52,22 +52,14 @@ export default function PersonalInfo() {
   );
 
   let handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsLoading(true);
+    setIsFormSubmitted(true);
+
     if (formIsValid) {
+      setIsLoading(true);
       try {
-        let response = await Axios.patch("/api/user/", formData);
-        console.log("UPDATED PERSONAL INFO", response.data);
-        let { username: updatedUsername, email: updatedEmail } = response.data;
-        login(
-          uid,
-          updatedUsername,
-          token,
-          updatedEmail,
-          loginAt,
-          isDeactivated
-        );
-        setHasError(false);
-        setAlertMessage("Successfully updated personal info");
+        await Axios.patch("/api/user/activate", formData);
+        console.log("DEACTIVATED ACCOUNT");
+        authContext.logout();
       } catch (error: any) {
         let message;
         if (error.response) {
@@ -80,23 +72,22 @@ export default function PersonalInfo() {
         } else {
           message = error.message;
         }
-        setHasError(true);
+        setShowAlert(true);
         setAlertMessage(message);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-      setShowAlert(true);
     }
   };
 
   const buttonText = isLoading ? (
     <i className="fa fa-spinner fa-spin" />
   ) : (
-    "Updated Personal Info"
+    "Deactivate Account"
   );
 
   return (
     <div className="card justify-content-center mt-5">
-      <h2 className="card-header">Personal Info</h2>
+      <h2 className="card-header">Deactivate</h2>
       <div className="card-body">
         <form className="align-content-center" noValidate>
           {fieldsMap.map((field: { name: string }) => {
@@ -107,17 +98,16 @@ export default function PersonalInfo() {
       <div className="card-footer bg-white">
         {showAlert && (
           <Alert
-            alertType={hasError ? "alert-danger" : "alert-success"}
+            alertType={"alert-danger"}
             message={alertMessage}
             onClose={() => {
               setAlertMessage("");
               setShowAlert(false);
-              setHasError(false);
             }}
           />
         )}
         <button
-          className="btn btn-secondary text-center w-100"
+          className="btn rounded btn-danger text-center w-100"
           onClick={handleClick}
         >
           {buttonText}

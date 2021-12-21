@@ -1,4 +1,4 @@
-import { PatientHistory } from "../NewPatient";
+import { PatientHistory } from "../PatientUpdates/NewPatient";
 import { yesOrNoOptions } from "./patient-history";
 
 interface PatientHistoryFieldsParams {

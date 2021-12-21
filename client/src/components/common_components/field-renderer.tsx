@@ -1,9 +1,9 @@
-import AutoComplete from "../ui/AutoComplete";
-import Field from "../ui/Field";
-import Input from "../ui/Input";
-import Radio from "../ui/Radio";
-import TextArea from "../ui/Textarea";
-import Select from "../ui/Select";
+import AutoComplete from "./ui/AutoComplete";
+import Field from "./ui/Field";
+import Input from "./ui/Input";
+import Radio from "./ui/Radio";
+import TextArea from "./ui/Textarea";
+import Select from "./ui/Select";
 
 export interface Props {
   field: any;
@@ -73,23 +73,23 @@ const FieldRenderer = function (props: Props) {
             classes={classes}
           />
         );
-        case "InputArray":
-          return (
-            <Input
-              name={name}
-              type={inputType}
-              placeholder={placeholder}
-              value={value}
-              append={append}
-              onChange={onChange}
-              validateValue={validateValue}
-              formatValue={formatValue}
-              errorMessage={errorMessage}
-              isFormSubmitted={isFormSubmitted}
-              resetToggle={resetToggle}
-              classes={classes}
-            />
-          );
+      case "InputArray":
+        return (
+          <Input
+            name={name}
+            type={inputType}
+            placeholder={placeholder}
+            value={value}
+            append={append}
+            onChange={onChange}
+            validateValue={validateValue}
+            formatValue={formatValue}
+            errorMessage={errorMessage}
+            isFormSubmitted={isFormSubmitted}
+            resetToggle={resetToggle}
+            classes={classes}
+          />
+        );
 
       case "Autocomplete":
         return (

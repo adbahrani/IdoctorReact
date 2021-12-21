@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Axios from "axios";
 
 import { AuthContext } from "../store/auth-context";
-import Alert from "./ui/Alert";
+import Alert from "./common_components/ui/Alert";
 
 export default function Reactivate() {
   const [isLoading, setIsLoading] = useState(false);

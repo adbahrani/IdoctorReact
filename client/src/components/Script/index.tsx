@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Axios from "axios";
 
-import { Patient } from "../NewPatient";
+import { Patient } from "../PatientUpdates/NewPatient";
 import { Row, Col } from "react-bootstrap";
 
 export default function Script() {

@@ -7,7 +7,7 @@ import {
   VictoryContainer
 } from "victory";
 
-import Select from "../ui/Select";
+import Select from "../common_components/ui/Select";
 
 interface BarChartProps {
   title: string;

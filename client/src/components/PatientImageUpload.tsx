@@ -3,8 +3,8 @@ import { toastr } from "react-redux-toastr";
 import Axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 
-import ImageUpload from "./ui/ImageUpload";
-import { Patient } from "./NewPatient";
+import ImageUpload from "./common_components/ui/ImageUpload";
+import { Patient } from "./PatientUpdates/NewPatient";
 
 export default function PatientImageUpload() {
   let { pathname, state: patientState } = useLocation<Patient>();

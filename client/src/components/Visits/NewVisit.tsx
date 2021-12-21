@@ -4,12 +4,12 @@ import { useLocation, useHistory } from "react-router-dom";
 
 import Axios from "axios";
 
-import FieldRenderer from "./common_components/field-renderer";
-import Field from "./ui/Field";
-import Input from "./ui/Input";
-import PatientImageUpload from "./PatientImageUpload";
-import { Patient } from "./NewPatient";
-import generateNewVisitFields, { PatientVisit } from "./data/new-visit-fields";
+import FieldRenderer from "../common_components/field-renderer";
+import Field from "../common_components/ui/Field";
+import Input from "../common_components/ui/Input";
+import PatientImageUpload from "../PatientImageUpload";
+import { Patient } from "../PatientUpdates/NewPatient";
+import generateNewVisitFields, { PatientVisit } from "./new-visit-fields";
 
 export interface VisitProps {
   added: Function;
@@ -64,7 +64,7 @@ const NewVisit: React.FC<VisitProps> = () => {
     ) => {
       setChangedField(fieldName);
       let { value } = event.target;
-      setMedicalVisit((prevState) => {
+      setMedicalVisit(prevState => {
         let newState = { ...prevState };
         newState[fieldName as keyof PatientVisit] = value;
         return newState;
@@ -125,7 +125,7 @@ const NewVisit: React.FC<VisitProps> = () => {
         setIsFormSubmitted(false);
       }
     } else {
-      let namesOfInvalidFields = invalidFields.map((field) => {
+      let namesOfInvalidFields = invalidFields.map(field => {
         return field.label;
       });
       let message = namesOfInvalidFields.join(", ");
@@ -133,7 +133,7 @@ const NewVisit: React.FC<VisitProps> = () => {
     }
   };
 
-  let fields = fieldData.map((field) => {
+  let fields = fieldData.map(field => {
     let { name } = field;
 
     // special handling for blood pressure as it has two different inputs

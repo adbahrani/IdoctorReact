@@ -64,12 +64,14 @@ export default function Script() {
   return (
     <div className="container border  border-primary w-75 mt-4 ">
       <Row>
-        <Col className="border border-primary">
-          <p style={{ fontWeight: 600 }}>{currentUser.name}</p>
+        <Col className="border border-primary ">
+          <p style={{ fontWeight: 600 }} className="my-3">
+            {currentUser.name}
+          </p>
         </Col>
-        <Col className="border border-primary">
+        {/* <Col className="border border-primary">
           <p style={{ fontWeight: 600 }}>{translate} </p>
-        </Col>
+        </Col> */}
       </Row>
       <Row>
         <Col>

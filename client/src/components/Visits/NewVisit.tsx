@@ -1,5 +1,5 @@
 import { toastr } from "react-redux-toastr";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
 import Axios from "axios";
@@ -10,6 +10,7 @@ import Input from "../common_components/ui/Input";
 import PatientImageUpload from "../PatientImageUpload";
 import { Patient } from "../PatientUpdates/NewPatient";
 import generateNewVisitFields, { PatientVisit } from "./new-visit-fields";
+import axios from "axios";
 
 export interface VisitProps {
   added: Function;
@@ -48,12 +49,22 @@ const NewVisit: React.FC<VisitProps> = () => {
   const [changedField, setChangedField] = useState("");
   let { state: patientState } = useLocation<Patient>();
 
-  let [medicalVisit, setMedicalVisit] = useState<PatientVisit>({
+  let [medicalVisit, setMedicalVisit] = useState<any>({
     ...initialVisitState,
     patient: patientState?.id || ""
   });
 
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  let prePopulateVisit = async () => {
+    let lastVisitId = patientState?.visits?.pop();
+    console.log(patientState);
+    if (lastVisitId) {
+      let { data } = await axios.get("api/visits/" + lastVisitId);
+      console.log("Visit", data.visit, medicalVisit);
+      setMedicalVisit(data.visit);
+    }
+  };
 
   let handleFieldChange = useCallback(
     (
@@ -64,7 +75,7 @@ const NewVisit: React.FC<VisitProps> = () => {
     ) => {
       setChangedField(fieldName);
       let { value } = event.target;
-      setMedicalVisit(prevState => {
+      setMedicalVisit((prevState: any) => {
         let newState = { ...prevState };
         newState[fieldName as keyof PatientVisit] = value;
         return newState;
@@ -173,6 +184,14 @@ const NewVisit: React.FC<VisitProps> = () => {
   return (
     <div className="container">
       <h2 className="main mb-4">Visit</h2>
+      <p
+        className=" text-secondary  mb-3 btn"
+        onClick={prePopulateVisit}
+        hidden={!patientState.visits?.length}
+      >
+        <u>Click here to get data from last visit*</u>
+      </p>
+
       <div className="row">
         <div className="col-md-4 col-lg-3 mb-4 mb-md-0">
           <PatientImageUpload />

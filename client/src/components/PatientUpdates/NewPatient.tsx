@@ -47,6 +47,7 @@ export interface Patient extends ObjectKeyAccess {
   profileImage?: string;
   history?: PatientHistory;
   age: string;
+  visits?: [];
 }
 
 const NewPatient: React.FC = () => {
@@ -171,7 +172,10 @@ const NewPatient: React.FC = () => {
         };
         let response = await Axios.post("/api/patient", patientData);
         console.log("CREATED PATIENT", response.data.patient);
-        toastr.success("New Patient", "Added Successfully");
+        toastr.success(
+          "New Patient",
+          "Added Successfully. Visit details can now be added under patient name"
+        );
         history.push(`/main/search`);
       } catch (error: any) {
         setIsFormSubmitted(false);
@@ -203,6 +207,8 @@ const NewPatient: React.FC = () => {
   return (
     <div className="container">
       <h2>New Patient</h2>
+
+      <h6 style={{ color: "grey" }}>Main Patient Info only</h6>
       <div className="row mt-4">
         <form
           className="col-12 col-md-10 col-lg-8 mx-auto"

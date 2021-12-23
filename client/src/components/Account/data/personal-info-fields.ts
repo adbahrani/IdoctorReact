@@ -15,11 +15,11 @@ export default function generatePersonalInfoFields(params: PersonalInfoParams) {
   console.log("formData", formData);
   let fieldsMap = [
     {
-      label: "Username",
+      label: "Address",
       name: "username",
       type: "Input",
       inputType: "text",
-      placeholder: "Username",
+      placeholder: "Address",
       onChange: onChangeHandler,
       value: formData.username,
       isFormRow: false,

@@ -30,7 +30,9 @@ const Input = (props: InputProps) => {
     errorMessage = "This field is required",
     isFormSubmitted,
     resetToggle,
-    classes
+    classes,
+    min,
+    max
   } = props;
 
   const [touched, setTouched] = useState(false);
@@ -60,12 +62,14 @@ const Input = (props: InputProps) => {
   function getInput() {
     return (
       <input
-        {...props}
+        name={name}
         className={`form-control ${showError ? "is-invalid" : ""} ${classes}`}
         onChange={_onChange}
         onInput={_onChange}
         onBlur={_onBlur}
         value={value}
+        min={min}
+        max={max}
       />
     );
   }

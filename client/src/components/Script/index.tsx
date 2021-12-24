@@ -44,16 +44,16 @@ export default function Script() {
       }
     };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-        setTranslate(response.data.responseData.translatedText);
-      })
-      .catch(function (error) {
-        toastr.warning("Error with translation", error);
-        console.error(error);
-      });
+    // axios
+    //   .request(options)
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //     setTranslate(response.data.responseData.translatedText);
+    //   })
+    //   .catch(function (error) {
+    //     toastr.warning("Error with translation", error);
+    //     console.error(error);
+    //   });
   }, []);
 
   if (patientState === undefined) {
@@ -93,7 +93,7 @@ export default function Script() {
       <Row>
         <Col className="border border-primary p-2">
           <p>{currentUser.username} </p>
-          رقم التسجيل (١٢٨٦٨) في ١٩/٨/١٩٨٥
+          {/* رقم التسجيل (١٢٨٦٨) في ١٩/٨/١٩٨٥ */}
         </Col>
       </Row>
     </div>

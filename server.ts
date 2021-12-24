@@ -7,17 +7,20 @@ import patientRoutes from "./routes/patient-routes";
 import patientImageRoutes from "./routes/patient-image-routes";
 import visitsRoutes from "./routes/visits-routes";
 import reportsRoutes from "./routes/reports-routes";
+import otherRoutes from "./routes/other-routes";
 
+var cors = require("cors");
 const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
-
+app.use(cors());
 app.use("/api/user", userRoutes);
 app.use("/api/patient", patientRoutes);
 app.use("/api/patient", patientImageRoutes);
 app.use("/api/visits", visitsRoutes);
 app.use("/api/reports", reportsRoutes);
+app.use("/other", otherRoutes);
 
 app.use(
   "/uploads/images",
@@ -29,7 +32,12 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-const DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
+let DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
+if (process.env.LOCAL === "yes") {
+  console.log("Set to localDB");
+  DB_LINK = "mongodb://localhost/user";
+}
+
 mongoose
   .connect(DB_LINK, {
     useNewUrlParser: true,

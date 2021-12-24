@@ -74,9 +74,11 @@ const login: RequestHandler = async (req, res, next) => {
     });
 
     res.json({
+      ...user,
       userId: user.id,
       email: user.email,
       username: user.username || "",
+      name: user.name || "",
       token: token,
       loginAt: user.loginAt,
       isDeactivated: user.isDeactivated
@@ -87,8 +89,8 @@ const login: RequestHandler = async (req, res, next) => {
 };
 
 const updateUser: RequestHandler = async (req, res, next) => {
-  const { username, email, id } = req.body;
-
+  const { username, email, uid: id, name } = req.body;
+  console.log(req.body);
   try {
     let user = await UserModel.findById(id);
 
@@ -98,11 +100,13 @@ const updateUser: RequestHandler = async (req, res, next) => {
 
     if (username !== undefined) user.username = username;
     if (email !== undefined) user.email = email;
+    if (name !== undefined) user.name = name;
 
     let updatedUser = await user.save();
 
     res.status(201).json({
       username: updatedUser.username || "",
+      name: updatedUser.name || "",
       email: updatedUser.email
     });
   } catch (error) {

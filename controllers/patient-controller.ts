@@ -1,14 +1,27 @@
 import { RequestHandler } from "express";
-import { Document } from "mongoose";
+import { Document, startSession } from "mongoose";
 
 import PatientModel, { IPatient } from "../models/PatientModel";
+import UserModel, { IUser } from "../models/UserModel";
 import validationErrorHandler from "../utils/validation-error-handler";
+import PatientVisitModel, { IPatientVisit } from "../models/PatientVisitModel";
 
 const getAllPatients: RequestHandler = async (req, res, next) => {
   let patients;
 
+  let { userId } = req.params;
   try {
-    patients = await PatientModel.find({});
+    let user: IUser | null = await UserModel.findById(userId);
+    if (user) {
+      let patientIds = user.patients;
+      if (user.email.toLocaleLowerCase().includes("admin"))
+        patients = await PatientModel.find({});
+      else patients = await PatientModel.find({ _id: { $in: patientIds } });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "Your user id is not found, try login out and in" });
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -24,36 +37,43 @@ const createPatient: RequestHandler = async (req, res, next) => {
   const validationError = validationErrorHandler(req, res);
 
   if (validationError) {
+    console.log(validationError);
     return validationError;
   }
 
-  const {
-    fullName,
-    dob,
-    gender,
-    phoneNumber,
-    address,
-    zipCode,
-    maritalStatus,
-    job = ""
-  } = req.body;
+  const { userId } = req.body;
+
+  let newPatient = { ...req.body };
+  delete newPatient.userId;
+
+  let currentUser: (IUser & Document<any, any, IUser>) | null;
+  try {
+    currentUser = await UserModel.findById(userId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (!currentUser) {
+    return res
+      .status(404)
+      .json({ message: "Your user id is not found, try login out and in" });
+  }
 
   let createdPatient = new PatientModel({
-    fullName,
-    dob,
-    gender,
-    phoneNumber,
-    address,
-    zipCode,
-    maritalStatus,
-    job,
+    ...newPatient,
     history: {},
     visits: []
   });
 
   try {
+    const sess = await startSession();
+    sess.startTransaction();
     await createdPatient.save();
+    currentUser.patients.push(createdPatient.id);
+    await currentUser.save();
+    sess.commitTransaction();
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 
@@ -98,27 +118,31 @@ const deletePatient: RequestHandler = async (req, res, next) => {
   const validationError = validationErrorHandler(req, res);
 
   let patientId = req.params.patientId;
-  console.log(req.params);
 
   if (validationError) {
     return validationError;
   }
 
   let foundPatient: (IPatient & Document<any, any, IPatient>) | null;
+
   try {
+    const sess = await startSession();
+    sess.startTransaction();
     foundPatient = await PatientModel.findById(patientId);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
 
-  if (!foundPatient) {
-    return res
-      .status(404)
-      .json({ message: "Could not find patient for given patient ID" });
-  }
+    if (!foundPatient) {
+      return res
+        .status(404)
+        .json({ message: "Could not find patient for given patient ID" });
+    }
 
-  try {
-    foundPatient = await foundPatient.delete();
+    let { visits: visitIds }: any = foundPatient;
+    await foundPatient.delete();
+    let visits: Document<any, any, IPatientVisit>[] | null =
+      await PatientVisitModel.find({ _id: { $in: visitIds } });
+    let records = await PatientVisitModel.deleteMany({ _id: visits });
+    console.log(records);
+    sess.commitTransaction();
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

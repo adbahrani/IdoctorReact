@@ -5,6 +5,25 @@ import PatientModel, { IPatient } from "../models/PatientModel";
 import PatientVisitModel from "../models/PatientVisitModel";
 import validationErrorHandler from "../utils/validation-error-handler";
 
+const getVisitById: RequestHandler = async (req, res, next) => {
+  let visitFound;
+  try {
+    visitFound = await PatientVisitModel.findById(req.params.visitId);
+    console.log(visitFound);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+  if (!visitFound) {
+    return res
+      .status(404)
+      .json({ message: "Could not find visits for the provided patient ID" });
+  }
+
+  return res.json({
+    visit: visitFound
+  });
+};
+
 const getAllVisits: RequestHandler = async (req, res, next) => {
   let visits;
 
@@ -134,7 +153,8 @@ const createVisit: RequestHandler = async (req, res, next) => {
 const visitsController = {
   getAllVisits,
   getVisitsByPatientId,
-  createVisit
+  createVisit,
+  getVisitById
 };
 
 export default visitsController;

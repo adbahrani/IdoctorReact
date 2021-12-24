@@ -10,11 +10,12 @@ import { createStore, combineReducers } from "redux";
 import { reducer as toastrReducer } from "react-redux-toastr";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 
-import Home from "./ehr_components/Home";
-import Main from "./ehr_components/Main";
-import Loader from "./ehr_components/ui/Loader";
-import Auth from "./components/Auth";
+import Home from "./components/Home";
+import Main from "./components/Main";
+import Loader from "./components/common_components/ui/Loader";
+import Auth from "./landingPage/Auth";
 
 import { AuthContextProvider } from "./store/auth-context";
 import { useAuth } from "./hooks/auth-hook";
@@ -28,7 +29,7 @@ const App: React.FC = () => {
   const store = createStore(reducers);
 
   let routes;
-  if (userData.token) {
+  if (userData?.token) {
     routes = (
       <Switch>
         <Route path="/main" component={Main} />
@@ -54,7 +55,7 @@ const App: React.FC = () => {
     <ReduxProvider store={store}>
       <AuthContextProvider
         value={{
-          isLoggedIn: !!userData.token,
+          isLoggedIn: !!userData?.token,
           ...userData,
           login,
           logout

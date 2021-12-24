@@ -1,16 +1,21 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model, Document } from "mongoose";
 
 export interface IUser {
   username?: string;
+  name?: string;
   email: string;
   token: string;
   password: string;
   loginAt: Date;
   isDeactivated: boolean;
+  patients: mongoose.Types.ObjectId[] | Document[];
 }
 
-const userSchema = new Schema<IUser>({
+export const userSchema = new Schema<IUser>({
   username: {
+    type: String
+  },
+  name: {
     type: String
   },
   email: {
@@ -33,7 +38,8 @@ const userSchema = new Schema<IUser>({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  patients: [{ type: mongoose.Types.ObjectId, required: true, ref: "Patient" }]
 });
 
 const UserModel = model<IUser>("User", userSchema);

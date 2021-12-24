@@ -41,7 +41,7 @@ export interface IPatient {
   dob: string;
   gender: string;
   phoneNumber: string;
-  address: string;
+  address?: string;
   zipCode?: string;
   maritalStatus: string;
   job?: string;
@@ -68,8 +68,7 @@ const patientSchema = new Schema<IPatient>({
     required: true
   },
   address: {
-    type: String,
-    required: true
+    type: String
   },
   zipCode: {
     type: String

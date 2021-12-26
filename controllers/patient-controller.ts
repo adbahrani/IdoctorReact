@@ -15,8 +15,11 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
     if (user) {
       let patientIds = user.patients;
       if (user.email.toLocaleLowerCase().includes("admin"))
-        patients = await PatientModel.find({});
-      else patients = await PatientModel.find({ _id: { $in: patientIds } });
+        patients = await PatientModel.find({}).limit(1000);
+      else
+        patients = await PatientModel.find({ _id: { $in: patientIds } }).limit(
+          250
+        );
     } else {
       return res
         .status(404)

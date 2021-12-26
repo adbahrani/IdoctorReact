@@ -1,5 +1,3 @@
-
-
 interface NewPatientFieldParams {
   onChangeHandler: (
     fieldName: string,
@@ -106,7 +104,9 @@ export default function generateNewPatientFields(
       validateValue: (value: string) => {
         let countDigitsRegex = /\d/g;
         let regexMatch = value.match(countDigitsRegex);
-        return regexMatch !== null ? regexMatch.length === 10 : false;
+        return regexMatch !== null
+          ? regexMatch.length < 12 && regexMatch.length >= 10
+          : false;
       },
       formatValue: (value: string) => {
         if (!value) return value;
@@ -124,7 +124,7 @@ export default function generateNewPatientFields(
         )}-${phoneNumber.slice(6)}`;
       },
       value: formData.phoneNumber,
-      errorMessage: "Please enter a 10 digit phone number",
+      errorMessage: "Please enter a 10-11 digit phone number",
       isFormSubmitted: isFormSubmitted
     },
     {

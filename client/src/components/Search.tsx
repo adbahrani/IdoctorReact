@@ -9,12 +9,17 @@ import { Patient } from "./PatientUpdates/NewPatient";
 import { toastr } from "react-redux-toastr";
 
 const Search: React.FC = Props => {
-  const [patientsList, setPatientsList] = useState<Patient[]>([]);
+  const [patientsList, setPatientsList] = useState<Patient[]>(() => {
+    let list = localStorage.getItem("patientsList");
+    return list ? JSON.parse(list) : [];
+  });
   const history = useHistory();
   const authContext = useContext(AuthContext);
 
   const getPatientsList = async () => {
-    setPatientsList(await getPatients(authContext.uid?.toString()));
+    let res = await getPatients(authContext.uid?.toString());
+
+    if (res.length > 0) setPatientsList(res);
   };
 
   useEffect(() => {
@@ -55,23 +60,25 @@ const getPatients = async (userId: string): Promise<Patient[]> => {
     let {
       data: { patients }
     } = await Axios.get("/api/patient/all/" + userId);
+    localStorage.setItem("patientsList", JSON.stringify(patients));
     return patients;
   } catch (error: any) {
     let message;
+
     if (error.response) {
       if (error.response.data.errors) {
         let errors = error.response.data.errors as string[];
         message = errors.join(". ");
       } else {
-        message = error.response.data.message;
+        message = error.response.data.message || error.response.statusText;
       }
-    } else {
-      message =
-        error.message +
-        ".\n Check internet connection is working for search function";
+    } else if (error) {
+      console.clear();
+      console.log(error.message);
+      message = error.message ? error.message : "";
     }
-
-    toastr.error("Error", message);
+    message += ".\n working with offline data";
+    toastr.warning("Internet error", message);
   }
 
   return [];

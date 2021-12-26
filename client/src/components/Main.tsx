@@ -17,6 +17,9 @@ import Reactivate from "./Reactivate";
 import Reports from "./Reports";
 import Script from "./Script/";
 
+import { HiStatusOnline } from "react-icons/hi";
+import { RiWifiOffLine } from "react-icons/ri";
+
 import { AuthContext } from "../store/auth-context";
 
 export interface MainProps {}
@@ -42,17 +45,30 @@ const Main: React.FC<MainProps> = () => {
       {authContext.isDeactivated ? (
         <Reactivate />
       ) : (
-        <Switch>
-          <Route path={`${path}/search`} component={Search} />
-          <Route path={`${path}/history`} component={History} />
-          <Route path={`${path}/visits`} component={Visits} />
-          <Route path={`${path}/newVisit`} component={NewVisit} />
-          <Route path={`${path}/newPatient`} component={NewPatient} />
-          <Route path={`${path}/account`} component={Account} />
-          <Route path={`${path}/reports`} component={Reports} />
-          <Route path={`${path}/script`} component={Script} />
-          <Redirect to={`${path}/search`} />
-        </Switch>
+        <>
+          {window.navigator.onLine ? (
+            <p className="text-">
+              Live
+              <HiStatusOnline className="text-success mx-2" size={25} />
+            </p>
+          ) : (
+            <p>
+              Offline Mode
+              <RiWifiOffLine className="text-warning mx-2" size={20} />
+            </p>
+          )}
+          <Switch>
+            <Route path={`${path}/search`} component={Search} />
+            <Route path={`${path}/history`} component={History} />
+            <Route path={`${path}/visits`} component={Visits} />
+            <Route path={`${path}/newVisit`} component={NewVisit} />
+            <Route path={`${path}/newPatient`} component={NewPatient} />
+            <Route path={`${path}/account`} component={Account} />
+            <Route path={`${path}/reports`} component={Reports} />
+            <Route path={`${path}/script`} component={Script} />
+            <Redirect to={`${path}/search`} />
+          </Switch>
+        </>
       )}
     </Fragment>
   );

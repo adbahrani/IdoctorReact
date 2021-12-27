@@ -10,11 +10,13 @@ import reportsRoutes from "./routes/reports-routes";
 import otherRoutes from "./routes/other-routes";
 
 var cors = require("cors");
+
 const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(cors());
+
 app.use("/api/user", userRoutes);
 app.use("/api/patient", patientRoutes);
 app.use("/api/patient", patientImageRoutes);
@@ -27,16 +29,26 @@ app.use(
   express.static(path.join(__dirname, "/uploads/images"))
 );
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build/index.html"));
-});
-
 const port = process.env.PORT || 5000;
 let DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
 if (process.env.LOCAL === "yes") {
   console.log("Set to localDB");
   DB_LINK = "mongodb://localhost/user";
 }
+
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production") {
+    if (req.headers.host === "idoctor-records.herokuapp.com")
+      return res.redirect(301, "https://idoctor-records.herokuapp.com");
+    if (req.headers["x-forwarded-proto"] !== "https")
+      return res.redirect("https://" + req.headers.host + req.url);
+    else return next();
+  } else return next();
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 mongoose
   .connect(DB_LINK, {

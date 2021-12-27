@@ -37,7 +37,7 @@ if (process.env.LOCAL === "yes") {
 }
 
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" || true) {
     if (req.headers.host === "idoctor-records.herokuapp.com")
       return res.redirect(301, "https://idoctor-records.herokuapp.com");
     if (req.headers["x-forwarded-proto"] !== "https")

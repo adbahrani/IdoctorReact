@@ -46,12 +46,11 @@ const Main: React.FC<MainProps> = () => {
         <Reactivate />
       ) : (
         <>
-          {window.navigator.onLine ? (
-            <p className="text-">
-              Live
-              <HiStatusOnline className="text-success mx-2" size={25} />
-            </p>
-          ) : (
+          {window.navigator.onLine ? null : (
+            // <p className="text-">
+            //   Live
+            //   <HiStatusOnline className="text-success mx-2" size={25} />
+            // </p>
             <p>
               Offline Mode
               <RiWifiOffLine className="text-warning mx-2" size={20} />

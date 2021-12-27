@@ -73,12 +73,11 @@ const getPatients = async (userId: string): Promise<Patient[]> => {
         message = error.response.data.message || error.response.statusText;
       }
     } else if (error) {
-      console.clear();
       console.log(error.message);
       message = error.message ? error.message : "";
     }
     message += ".\n working with offline data";
-    toastr.warning("Internet error", message);
+    toastr.warning("Internet error", message, { timeOut: 2500 });
   }
 
   return [];

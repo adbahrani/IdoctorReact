@@ -41,7 +41,7 @@ if (process.env.LOCAL === "yes") {
 // app.use((req, res, next) => {
 //   if (req.headers.host === "idoctor-records.herokuapp.com")
 //     return res.redirect(301, "https://idoctor-records.herokuapp.com");
-//   if (req.headers["x-forwarded-proto"] !== "https")
+//   else if (req.headers["x-forwarded-proto"] !== "https")
 //     return res.redirect("https://" + req.headers.host + req.url);
 //   else return next();
 // });

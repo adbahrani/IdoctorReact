@@ -43,6 +43,12 @@ interface NewVisitFieldParams {
 export default function generateNewVisitFields(params: NewVisitFieldParams) {
   let { onChangeHandler, isFormSubmitted, formData, changedField } = params;
 
+  let BMICal = ({ weight, height }: any) => {
+    let BMI =
+      (parseFloat(weight) / (parseFloat(height) * parseFloat(height))) * 10000;
+    return isNaN(BMI) ? "" : BMI.toFixed(2);
+  };
+
   let fieldData = [
     {
       label: "Date of Visit",
@@ -154,16 +160,17 @@ export default function generateNewVisitFields(params: NewVisitFieldParams) {
       name: "height",
       type: "Input",
       placeholder: "",
-      append: "Mts",
+      append: "cm",
       value: formData.height,
       onChange: onChangeHandler
     },
+
     {
       label: "Body Mass Index",
       name: "bmi",
       type: "Input",
       placeholder: "",
-      value: formData.bmi,
+      value: formData.bmi || BMICal(formData),
       append: "kg/m2",
       onChange: onChangeHandler
     },

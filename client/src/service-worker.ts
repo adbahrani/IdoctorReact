@@ -85,7 +85,7 @@ registerRoute(
   ({ url }) =>
     url.origin === self.location.origin && url.pathname.startsWith("/css/"),
   new StaleWhileRevalidate({
-    cacheName: "css-cache",
+    cacheName: "css-site-cache",
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200]
@@ -96,7 +96,9 @@ registerRoute(
 
 // Cache the underlying font files with a cache-first strategy for 1 year.
 registerRoute(
-  ({ url }) => url.origin === "https://fonts.gstatic.com",
+  ({ url }) =>
+    url.origin === "https://fonts.gstatic.com" ||
+    url.origin === "https://cdnjs.cloudflare.com/ajax/libs/font-awesome",
   new CacheFirst({
     cacheName: "google-fonts-webfonts",
     plugins: [
@@ -105,6 +107,23 @@ registerRoute(
       }),
       new ExpirationPlugin({
         maxAgeSeconds: 60 * 60 * 24 * 365,
+        maxEntries: 30
+      })
+    ]
+  })
+);
+
+// Cache the underlying font files with a cache-first strategy for 7 days.
+registerRoute(
+  ({ url }) => url.pathname.endsWith(".css"),
+  new CacheFirst({
+    cacheName: "css-other-cache",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200]
+      }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 60 * 60 * 24 * 7,
         maxEntries: 30
       })
     ]

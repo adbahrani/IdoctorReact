@@ -8,9 +8,8 @@ import {
 import { Provider as ReduxProvider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import { reducer as toastrReducer } from "react-redux-toastr";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./App.css";
-import "bootstrap/dist/js/bootstrap.min.js";
 
 import Home from "./components/Home";
 import Main from "./components/Main";

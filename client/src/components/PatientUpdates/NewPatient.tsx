@@ -170,11 +170,23 @@ const NewPatient: React.FC = () => {
           ...formData,
           phoneNumber: formData.phoneNumber.replace(/[^\d]/g, "")
         };
-        let response = await Axios.post("/api/patient", patientData);
-        console.log("CREATED PATIENT", response.data.patient);
-        toastr.success(
-          "New Patient",
-          "Added Successfully. Visit details can now be added under patient name"
+        let {
+          data: { patient }
+        } = await Axios.post("/api/patient", patientData);
+        console.log("CREATED PATIENT", patient);
+        toastr.success("New Patient", "Added Successfully!");
+        toastr.confirm(
+          "Patient added successfully, Do you want to add visit details to the new patient?",
+          {
+            okText: "Yes",
+            cancelText: "No",
+            onOk: () => {
+              history.push({
+                pathname: `/main/newVisit`,
+                state: patient
+              });
+            }
+          }
         );
         history.push(`/main/search`);
       } catch (error: any) {

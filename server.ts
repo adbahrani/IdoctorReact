@@ -13,7 +13,7 @@ import otherRoutes from "./routes/other-routes";
 var cors = require("cors");
 
 const app = express();
-// app.use(sslRedirect(["other", "development", "production"]));
+app.use(sslRedirect(["other", "development", "production"]));
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
@@ -38,13 +38,13 @@ if (process.env.LOCAL === "yes") {
   DB_LINK = "mongodb://localhost/user";
 }
 
-app.use((req, res, next) => {
-  if (req.headers.host === "idoctor-records.herokuapp.com")
-    return res.redirect(301, "https://idoctor-records.herokuapp.com");
-  else if (req.headers["x-forwarded-proto"] !== "https")
-    return res.redirect("https://" + req.headers.host + req.url);
-  else return next();
-});
+// app.use((req, res, next) => {
+//   if (req.headers.host === "idoctor-records.herokuapp.com")
+//     return res.redirect(301, "https://idoctor-records.herokuapp.com");
+//   else if (req.headers["x-forwarded-proto"] !== "https")
+//     return res.redirect("https://" + req.headers.host + req.url);
+//   else return next();
+// });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));

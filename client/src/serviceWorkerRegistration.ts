@@ -83,8 +83,8 @@ function registerValidSW(swUrl: string, config?: Config) {
               );
               toastr.info(
                 "Update!",
-                "Updates available and would be visible on pages reload/reopen",
-                { timeOut: 2000 }
+                "New updates available and would be visible after pages reload/reopen",
+                { timeOut: 3000 }
               );
               // Execute callback
               if (config && config.onUpdate) {

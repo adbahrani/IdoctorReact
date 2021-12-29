@@ -140,7 +140,7 @@ export default function Table<T extends Record<string, unknown>>(
                   </td>
                 </tr>
               )}
-              {rows.map((row, i) => {
+              {rows.map(row => {
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps([getRowProps && getRowProps(row)])}>

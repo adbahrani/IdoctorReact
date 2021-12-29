@@ -16,6 +16,9 @@ const Search: React.FC = Props => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
 
+  let updateTable = (deletedPatientId: string) => {
+    setPatientsList(patientsList.filter(p => p.id !== deletedPatientId));
+  };
   const getPatientsList = async () => {
     let res = await getPatients(authContext.uid?.toString());
 
@@ -44,10 +47,7 @@ const Search: React.FC = Props => {
         >
           Add New Patient
         </button>
-        <SearchTable
-          patientsList={patientsList}
-          updateTable={getPatientsList}
-        />
+        <SearchTable patientsList={patientsList} updateTable={updateTable} />
       </div>
     </Fragment>
   );

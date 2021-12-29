@@ -63,10 +63,12 @@ export default function generateAuthFields(params: AuthFieldsParams) {
   };
   if (authType === AuthType.SIGNUP) {
     linkProperties.description = "Already have an account";
+
     linkProperties.path = "/login";
     linkProperties.text = AuthType.LOGIN;
   } else {
-    linkProperties.description = "Don't have an account?";
+    linkProperties.description =
+      "New account is free currently. Need an account?";
     linkProperties.path = "/signup";
     linkProperties.text = AuthType.SIGNUP;
   }

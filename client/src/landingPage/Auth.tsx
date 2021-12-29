@@ -95,9 +95,9 @@ export default function Auth() {
         } else {
           setErrorMessage(error.message);
         }
-        setIsLoading(false);
       }
     }
+    setIsLoading(false);
   };
 
   const formError =
@@ -140,6 +140,10 @@ export default function Auth() {
                 {linkProperties.text}
               </Link>
             </div>
+            <p>Feel free to contact our page IDoctorSystem for any questions</p>
+            <a href="https://www.facebook.com/IDoctorSystem" target="_blank">
+              facebook.com/IDoctorSystem
+            </a>
           </form>
         </div>
       </div>

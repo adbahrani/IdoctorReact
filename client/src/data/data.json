@@ -1,135 +1,135 @@
 {
-    "Header": {
-        "title": "The all-in-one solution",
-        "paragraph": "Learn how smarter software and a service team that cares can make the difference in your practice! "
-    },
-    "About": {
-        "paragraph": "IDoctor is a simple application for record management that runs anywhere form everywhere",
-        "Why": [
-            "Any OS - Windows, Mac, Iphone, Android ",
-            "No lengthy installation",
-            "No back up, no data base lost"
-        ],
-        "Why2": [
-            "Fast and runs mostly offline",
-            "Very simple to use",
-            "All your data stored on cloud and auto sync between devices"
-        ]
-    },
-    "Services": [
-        {
-            "icon": "fa fa-wordpress",
-            "name": "Online/Offline",
-            "text": ""
-        },
-        {
-            "icon": "fa fa-cart-arrow-down",
-            "name": "Fast Update",
-            "text": " "
-        },
-        {
-            "icon": "fa fa-cloud-download",
-            "name": "Cloud Storage",
-            "text": "No worries about lost of database anymore"
-        },
-        {
-            "icon": "fa fa-language",
-            "name": "Reporting Features",
-            "text": ""
-        },
-        {
-            "icon": "fa fa-plane",
-            "name": "Auto Sync",
-            "text": "Multiple devices, same data"
-        },
-        {
-            "icon": "fa fa-pie-chart",
-            "name": "Tracking and analyzing of data",
-            "text": ""
-        }
+  "Header": {
+    "title": "The all-in-one solution",
+    "paragraph": "Learn how smarter software and a service team that cares can make the difference in your practice! "
+  },
+  "About": {
+    "paragraph": "IDoctor is a simple application for record management that runs anywhere form everywhere",
+    "Why": [
+      "Any OS - Windows, Mac, Iphone, Android ",
+      "No lengthy installation",
+      "No back up, no data base lost"
     ],
-    "Testimonials": [
-        {
-            "img": "img/testimonials/01.jpg",
-            "text": "\"Love how it works from any device, I can add data from my phone quickly and see it in my computer right away\"",
-            "name": "John Doe"
-        },
-        {
-            "img": "img/testimonials/02.jpg",
-            "text": "\"Very easy to use\"",
-            "name": "Rich Smith"
-        },
-        {
-            "img": "img/testimonials/03.jpg",
-            "text": "\"They take feedback and build in customization to my need\"",
-            "name": "Robert Adams"
-        },
-        {
-            "img": "img/testimonials/04.jpg",
-            "text": "\"Great Program!\"",
-            "name": "Nicole Goodman"
-        },
-        {
-            "img": "img/testimonials/05.jpg",
-            "text":  "\"My favorite program to use!\"",
-            "name": "Tyler Mann"
-        },
-        {
-            "img": "img/testimonials/06.jpg",
-            "text": "\"Simple, easy, fast, and user friendly\"",
-            "name": "Laura Johnson"
-        }
-    ],
-    "Team": [
-        {
-            "img": "img/team/01.jpg",
-            "name": "John Doe",
-            "job": "Director"
-        },
-        {
-            "img": "img/team/02.jpg",
-            "name": "Mike Doe",
-            "job": "Senior Designer"
-        },
-        {
-            "img": "img/team/03.jpg",
-            "name": "Jane Doe",
-            "job": "Senior Designer"
-        },
-        {
-            "img": "img/team/04.jpg",
-            "name": "Karen Doe",
-            "job": "Project Manager"
-        }
-    ],
-    "Contact": {
-        "address": "4321 California St, San Francisco, CA 12345 ",
-        "phone": "+1 123 456 1234",
-        "email": "info@company.com",
-        "facebook": "fb.com",
-        "twitter": "twitter.com",
-        "youtube": "youtube.com"
-    },
-    "Features": [
-        {
-            "icon": "fa fa-medkit",
-            "title": "Practice Management",
-            "text": " "
-        },
-        {
-            "icon": "fa  fa-hospital-o",
-            "title": "Chart & Medical Records",
-            "text": " "
-        },
-        {
-            "icon": "fa fa-heartbeat",
-            "title": "Reporting",
-            "text": " "
-        },
-        {
-            "icon": "fa fa-laptop",
-            "title": "Patient Portal",
-            "text": " "
-        }
+    "Why2": [
+      "Fast and runs mostly offline",
+      "Very simple to use",
+      "All your data stored on cloud and auto sync between devices"
     ]
+  },
+  "Services": [
+    {
+      "icon": "fa fa-wordpress",
+      "name": "Online/Offline",
+      "text": ""
+    },
+    {
+      "icon": "fa fa-cart-arrow-down",
+      "name": "Fast Update",
+      "text": " "
+    },
+    {
+      "icon": "fa fa-cloud-download",
+      "name": "Cloud Storage",
+      "text": "No worries about lost of database anymore"
+    },
+    {
+      "icon": "fa fa-language",
+      "name": "Reporting Features",
+      "text": ""
+    },
+    {
+      "icon": "fa fa-plane",
+      "name": "Auto Sync",
+      "text": "Multiple devices, same data"
+    },
+    {
+      "icon": "fa fa-pie-chart",
+      "name": "Tracking and analyzing of data",
+      "text": ""
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"Love how it works from any device, I can add data from my phone quickly and see it in my computer right away\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\"Very easy to use\"",
+      "name": "Rich Smith"
+    },
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"They take feedback and build in customization to my need\"",
+      "name": "Robert Adams"
+    },
+    {
+      "img": "img/testimonials/04.jpg",
+      "text": "\"Great Program!\"",
+      "name": "Nicole Goodman"
+    },
+    {
+      "img": "img/testimonials/05.jpg",
+      "text": "\"My favorite program to use!\"",
+      "name": "Tyler Mann"
+    },
+    {
+      "img": "img/testimonials/06.jpg",
+      "text": "\"Simple, easy, fast, and user friendly\"",
+      "name": "Laura Johnson"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/01.jpg",
+      "name": "John Doe",
+      "job": "Director"
+    },
+    {
+      "img": "img/team/02.jpg",
+      "name": "Mike Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/03.jpg",
+      "name": "Jane Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/04.jpg",
+      "name": "Karen Doe",
+      "job": "Project Manager"
+    }
+  ],
+  "Contact": {
+    "address": "4321 California St, San Francisco, CA 12345 ",
+    "phone": "+1 123 456 1234",
+    "email": "info@company.com",
+    "facebook": "https://www.facebook.com/IDoctorSystem",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-medkit",
+      "title": "Practice Management",
+      "text": " "
+    },
+    {
+      "icon": "fa  fa-hospital-o",
+      "title": "Chart & Medical Records",
+      "text": " "
+    },
+    {
+      "icon": "fa fa-heartbeat",
+      "title": "Reporting",
+      "text": " "
+    },
+    {
+      "icon": "fa fa-laptop",
+      "title": "Patient Portal",
+      "text": " "
+    }
+  ]
 }

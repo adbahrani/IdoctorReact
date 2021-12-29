@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Column, Row, Cell, HeaderGroup } from "react-table";
 
 import Table from "../common_components/ui/Table";
@@ -22,52 +22,52 @@ type TableData = {
 
 export default function SearchTable(props: SearchTableProps) {
   let { patientsList, updateTable } = props;
+  const [tableDate, setTableDate] = useState([]);
 
-  const columns: Array<Column<TableData>> = useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "fullName",
-        get className(): string {
-          return columnWidths[this.accessor];
-        },
-        style: columnStyles,
-        filter: "fuzzyText"
+  const columns: any = [
+    {
+      Header: "Name",
+      accessor: "fullName",
+      get className(): string {
+        return columnWidths[this.accessor];
       },
-      {
-        Header: "Birth",
-        accessor: "dob",
-        get className(): string {
-          return columnWidths[this.accessor];
-        },
-        style: columnStyles,
-        filter: "fuzzyText"
+      style: columnStyles,
+      filter: "fuzzyText"
+    },
+    {
+      Header: "Birth",
+      accessor: "dob",
+      get className(): string {
+        return columnWidths[this.accessor];
       },
-      {
-        Header: "Phone",
-        accessor: "phoneNumber",
-        get className(): string {
-          return columnWidths[this.accessor];
-        },
-        style: columnStyles,
-        filter: "fuzzyText"
+      style: columnStyles,
+      filter: "fuzzyText"
+    },
+    {
+      Header: "Phone",
+      accessor: "phoneNumber",
+      get className(): string {
+        return columnWidths[this.accessor];
       },
-      {
-        Header: "",
-        accessor: "actions",
-        get className(): string {
-          return `${columnWidths["actions"]} align-self-stretch d-none d-md-block`;
-        },
-        style: columnStyles,
-        disableFilters: true,
-        disableSortBy: true,
-        Cell: ({ row }) => <ActionsCell row={row} updateTable={updateTable} />
-      }
-    ],
-    []
-  );
+      style: columnStyles,
+      filter: "fuzzyText"
+    },
+    {
+      Header: "",
+      accessor: "actions",
+      get className(): string {
+        return `${columnWidths["actions"]} align-self-stretch d-none d-md-block`;
+      },
+      style: columnStyles,
+      disableFilters: true,
+      disableSortBy: true,
+      Cell: ({ row }: any) => (
+        <ActionsCell row={row} updateTable={updateTable} />
+      )
+    }
+  ];
 
-  const data = useMemo(() => {
+  let formatTableDate: any = (patientsList: Patient[]) => {
     return patientsList.map(patient => {
       let { fullName, dob, phoneNumber } = patient;
       let formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
@@ -77,11 +77,27 @@ export default function SearchTable(props: SearchTableProps) {
 
       return { fullName, dob, phoneNumber: formattedNumber, patient };
     });
+  };
+  useEffect(() => {
+    console.log("Change!");
+    setTableDate(formatTableDate(patientsList));
   }, [patientsList]);
+
+  // const data = useMemo(() => {
+  //   return patientsList.map(patient => {
+  //     let { fullName, dob, phoneNumber } = patient;
+  //     let formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+  //       3,
+  //       6
+  //     )}-${phoneNumber.slice(6)}`;
+
+  //     return { fullName, dob, phoneNumber: formattedNumber, patient };
+  //   });
+  // }, [patientsList]);
 
   return (
     <Table<TableData>
-      data={data}
+      data={tableDate}
       columns={columns}
       getCellProps={(cell: Cell) => ({
         className: `${columnWidths[cell.column.id]} border-0 text-left`
@@ -101,7 +117,7 @@ export default function SearchTable(props: SearchTableProps) {
       getHeaderGroupProps={(headerGroup: HeaderGroup) => ({
         className: "d-flex flex-wrap align-items-center"
       })}
-      showOnFilter={true}
+      // showOnFilter={true}
       FiltersGroup={FiltersGroup}
     />
   );

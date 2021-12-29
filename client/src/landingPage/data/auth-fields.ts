@@ -67,8 +67,7 @@ export default function generateAuthFields(params: AuthFieldsParams) {
     linkProperties.path = "/login";
     linkProperties.text = AuthType.LOGIN;
   } else {
-    linkProperties.description =
-      "New account is free currently. Need an account?";
+    linkProperties.description = "Accounts are free currently. Need one ?";
     linkProperties.path = "/signup";
     linkProperties.text = AuthType.SIGNUP;
   }

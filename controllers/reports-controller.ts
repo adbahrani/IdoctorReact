@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 
 import PatientModel from "../models/PatientModel";
 import PatientVisitModel from "../models/PatientVisitModel";
+import UserModel, { IUser } from "../models/UserModel";
 
 const newCountAggregate = [
   {
@@ -31,9 +32,17 @@ const newCountAggregate = [
 
 const getNewPatients: RequestHandler = async (req, res, next) => {
   let newPatients;
-
+  let { userId } = req.params;
+  console.log(userId);
   try {
-    newPatients = await PatientModel.aggregate(newCountAggregate);
+    let user: IUser | null = await UserModel.findById(userId);
+
+    let aggregate = [
+      { $match: { _id: { $in: user?.patients } } },
+      ...newCountAggregate
+    ];
+    console.log(aggregate);
+    newPatients = await PatientModel.aggregate(aggregate);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

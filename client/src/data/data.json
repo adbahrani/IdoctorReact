@@ -6,14 +6,14 @@
   "About": {
     "paragraph": "IDoctor is a simple application for record management that runs anywhere form everywhere",
     "Why": [
-      "Any OS - Windows, Mac, Iphone, Android ",
-      "No lengthy installation",
-      "No back up, no data base lost"
+      "Any OS - Window, Mac, IOS/Iphone, Android ",
+      "No lengthy installation, combine the power of website and installed application",
+      "All your data stored on cloud and auto sync between devices"
     ],
     "Why2": [
-      "Fast and runs mostly offline",
-      "Very simple to use",
-      "All your data stored on cloud and auto sync between devices"
+      "Very fast as it runs mostly offline",
+      "Simple to use. No back up, no data lost",
+      "Built in the USA with latest technologies, designed to serve the middle east"
     ]
   },
   "Services": [
@@ -103,9 +103,9 @@
     }
   ],
   "Contact": {
-    "address": "4321 California St, San Francisco, CA 12345 ",
-    "phone": "+1 123 456 1234",
-    "email": "info@company.com",
+    "address": "41 Wake RD, West Chester, NY 12345 ",
+    "phone": "+1 6262480822",
+    "email": "email us here through contact form",
     "facebook": "https://www.facebook.com/IDoctorSystem",
     "twitter": "twitter.com",
     "youtube": "youtube.com"
@@ -114,6 +114,7 @@
     {
       "icon": "fa fa-medkit",
       "title": "Practice Management",
+
       "text": " "
     },
     {

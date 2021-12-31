@@ -7,13 +7,13 @@
     "paragraph": "IDoctor is a simple application for record management that runs anywhere from everywhere",
     "Why": [
       "Any OS - Window, Mac, IOS/Iphone, Android ",
-      "No lengthy installation, combine the power of website and installed application",
-      "All your data stored on cloud and auto sync between devices"
+      "No lengthy installation. Can work as website or an App on phone/device.",
+      "Built with latest technologies that allow it runs mostly offline, without constant internet connection."
     ],
     "Why2": [
-      "Very fast as it runs mostly offline",
-      "Simple to use. No back up, no data lost",
-      "Built in the USA with latest technologies, designed to serve the middle east"
+      "All your data stored on cloud and auto sync between devices",
+      "Very fast and Simple to use. Provide suggestion and auto calculation",
+      "Reviewed by multiple doctors with different background and sub-speciality"
     ]
   },
   "Services": [

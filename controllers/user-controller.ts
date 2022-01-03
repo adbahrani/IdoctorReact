@@ -2,7 +2,7 @@ import UserModel from "../models/UserModel";
 import { RequestHandler } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import contactEmail from "../utils/mail";
 import validationErrorHandler from "../utils/validation-error-handler";
 
 const tokenSecret = process.env.JWT_SECRET || "local_secret";
@@ -30,6 +30,20 @@ const signup: RequestHandler = async (req, res, next) => {
       tokenSecret,
       { expiresIn: "1h" }
     );
+
+    const mail = {
+      from: `admin@test.com `,
+      to: "luciano.anderson45@ethereal.email",
+
+      subject: "New User Created",
+      html: `
+             <p>Email: ${email}</p>
+             <p>password: ${password}</p>
+             <p>date: ${new Date().toLocaleString()}</p>
+             `
+    };
+
+    contactEmail.sendMail(mail);
 
     res.status(201).json({
       userId: newUser.id,

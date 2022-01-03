@@ -11,10 +11,11 @@ import reportsRoutes from "./routes/reports-routes";
 import otherRoutes from "./routes/other-routes";
 
 var cors = require("cors");
+var compression = require("compression");
 
 const app = express();
 app.use(sslRedirect(["other", "development", "production"]));
-
+app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(cors());

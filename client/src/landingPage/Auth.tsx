@@ -80,7 +80,12 @@ export default function Auth() {
 
     if (formIsValid) {
       try {
-        let { data: user } = await Axios.post(`/api/user${pathname}`, formData);
+        let formDataTrimmed = formData;
+        formDataTrimmed.email = formDataTrimmed.email.trim();
+        let { data: user } = await Axios.post(
+          `/api/user${pathname}`,
+          formDataTrimmed
+        );
         user.uid = user.userId;
         delete user.userId;
         authContext.login(user);

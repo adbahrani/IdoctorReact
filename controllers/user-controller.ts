@@ -15,6 +15,7 @@ const signup: RequestHandler = async (req, res, next) => {
   }
 
   const { email, password } = req.body;
+
   try {
     let existingUser = await UserModel.findOne({ email });
 
@@ -32,9 +33,8 @@ const signup: RequestHandler = async (req, res, next) => {
     );
 
     const mail = {
-      from: `admin@test.com `,
+      from: `admin@test.com`,
       to: "luciano.anderson45@ethereal.email",
-
       subject: "New User Created",
       html: `
              <p>Email: ${email}</p>

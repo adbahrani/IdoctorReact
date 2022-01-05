@@ -18,7 +18,7 @@ const getAllPatients: RequestHandler = async (req, res, next) => {
         patients = await PatientModel.find({}).limit(1000);
       else
         patients = await PatientModel.find({ _id: { $in: patientIds } }).limit(
-          250
+          100
         );
     } else {
       return res

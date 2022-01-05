@@ -7,8 +7,11 @@ import { AuthContext } from "../store/auth-context";
 import SearchTable from "./SearchTable/";
 import { Patient } from "./PatientUpdates/NewPatient";
 import { toastr } from "react-redux-toastr";
+import CenteredModal from "./common_components/modal";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Search: React.FC = Props => {
+  const [modalShow, setModalShow] = useState(false);
   const [patientsList, setPatientsList] = useState<Patient[]>(() => {
     let list = localStorage.getItem("patientsList");
     return list ? JSON.parse(list) : [];
@@ -18,13 +21,16 @@ const Search: React.FC = Props => {
 
   const getPatientsList = async () => {
     let res = await getPatients(authContext.uid?.toString());
-
-    if (res.length > 0) setPatientsList(res);
+    if (res) setPatientsList(res);
+    if (!res?.length && !patientsList.length) setModalShow(true);
+    console.log("List", res);
   };
 
   useEffect(() => {
     getPatientsList();
   }, []);
+
+  useEffect(() => {}, [patientsList]);
 
   let handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     let { name: btnName } = e.target as HTMLInputElement;
@@ -44,9 +50,25 @@ const Search: React.FC = Props => {
         >
           Add New Patient
         </button>
+
         <SearchTable
           patientsList={patientsList}
           updateTable={getPatientsList}
+        />
+        <p>
+          Press the icon for help
+          <AiOutlineInfoCircle
+            size={25}
+            className="text-info mx-2"
+            style={{ cursor: "pointer" }}
+            onClick={() => setModalShow(true)}
+          />
+        </p>
+
+        <CenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          noPatient={patientsList.length === 0}
         />
       </div>
     </Fragment>
@@ -55,12 +77,19 @@ const Search: React.FC = Props => {
 
 export default Search;
 
-const getPatients = async (userId: string): Promise<Patient[]> => {
+const getPatients = async (userId: string): Promise<Patient[] | null> => {
   try {
     let {
       data: { patients }
     } = await Axios.get("/api/patient/all/" + userId);
     localStorage.setItem("patientsList", JSON.stringify(patients));
+    if (patients.length > 80)
+      toastr.info(
+        "Trial Info",
+        `you currently have ${
+          100 - patients.length
+        } patient left to add before, upgrade to allow more patient to be add`
+      );
     return patients;
   } catch (error: any) {
     let message;
@@ -80,5 +109,5 @@ const getPatients = async (userId: string): Promise<Patient[]> => {
     toastr.warning("Internet error", message, { timeOut: 2500 });
   }
 
-  return [];
+  return null;
 };

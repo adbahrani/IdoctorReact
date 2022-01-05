@@ -32,7 +32,7 @@ export default function generateAuthFields(params: AuthFieldsParams) {
       validateValue: (value: string) => {
         let emailRegex =
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return emailRegex.test(value);
+        return emailRegex.test(value.trim());
       },
       value: formData.email,
       errorMessage: "Please enter a valid email",
@@ -67,7 +67,7 @@ export default function generateAuthFields(params: AuthFieldsParams) {
     linkProperties.path = "/login";
     linkProperties.text = AuthType.LOGIN;
   } else {
-    linkProperties.description = "Accounts are free currently. Need one ?";
+    linkProperties.description = "Accounts are free currently. Need one?";
     linkProperties.path = "/signup";
     linkProperties.text = AuthType.SIGNUP;
   }

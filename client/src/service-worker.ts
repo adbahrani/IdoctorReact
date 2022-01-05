@@ -100,7 +100,7 @@ registerRoute(
     url.origin === "https://fonts.gstatic.com" ||
     url.origin === "https://cdnjs.cloudflare.com/ajax/libs/font-awesome",
   new CacheFirst({
-    cacheName: "google-fonts-webfonts",
+    cacheName: "onts-webfonts",
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200]

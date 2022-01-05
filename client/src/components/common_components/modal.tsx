@@ -20,8 +20,8 @@ let CenteredModal = (props: any) => {
       </Modal.Header>
       <Modal.Body>
         <h4>
-          Quick tips on how to use
-          <span style={{ float: "right" }}>معلومات أساسية للأستخدام</span>
+          Quick tips
+          <span style={{ float: "right" }}> أساسيات الأستخدام</span>
         </h4>
         <Row>
           <Col>

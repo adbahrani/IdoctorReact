@@ -1,7 +1,7 @@
 {
   "Header": {
-    "title": "The all-in-one solution",
-    "paragraph": "Learn how smarter software and a service team that cares can make the difference in your practice! "
+    "title": "The All-in-one solution for your clinic",
+    "paragraph": "Try our program today, sign up for account from the login link below "
   },
   "About": {
     "paragraph": "IDoctor is a simple application for record management that runs anywhere from everywhere",
@@ -104,7 +104,7 @@
   ],
   "Contact": {
     "address": "41 Wake RD, West Chester, NY 12345 ",
-    "phone": "+1 6262480822",
+    "phone": "+964 772 732 4017",
     "email": "email us here through contact form",
     "facebook": "https://www.facebook.com/IDoctorSystem",
     "twitter": "twitter.com",
@@ -129,7 +129,7 @@
     },
     {
       "icon": "fa fa-laptop",
-      "title": "Patient Portal",
+      "title": "Works from any devices",
       "text": " "
     }
   ]

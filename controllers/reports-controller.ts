@@ -36,7 +36,6 @@ const getNewPatients: RequestHandler = async (req, res, next) => {
   console.log(userId);
   try {
     let user: IUser | null = await UserModel.findById(userId);
-
     let aggregate = [
       { $match: { _id: { $in: user?.patients } } },
       ...newCountAggregate

@@ -1,13 +1,12 @@
 import { useEffect, useState, useContext } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
 import Axios from "axios";
 
 import { AuthContext } from "../../store/auth-context";
 
 import { Patient } from "../PatientUpdates/NewPatient";
-import { Row, Col } from "react-bootstrap";
-import axios from "axios";
-import { toastr } from "react-redux-toastr";
+import { Row, Col, Button } from "react-bootstrap";
+import { AiFillPrinter } from "react-icons/ai";
 
 export default function Script() {
   const [RX, setRX] = useState("");
@@ -61,41 +60,62 @@ export default function Script() {
     return <></>;
   }
 
+  //210 x 148mm A5
   return (
-    <div className="container border  border-primary w-75 mt-4 ">
-      <Row>
-        <Col className="border border-primary ">
-          <p style={{ fontWeight: 600 }} className="my-3">
-            {currentUser.name}
-          </p>
-        </Col>
-        {/* <Col className="border border-primary">
+    <>
+      <Button
+        variant="info"
+        onClick={() => window.print()}
+        className="no-print"
+      >
+        Print <AiFillPrinter />
+      </Button>
+
+      <div
+        className="container border  border-primary  mt-2 d-flex  flex-column "
+        style={{ width: 793, height: 559 }}
+      >
+        <Row>
+          <Col className="border border-primary ">
+            <p style={{ fontWeight: 600 }} className="my-3">
+              {currentUser.name || (
+                <>
+                  Please update practice name from
+                  <Link to="/main/account"> Account</Link>
+                </>
+              )}
+            </p>
+          </Col>
+          {/* <Col className="border border-primary">
           <p style={{ fontWeight: 600 }}>{translate} </p>
         </Col> */}
-      </Row>
-      <Row>
-        <Col>
-          <hr />
-        </Col>
-      </Row>
+        </Row>
 
-      <Row>
-        <Col className="text-left">Name: {patientState.fullName}</Col>
-        <Col className="text-right">Year of birth: {patientState.dob}</Col>
-      </Row>
+        <Row className="mt-3">
+          <Col className="text-left">Name: {patientState.fullName}</Col>
+          <Col className="text-right">Year of birth: {patientState.dob}</Col>
+        </Row>
 
-      <Row>
-        <Col>
-          <p className="py-5">{RX}</p>
-        </Col>
-      </Row>
+        <Row className="align-items-center mt-auto mb-auto">
+          <Col>
+            <p className="py-5">{RX}</p>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col className="border border-primary p-2">
-          <p>{currentUser.username} </p>
-          {/* رقم التسجيل (١٢٨٦٨) في ١٩/٨/١٩٨٥ */}
-        </Col>
-      </Row>
-    </div>
+        <Row>
+          <Col className="border border-primary p-2">
+            <p>
+              {currentUser.username || (
+                <>
+                  Please update practice name from
+                  <Link to="/main/account"> Account</Link>
+                </>
+              )}
+            </p>
+            {/* رقم التسجيل (١٢٨٦٨) في ١٩/٨/١٩٨٥ */}
+          </Col>
+        </Row>
+      </div>
+    </>
   );
 }

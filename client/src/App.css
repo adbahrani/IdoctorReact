@@ -40,3 +40,10 @@
 #header h1 {
   font-size: 60px;
 }
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}

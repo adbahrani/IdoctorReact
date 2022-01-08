@@ -46,4 +46,9 @@
   .no-print * {
     display: none !important;
   }
+
+  .a5-size-print {
+    width: 793px;
+    height: 559px;
+  }
 }

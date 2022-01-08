@@ -71,10 +71,7 @@ export default function Script() {
         Print <AiFillPrinter />
       </Button>
 
-      <div
-        className="container border  border-primary  mt-2 d-flex  flex-column "
-        style={{ width: 793, height: 559 }}
-      >
+      <div className="container border  border-primary  mt-2 d-flex  flex-column a5-size-print ">
         <Row>
           <Col className="border border-primary ">
             <p style={{ fontWeight: 600 }} className="my-3">

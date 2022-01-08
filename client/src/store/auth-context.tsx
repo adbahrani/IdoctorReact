@@ -9,7 +9,7 @@ export const AuthContext = React.createContext({
   email: "",
   loginAt: new Date(),
   isDeactivated: false,
-  login: (..._user: UserData[]) => {},
+  login: (user: UserData) => {},
   logout: () => {}
 });
 

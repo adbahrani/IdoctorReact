@@ -12,7 +12,7 @@ interface PersonalInfoParams {
 
 export default function generatePersonalInfoFields(params: PersonalInfoParams) {
   let { onChangeHandler, formData } = params;
-  console.log("formData", formData);
+
   let fieldsMap = [
     {
       label: "Address",

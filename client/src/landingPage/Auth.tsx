@@ -7,6 +7,7 @@ import FieldRenderer from "../components/common_components/field-renderer";
 import generateAuthFields, { AuthType } from "./data/auth-fields";
 
 import Navigation from "./navigation";
+import { UserData } from "../hooks/auth-hook";
 
 const formDefaultState = {
   email: "",
@@ -82,12 +83,7 @@ export default function Auth() {
       try {
         let formDataTrimmed = formData;
         formDataTrimmed.email = formDataTrimmed.email.trim();
-        let { data: user } = await Axios.post(
-          `/api/user${pathname}`,
-          formDataTrimmed
-        );
-        user.uid = user.userId;
-        delete user.userId;
+        let user: UserData = await LoginInCall(pathname, formDataTrimmed);
         authContext.login(user);
       } catch (error: any) {
         if (error.response) {
@@ -157,3 +153,10 @@ export default function Auth() {
     </div>
   );
 }
+
+export const LoginInCall = async (type: string, loginInfo: any) => {
+  let { data: user } = await Axios.post(`/api/user${type}`, loginInfo);
+  user.uid = user.userId;
+  delete user.userId;
+  return user;
+};

@@ -53,4 +53,5 @@ userRoutes.patch(
   userController.updateActiveStatus
 );
 
+userRoutes.get("/:userId", userController.getUser);
 export default userRoutes;

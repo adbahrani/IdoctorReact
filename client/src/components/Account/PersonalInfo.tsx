@@ -1,10 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 
 import { AuthContext } from "../../store/auth-context";
 import FieldRenderer from "../common_components/field-renderer";
 import generatePersonalInfoFields from "./data/personal-info-fields";
 import Alert from "../common_components/ui/Alert";
+import axios from "axios";
 
 export default function PersonalInfo() {
   let currentUser = useContext(AuthContext);
@@ -13,6 +14,13 @@ export default function PersonalInfo() {
   const [showAlert, setShowAlert] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState(currentUser);
+
+  useEffect(() => {
+    axios.get("/api/user/" + currentUser.uid).then(({ data: { user } }) => {
+      user = { ...currentUser, ...user };
+      setFormData(user);
+    });
+  }, []);
 
   const updateFormData = (
     fieldName: string,
@@ -54,6 +62,7 @@ export default function PersonalInfo() {
         console.log("UPDATED PERSONAL INFO", response.data);
 
         currentUser = { ...currentUser, ...response.data };
+        console.log(currentUser);
         currentUser.login(currentUser);
         setHasError(false);
         setAlertMessage("Successfully updated personal info");

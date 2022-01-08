@@ -1,4 +1,4 @@
-import UserModel from "../models/UserModel";
+import UserModel, { IUser } from "../models/UserModel";
 import { RequestHandler } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -193,12 +193,38 @@ const updateActiveStatus: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getUser: RequestHandler = async (req, res, next) => {
+  const validationError = validationErrorHandler(req, res);
+
+  if (validationError) {
+    return validationError;
+  }
+
+  let { userId } = req.params;
+
+  let userFound: IUser | null;
+  try {
+    userFound = await UserModel.findById(userId);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (!userFound) {
+    return res
+      .status(404)
+      .json({ message: "Could not find User for given  ID" });
+  }
+
+  res.json({ user: userFound });
+};
+
 const userController = {
   signup,
   login,
   updateUser,
   updatePassword,
-  updateActiveStatus
+  updateActiveStatus,
+  getUser
 };
 
 export default userController;

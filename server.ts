@@ -32,6 +32,8 @@ app.use(
   express.static(path.join(__dirname, "/uploads/images"))
 );
 
+app.use("/sitemap", express.static("sitemap.xml"));
+
 const port = process.env.PORT || 5000;
 let DB_LINK = process.env.DB_LINK || "mongodb://localhost/user";
 if (process.env.LOCAL === "yes") {

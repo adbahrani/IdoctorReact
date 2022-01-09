@@ -4,6 +4,9 @@ export class about extends Component {
   render() {
     return (
       <div id="about">
+        <div id="fb-root"></div>
+
+        <div id="fb-customer-chat" className="fb-customerchat"></div>
         <div className="container">
           <div className="row">
             <div className="col-sm-6">

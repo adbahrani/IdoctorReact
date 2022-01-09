@@ -140,6 +140,37 @@
     <div id="root">
       <div class="loader"></div>
     </div>
+    <p>Hello</p>
+    <!-- Messenger Chat Plugin Code -->
+
+    <script>
+      setTimeout(() => {
+        var chatbox = document.getElementById("fb-customer-chat");
+        chatbox.setAttribute("page_id", "104397248401198");
+        chatbox.setAttribute("attribution", "biz_inbox");
+      }, 4000);
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          xfbml: true,
+          version: "v12.0"
+        });
+      };
+
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/ar_AR/sdk/xfbml.customerchat.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+    </script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -10,6 +10,7 @@ userRoutes.post(
     check("email")
       .isEmail()
       .withMessage("is an invalid email format")
+      .trim()
       .normalizeEmail(),
     check("password").not().isEmpty().withMessage("must not be empty")
   ],

@@ -81,9 +81,7 @@ export default function Auth() {
 
     if (formIsValid) {
       try {
-        let formDataTrimmed = formData;
-        formDataTrimmed.email = formDataTrimmed.email.trim();
-        let user: UserData = await LoginInCall(pathname, formDataTrimmed);
+        let user: UserData = await LoginInCall(pathname, formData);
         authContext.login(user);
       } catch (error: any) {
         if (error.response) {

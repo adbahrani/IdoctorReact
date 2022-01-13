@@ -15,13 +15,6 @@ export default function PersonalInfo() {
   const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState(currentUser);
 
-  useEffect(() => {
-    axios.get("/api/user/" + currentUser.uid).then(({ data: { user } }) => {
-      user = { ...currentUser, ...user };
-      setFormData(user);
-    });
-  }, []);
-
   const updateFormData = (
     fieldName: string,
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -60,9 +53,7 @@ export default function PersonalInfo() {
       try {
         let response = await Axios.patch("/api/user/", formData);
         console.log("UPDATED PERSONAL INFO", response.data);
-
         currentUser = { ...currentUser, ...response.data };
-        console.log(currentUser);
         currentUser.login(currentUser);
         setHasError(false);
         setAlertMessage("Successfully updated personal info");

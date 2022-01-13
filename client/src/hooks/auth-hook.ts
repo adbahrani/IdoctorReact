@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
 
 export interface UserData {
@@ -30,9 +31,19 @@ export const useAuth = () => {
       let loggedUser: UserData = JSON.parse(storedUserData);
       loggedUser.loginAt = new Date();
       login(loggedUser);
+      UpdateLogin(loggedUser);
     }
     setCheckingStorage(true);
   }, [login]);
+
+  let UpdateLogin = async (loggedUser: any) => {
+    let res = await axios.get("/api/user/" + loggedUser.uid);
+    if (res.status === 200) {
+      let { email, name, username } = res.data.user;
+      loggedUser = { ...loggedUser, email, name, username };
+      login(loggedUser);
+    }
+  };
 
   return { login, logout, userData, checkedStorage };
 };

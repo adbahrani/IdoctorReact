@@ -87,6 +87,8 @@ const login: RequestHandler = async (req, res, next) => {
       expiresIn: "1h"
     });
 
+    console.log(token);
+
     res.json({
       ...user,
       userId: user.id,

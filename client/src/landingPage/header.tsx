@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,18 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ data }) => {
+  const [translateLink, setTranslateLink] = useState(
+    "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
+  );
+
+  useEffect(() => {
+    if (
+      window.location.href ==
+      "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
+    )
+      setTranslateLink("https://idoctor-react.herokuapp.com/");
+  }, []);
+
   return (
     <header id="header">
       <div className="intro">
@@ -19,14 +31,21 @@ export const Header: React.FC<Props> = ({ data }) => {
           <div className="container">
             <div className="row">
               <div className="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 intro-text">
-                <h1>
-                  {data.title}
-                  <span></span>
-                </h1>
+                <h1>{data.title}</h1>
                 <p>{data.paragraph ? data.paragraph : "Loading.."}</p>
-                <Link to="/login" className=" bttn-custom  ">
+
+                <Link to="/login" className=" bttn-custom   ">
                   Log In
                 </Link>
+                <div className="my-4" />
+                <p className="mt-2">
+                  <a
+                    href="https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
+                    className="bttn-custom"
+                  >
+                    النسخة العربية
+                  </a>
+                </p>
               </div>
             </div>
           </div>

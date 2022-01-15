@@ -179,7 +179,7 @@ const NewPatient: React.FC = () => {
           "Patient added successfully, Do you want to add visit details to the new patient?",
           {
             okText: "Yes",
-            cancelText: "No",
+            cancelText: "Cancel",
             onOk: () => {
               history.push({
                 pathname: `/main/newVisit`,

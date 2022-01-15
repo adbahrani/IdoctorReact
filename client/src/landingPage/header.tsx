@@ -16,12 +16,16 @@ export const Header: React.FC<Props> = ({ data }) => {
     "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
   );
 
+  const [translateType, setType] = useState("النسخة العربية");
+
   useEffect(() => {
     if (
       window.location.href ==
       "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
-    )
+    ) {
+      setType("English");
       setTranslateLink("https://idoctor-records.herokuapp.com/");
+    }
   }, []);
 
   return (
@@ -39,11 +43,8 @@ export const Header: React.FC<Props> = ({ data }) => {
                 </Link>
                 <div className="my-4" />
                 <p className="mt-2">
-                  <a
-                    href="https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
-                    className="bttn-custom"
-                  >
-                    النسخة العربية
+                  <a href={translateLink} className="bttn-custom">
+                    {translateType}
                   </a>
                 </p>
               </div>

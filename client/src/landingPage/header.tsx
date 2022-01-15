@@ -21,7 +21,7 @@ export const Header: React.FC<Props> = ({ data }) => {
       window.location.href ==
       "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
     )
-      setTranslateLink("https://idoctor-react.herokuapp.com/");
+      setTranslateLink("https://idoctor-records.herokuapp.com/");
   }, []);
 
   return (

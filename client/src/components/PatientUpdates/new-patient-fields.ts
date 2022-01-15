@@ -128,11 +128,11 @@ export default function generateNewPatientFields(
       isFormSubmitted: isFormSubmitted
     },
     {
-      label: "Address",
+      label: "The Address",
       name: "address",
       type: "Input",
       inputType: "text",
-      placeholder: "Address",
+      placeholder: "The Address",
       onChange: onChangeHandler,
       // validateValue: (value: string) => {
       //   return value.length > 0;

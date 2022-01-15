@@ -33,7 +33,9 @@ export const Header: React.FC<Props> = ({ data }) => {
             <div className="row">
               <div className="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 intro-text">
                 <h1>{data.title}</h1>
-                <p>{data.paragraph ? data.paragraph : "Loading.."}</p>
+                <p className="my-4">
+                  {data.paragraph ? data.paragraph : "Loading.."}
+                </p>
 
                 <Link to="/login" className=" bttn-custom   ">
                   Log In

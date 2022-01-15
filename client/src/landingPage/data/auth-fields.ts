@@ -14,7 +14,7 @@ interface AuthFieldsParams {
 
 export enum AuthType {
   LOGIN = "Log In",
-  SIGNUP = "Sign Up"
+  SIGNUP = "Sign Up Here"
 }
 
 export default function generateAuthFields(params: AuthFieldsParams) {

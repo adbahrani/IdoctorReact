@@ -32,7 +32,11 @@ export const Header: React.FC<Props> = ({ data }) => {
           <div className="container">
             <div className="row">
               <div className="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 intro-text">
-                <h1>{data.title}</h1>
+                <h1>
+                  {translateType !== "English"
+                    ? data.title
+                    : "الحل الكلي في واحد لعيادتك"}
+                </h1>
                 <p className="my-4">
                   {data.paragraph ? data.paragraph : "Loading.."}
                 </p>

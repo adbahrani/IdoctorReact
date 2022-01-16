@@ -20,10 +20,15 @@ export const Header: React.FC<Props> = ({ data }) => {
   const [translateType, setType] = useState(" نسخة عربية للعرض فقط");
   let history = useHistory();
   useEffect(() => {
-    if (window.location.href.includes("#googtrans(en|ar)")) {
-      setType("English");
-      setTranslateLink("https://idoctor-records.herokuapp.com/");
-    }
+    let ele: HTMLAnchorElement | null = document.querySelector("a.bttn-custom");
+
+    // wait for page translation
+    setTimeout(() => {
+      if (ele?.text == "تسجيل الدخول") {
+        setType("English");
+        setTranslateLink("https://idoctor-records.herokuapp.com/");
+      }
+    }, 1000);
   }, []);
 
   return (

@@ -12,21 +12,15 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ data }) => {
-  const [translateLink, setTranslateLink] = useState(
-    "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
-  );
-
   //let location = useLocation();
   const [translateType, setType] = useState(" نسخة عربية للعرض فقط");
   let history = useHistory();
   useEffect(() => {
     let ele: HTMLAnchorElement | null = document.querySelector("a.bttn-custom");
-
     // wait for page translation
     setTimeout(() => {
       if (ele?.text == "تسجيل الدخول") {
         setType("English");
-        setTranslateLink("https://idoctor-records.herokuapp.com/");
       }
     }, 1000);
   }, []);
@@ -65,7 +59,6 @@ export const Header: React.FC<Props> = ({ data }) => {
                       //   history.push("/");
                       //history.go(0);
                     }
-                    //  location.refresh();
                   }}
                 >
                   {translateType}

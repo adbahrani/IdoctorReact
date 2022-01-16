@@ -182,8 +182,8 @@ const NewPatient: React.FC = () => {
             cancelText: "Cancel",
             onOk: () => {
               history.push({
-                pathname: `/main/newVisit`,
-                state: patient
+                state: patient,
+                pathname: `/main/newVisit`
               });
             }
           }

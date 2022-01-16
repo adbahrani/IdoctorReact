@@ -39,8 +39,8 @@ export default function ActionsCell(props: any) {
       return;
     }
     history.push({
-      pathname: `/main/${name}`,
-      state: patient
+      state: patient,
+      pathname: `/main/${name}`
     });
   };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 interface Data {
   title: string;
@@ -16,10 +16,11 @@ export const Header: React.FC<Props> = ({ data }) => {
     "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
   );
 
+  //let location = useLocation();
   const [translateType, setType] = useState(" نسخة عربية للعرض فقط");
-
+  let history = useHistory();
   useEffect(() => {
-    if (window.location.href.includes("translate.goog")) {
+    if (window.location.href.includes("#googtrans(en|ar)")) {
       setType("English");
       setTranslateLink("https://idoctor-records.herokuapp.com/");
     }
@@ -45,11 +46,25 @@ export const Header: React.FC<Props> = ({ data }) => {
                   Log In
                 </Link>
                 <div className="my-4" />
-                <p className="mt-2">
-                  <a href={translateLink} className="bttn-custom">
-                    {translateType}
-                  </a>
-                </p>
+
+                <button
+                  className="bttn-custom "
+                  onClick={() => {
+                    if (translateType !== "English") {
+                      history.push("#googtrans(en|ar)");
+                      history.go(0);
+                    } else {
+                      console.log("Ar -> En");
+                      history.push("#googtrans(en|en)");
+                      history.go(0);
+                      //   history.push("/");
+                      //history.go(0);
+                    }
+                    //  location.refresh();
+                  }}
+                >
+                  {translateType}
+                </button>
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ export const Header: React.FC<Props> = ({ data }) => {
     "https://idoctor--records-herokuapp-com.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ar&_x_tr_hl=en-US&_x_tr_pto=wapp"
   );
 
-  const [translateType, setType] = useState("النسخة العربية");
+  const [translateType, setType] = useState(" نسخة عربية للعرض فقط");
 
   useEffect(() => {
     if (window.location.href.includes("translate.goog")) {

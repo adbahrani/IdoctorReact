@@ -1,10 +1,18 @@
 {
   "short_name": "IDoctor",
   "name": "IDoctor Medical Records",
+  "description": "Medical archiving program to organize the work of the doctor's office electronically and save the data of the patients ",
+ 
   "icons": [
     {
       "src": "Icons/favicon.ico",
       "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    
+    {
+      "src": "Icons/android-icon-96x96",
+      "sizes": "96x96",
       "type": "image/x-icon"
     },
     {
@@ -16,13 +24,8 @@
       "src": "logo256.png",
       "type": "image/png",
       "sizes": "256x256"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
     }
+ 
   ],
   "start_url": ".",
   "display": "standalone",

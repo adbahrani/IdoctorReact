@@ -1,16 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider as ReduxProvider } from "react-redux";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.js";
+import { createStore, combineReducers } from "redux";
+import { reducer as toastrReducer } from "react-redux-toastr";
+import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
+
 import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 // import reportWebVitals from "./reportWebVitals";
 
+const reducers = combineReducers({
+  toastr: toastrReducer
+});
+const store = createStore(reducers);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReduxProvider store={store}>
+      <App />
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

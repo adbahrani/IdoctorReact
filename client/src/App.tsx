@@ -5,9 +5,6 @@ import {
   Redirect,
   Switch
 } from "react-router-dom";
-import { Provider as ReduxProvider } from "react-redux";
-import { createStore, combineReducers } from "redux";
-import { reducer as toastrReducer } from "react-redux-toastr";
 
 import "./App.css";
 
@@ -21,11 +18,6 @@ import { useAuth } from "./hooks/auth-hook";
 
 const App: React.FC = () => {
   const { userData, login, logout, checkedStorage } = useAuth();
-
-  const reducers = combineReducers({
-    toastr: toastrReducer
-  });
-  const store = createStore(reducers);
 
   let routes;
   if (userData?.token) {
@@ -51,20 +43,18 @@ const App: React.FC = () => {
   }
 
   return (
-    <ReduxProvider store={store}>
-      <AuthContextProvider
-        value={{
-          isLoggedIn: !!userData?.token,
-          ...userData,
-          login,
-          logout
-        }}
-      >
-        <div className="App">
-          <Router>{routes}</Router>
-        </div>
-      </AuthContextProvider>
-    </ReduxProvider>
+    <AuthContextProvider
+      value={{
+        isLoggedIn: !!userData?.token,
+        ...userData,
+        login,
+        logout
+      }}
+    >
+      <div className="App">
+        <Router>{routes}</Router>
+      </div>
+    </AuthContextProvider>
   );
 };
 

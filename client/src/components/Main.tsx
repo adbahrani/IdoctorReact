@@ -1,9 +1,5 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "./common_components/navigation";
-
-import ReduxToastr from "react-redux-toastr";
-
-import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom";
 
@@ -21,6 +17,7 @@ import { HiStatusOnline } from "react-icons/hi";
 import { RiWifiOffLine } from "react-icons/ri";
 
 import { AuthContext } from "../store/auth-context";
+import ReduxToastr from "react-redux-toastr";
 
 export interface MainProps {}
 

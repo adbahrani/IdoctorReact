@@ -52,12 +52,12 @@ export const Header: React.FC<Props> = ({ data }) => {
                     if (translateType !== "English") {
                       history.push("#googtrans(en|ar)");
                       history.go(0);
+                      window.location.reload();
                     } else {
                       console.log("Ar -> En");
                       history.push("#googtrans(en|en)");
                       history.go(0);
-                      //   history.push("/");
-                      //history.go(0);
+                      window.location.reload();
                     }
                   }}
                 >

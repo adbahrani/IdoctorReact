@@ -13,8 +13,8 @@ const contactUs: RequestHandler = async (req, res, next) => {
 
   const mail = {
     from: `${name} <${email}>`,
-    to: "luciano.anderson45@ethereal.email",
-    // cc: "ahmed_mail2005@yahoo.com",
+    to: "idoctorsystem@gmail.com",
+
     subject: "Contact Form Submission",
     html: `<p>Name: ${name}</p>
            <p>Email: ${email}</p>

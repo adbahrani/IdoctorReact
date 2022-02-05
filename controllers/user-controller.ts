@@ -33,8 +33,8 @@ const signup: RequestHandler = async (req, res, next) => {
     );
 
     const mail = {
-      from: `admin@test.com`,
-      to: "luciano.anderson45@ethereal.email",
+      from: `luciano.anderson45@ethereal.email`,
+      to: "idoctorsystem@gmail.com",
       subject: "New User Created",
       html: `
              <p>Email: ${email}</p>

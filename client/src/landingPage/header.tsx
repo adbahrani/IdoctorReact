@@ -45,7 +45,7 @@ export const Header: React.FC<Props> = ({ data }) => {
                   Log In
                 </Link>
                 <div className="my-4" />
-
+{/* 
                 <button
                   className="bttn-custom "
                   onClick={() => {
@@ -62,7 +62,7 @@ export const Header: React.FC<Props> = ({ data }) => {
                   }}
                 >
                   {translateType}
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

@@ -6,6 +6,8 @@ import VisitsList from "./VisitsList";
 import VisitInfo from "./VisitInfo";
 import { Patient } from "../PatientUpdates/NewPatient";
 import { PatientVisit } from "./new-visit-fields";
+import { Button } from "react-bootstrap";
+import { IoArrowBackOutline } from "react-icons/io5";
 
 export default function Visits() {
   const [isAnimating, setIsAnimating] = useState(0);
@@ -51,7 +53,12 @@ export default function Visits() {
 
   return (
     <div className="container text-left mb-5">
-      <h3 className="mb-4">Past Visits for {patientState.fullName}</h3>
+      <h3 className="mb-4">
+        <Button variant="secondary" size="sm" onClick={history.goBack}>
+          <IoArrowBackOutline size={20} />
+        </Button>{" "}
+        Past Visits for {patientState.fullName}
+      </h3>
       <div className="row">
         <VisitsList
           className="col-sm-4 col-md-4 mb-4"

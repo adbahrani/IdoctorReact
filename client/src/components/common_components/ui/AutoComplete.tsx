@@ -106,12 +106,26 @@ const AutoComplete = forwardRef((props: AutoCompleteProps, ref) => {
     );
   };
 
+  const prepareOptionsForSelection = (): any[] => {
+    if (!options) return [];
+    else if (name === "phoneNumber") {
+      options = options.map(({ value, label, id }) => ({
+        value: value.replace(/[^\w\s]/gi, "").replace(/ /g, ""),
+        label,
+        id
+      }));
+    }
+
+    return options;
+  };
+
   return (
     <Fragment>
       <Typeahead
         ref={typeaheadRef}
+        filterBy={["value"]}
         id={name}
-        options={options ? options : []}
+        options={prepareOptionsForSelection()}
         defaultSelected={defaultSelected ? defaultSelected : []}
         onChange={handleChange}
         onKeyDown={onKeyDown}

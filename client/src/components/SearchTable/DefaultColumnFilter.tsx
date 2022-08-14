@@ -39,7 +39,7 @@ export default function DefaultColumnFilter<T extends Record<string, unknown>>({
       }}
       onKeyDown={(e: Event) => {
         let { key } = e as KeyboardEvent;
-        if (key === "Enter" || key === "Escape" || key === "Tab") {
+        if (key === "Enter" || key === "Tab") {
           autoCompleteRef.current?.blur();
         }
       }}

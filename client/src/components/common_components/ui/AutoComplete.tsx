@@ -108,9 +108,9 @@ const AutoComplete = forwardRef((props: AutoCompleteProps, ref) => {
 
   const prepareOptionsForSelection = (): any[] => {
     if (!options) return [];
-    else if (name === "phoneNumber") {
+    else {
       options = options.map(({ value, label, id }) => ({
-        value: value.replace(/[^\w\s]/gi, "").replace(/ /g, ""),
+        value: value.replace(/[- )(]/g, ""),
         label,
         id
       }));

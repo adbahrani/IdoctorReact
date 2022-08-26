@@ -44,8 +44,14 @@ const createPatient: RequestHandler = async (req, res, next) => {
     return validationError;
   }
 
-  const { userId } = req.body;
+  const { userId, fullName, dob } = req.body;
 
+  console.log("fullName", fullName);
+  if (await isExistingPatient(fullName, dob))
+    return res.status(409).json({
+      message:
+        "Patient Already Exist! Please delete existing patient or update them"
+    });
   let newPatient = { ...req.body };
   delete newPatient.userId;
 
@@ -146,11 +152,17 @@ const deletePatient: RequestHandler = async (req, res, next) => {
     let records = await PatientVisitModel.deleteMany({ _id: visits });
     console.log(records);
     sess.commitTransaction();
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+  } catch (error: any) {
+    return res.status(500).json({ message: error?.message });
   }
 
   res.status(204).json({ patient: foundPatient });
+};
+
+const isExistingPatient = async (name: any, dob: string) => {
+  const foundPatient: (IPatient & Document<any, any, IPatient>) | null =
+    await PatientModel.findOne({ fullName: name, dob });
+  return foundPatient ? true : false;
 };
 
 const getPatient: RequestHandler = async (req, res, next) => {

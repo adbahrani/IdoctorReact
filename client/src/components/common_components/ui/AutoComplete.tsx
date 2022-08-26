@@ -110,7 +110,7 @@ const AutoComplete = forwardRef((props: AutoCompleteProps, ref) => {
     if (!options) return [];
     else {
       options = options.map(({ value, label, id }) => ({
-        value: value.replace(/[- )(]/g, ""),
+        value: value.replace(/[- )(]/g, "").replace(/\s+/g, ""),
         label,
         id
       }));

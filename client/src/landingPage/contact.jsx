@@ -166,11 +166,14 @@ export default function Contact(props) {
                       <i className="fa fa-instagram"></i>
                     </a>
                   </li>
-                  {/* <li>
-                    <a href={props.data ? props.data.youtube : "/"}>
+                  <li>
+                    <a
+                      href={props.data ? props.data.youtube : "/"}
+                      target="_blank"
+                    >
                       <i className="fa fa-youtube"></i>
                     </a>
-                  </li> */}
+                  </li>
                 </ul>
               </div>
             </div>
